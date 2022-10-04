@@ -7,7 +7,16 @@ class StudentsController < ApplicationController
     @student = Student.new
   end
 
+  #Internal API for soft delete
   def delete
+    @student = Student.find(params[:id])
+    @student.is_active = false
+    @student.save!
+  end
+
+  def destroy
+    @student = Student.find(params[:id])
+    @student.destroy!
   end
 
   def show
