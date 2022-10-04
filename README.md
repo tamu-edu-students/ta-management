@@ -6,12 +6,19 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
-
+  2.7.6
 * System dependencies
 
 * Configuration
 
-* Database creation
+* Database console 
+  -> rails dbconsole 
+
+* Create table
+  -> rails generate scaffold RubyWinSource name:string \
+  author:string url:string
+* DB Migration
+  -> rake db:migrate
 
 * Database initialization
 

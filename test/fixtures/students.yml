@@ -1,0 +1,36 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: "James doe"
+  email_id: "xyz@gmail.com"
+  password: "afhiuhb2w33j444"
+  employment_status: false
+  contact: 89498345
+  is_undergrad: true
+  courses_completed: "[100, 201]"
+  application_status: "review"
+  comments: "Strong hire"
+  assigned_courses: null
+  assigned_sections: null
+  rating: null
+  access_level: "[\"applicant\"]"
+  resume: "sample resume"
+  transcript: "transcript"
+
+two:
+  name: "John doe"
+  email_id: "abc@gmail.com"
+  password: "6473923cxchs"
+  employment_status: false
+  contact: 89489349
+  is_undergrad: true
+  courses_completed: "[100]"
+  application_status: "applied"
+  comments: null
+  assigned_courses: null
+  assigned_sections: null
+  rating: null
+  access_level: "[\"applicant\"]"
+  resume: "sample resume"
+  transcript: "transcript"
+
