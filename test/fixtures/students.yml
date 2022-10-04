@@ -5,6 +5,7 @@ one:
   email_id: "xyz@gmail.com"
   password: "afhiuhb2w33j444"
   employment_status: false
+  contact: 89498345
   is_undergrad: true
   courses_completed: "[100, 201]"
   application_status: "review"
@@ -21,6 +22,7 @@ two:
   email_id: "abc@gmail.com"
   password: "6473923cxchs"
   employment_status: false
+  contact: 89489349
   is_undergrad: true
   courses_completed: "[100]"
   application_status: "applied"

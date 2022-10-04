@@ -20,4 +20,9 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
     get students_list_url
     assert_response :success
   end
+
+  test "should get create" do
+    get students_create_url
+    assert_response :success
+  end
 end
