@@ -1,2 +1,56 @@
-<h1>Students#new</h1>
-<p>Find me in app/views/students/new.html.erb</p>
+<!--<h1>Students#new</h1>
+<p>Find me in app/views/students/new.html.erb</p>-->
+
+<h1>New Student TA Application Form</h1>
+
+<%= form_with model: @student do |form| %>
+ <div>
+  <%= form.label :full_name %><br>
+  <%= form.text_field :name %>
+ </div><br>
+ <!--<div>
+  <%= form.label :middle_name %><br>
+  <%= form.text_field :middle_name %>
+ </div>
+ <div>
+  <%= form.label :last_name %><br>
+  <%= form.text_field :last_name %>
+ </div><br>-->
+ <div>
+  <%= form.label :email %><br>
+  <%= form.email_field :email_id %>
+ </div><br>
+
+ <div>
+  <%= form.label :phone %><br>
+  <%= form.telephone_field :contact %>
+ </div><br>
+
+ <div>
+  <%= form.label :do_you_have_a_campus_job? %><br>
+  <%= form.select :employment_status, ["Yes", "No"] %>
+ </div><br>
+ <div>
+  <%= form.label :courses_completed %><br>
+  <%= form.select :courses_completed, ["102", "216", "Both", "None"] %>
+ </div><br>
+ <div>
+  <%= form.label :are_you_an_undergrad_student? %><br>
+  <%= form.select :is_undergrad, ["Yes", "No"] %>
+ </div><br>
+
+ <div>
+  <%= form.label :resume %><br>
+  <%= form.file_field :resume %>
+ </div><br>
+
+ <div>
+  <%= form.label :transcript %><br>
+  <%= form.file_field :transcript %>
+ </div><br> 
+
+ <div>
+  <%= form.submit %>
+ </div>
+
+<% end %>
