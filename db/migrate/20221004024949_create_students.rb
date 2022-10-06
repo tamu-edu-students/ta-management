@@ -6,14 +6,14 @@ class CreateStudents < ActiveRecord::Migration[7.0]
       t.string :password
       t.boolean :employment_status, default: false
       t.boolean :is_undergrad
-      t.text :courses_completed
+      t.text :courses_completed, array: true, default: []
       t.string :application_status
       t.string :comments
-      t.string :assigned_courses
-      t.string :assigned_sections
-      t.integer :rating, limit: 10
+      t.text :assigned_courses, array: true, default: []
+      t.text :assigned_sections, array: true, default: []
+      t.integer :rating
       t.string :feedback
-      t.text :access_level, default: '["applicant"]'
+      t.text :access_level, array: true, default: ['applicant']
       t.blob :resume
       t.blob :transcript
       t.timestamps
