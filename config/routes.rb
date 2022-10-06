@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :managements
+  resources :professors
+  resources :users
   # get 'students/:id', to: 'students#show', as: 'student'
   # get 'students', to: 'students#index'
   # get 'students/new', to: 'students#new'
