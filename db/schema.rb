@@ -11,10 +11,13 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_10_05_053343) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "managements", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "name"
     t.index ["user_id"], name: "index_managements_on_user_id"
   end
@@ -24,7 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_05_053343) do
     t.string "course_section"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "name"
     t.index ["user_id"], name: "index_professors_on_user_id"
   end
@@ -32,21 +35,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_05_053343) do
   create_table "students", force: :cascade do |t|
     t.boolean "employment_status", default: false
     t.boolean "is_undergrad"
-    t.text "courses_completed"
+    t.text "courses_completed", default: [], array: true
     t.string "application_status"
     t.string "comments"
-    t.string "assigned_courses"
-    t.string "assigned_sections"
-    t.integer "rating", limit: 10
+    t.text "assigned_courses", default: [], array: true
+    t.text "assigned_sections", default: [], array: true
+    t.integer "rating"
     t.string "feedback"
-    t.text "access_level", default: "[\"applicant\"]"
+    t.text "access_level", default: ["applicant"], array: true
     t.binary "resume"
     t.binary "transcript"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "contact"
     t.boolean "is_active"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.string "name"
     t.integer "uin"
     t.index ["user_id"], name: "index_students_on_user_id"
