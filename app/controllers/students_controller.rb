@@ -57,6 +57,11 @@ class StudentsController < ApplicationController
     end
   end
 
+  #Internal API for soft delete
+  def delete
+    @student.is_active = false
+    @student.save!
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student
