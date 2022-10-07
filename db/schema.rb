@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_07_041849) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_07_051632) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,25 +33,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_07_041849) do
   end
 
   create_table "students", force: :cascade do |t|
-    t.boolean "employment_status", default: false
+    t.string "name"
+    t.string "email_id"
+    t.string "contact"
+    t.boolean "employment_status"
     t.boolean "is_undergrad"
     t.text "courses_completed", default: [], array: true
-    t.string "application_status"
+    t.binary "resume"
+    t.binary "transcript"
+    t.text "access_level", default: ["applicant"], array: true
+    t.text "application_status"
     t.string "comments"
     t.text "assigned_courses", default: [], array: true
     t.text "assigned_sections", default: [], array: true
     t.integer "rating"
     t.string "feedback"
-    t.text "access_level", default: ["applicant"], array: true
-    t.binary "resume"
-    t.binary "transcript"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "contact"
-    t.boolean "is_active"
-    t.string "name"
-    t.integer "uin"
-    t.string "email_id"
   end
 
   create_table "users", force: :cascade do |t|
