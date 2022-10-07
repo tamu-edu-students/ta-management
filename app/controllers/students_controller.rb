@@ -25,7 +25,7 @@ class StudentsController < ApplicationController
 
   def create
     @student = Student.new(student_params)
-    if @student.save
+    if @student.save!
       format.html { redirect_to student_url(@student), notice: "Student application was successful." }
       format.json { render :show, status: :created, location: @student }
     else
@@ -36,7 +36,7 @@ class StudentsController < ApplicationController
 
   private
   def student_params
-    params.require(:student).permit(:name, :email_id, :contact, :employment_status, :is_undergrad, :courses_completed, 
+    params.require(:student).permit(:name, :email_id, :contact, :employment_status, :is_undergrad, :courses_completed,
                                     :resume, :transcript)
   end
 end
