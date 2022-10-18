@@ -19,7 +19,6 @@ class StudentsTest < ApplicationSystemTestCase
     fill_in "Assigned courses", with: @student.assigned_courses
     fill_in "Assigned sections", with: @student.assigned_sections
     fill_in "Comments", with: @student.comments
-    fill_in "Contact", with: @student.contact
     fill_in "Courses completed", with: @student.courses_completed
     fill_in "Email", with: @student.email_id
     check "Employment status" if @student.employment_status
@@ -44,7 +43,6 @@ class StudentsTest < ApplicationSystemTestCase
     fill_in "Assigned courses", with: @student.assigned_courses
     fill_in "Assigned sections", with: @student.assigned_sections
     fill_in "Comments", with: @student.comments
-    fill_in "Contact", with: @student.contact
     fill_in "Courses completed", with: @student.courses_completed
     fill_in "Email", with: @student.email_id
     check "Employment status" if @student.employment_status

@@ -3,7 +3,7 @@
 one:
   name: MyString
   email_id: MyString
-  contact: MyString
+  uin: Number
   employment_status: false
   is_undergrad: false
   courses_completed: MyText
@@ -20,7 +20,7 @@ one:
 two:
   name: MyString
   email_id: MyString
-  contact: MyString
+  uin: Number
   employment_status: false
   is_undergrad: false
   courses_completed: MyText
