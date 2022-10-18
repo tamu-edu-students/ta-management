@@ -17,7 +17,7 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create student" do
     assert_difference("Student.count") do
-      post students_url, params: { student: { access_level: @student.access_level, application_status: @student.application_status, assigned_courses: @student.assigned_courses, assigned_sections: @student.assigned_sections, comments: @student.comments, contact: @student.contact, courses_completed: @student.courses_completed, email_id: @student.email_id, employment_status: @student.employment_status, feedback: @student.feedback, is_undergrad: @student.is_undergrad, name: @student.name, rating: @student.rating, resume: @student.resume, transcript: @student.transcript } }
+      post students_url, params: { student: { access_level: @student.access_level, application_status: @student.application_status, assigned_courses: @student.assigned_courses, assigned_sections: @student.assigned_sections, comments: @student.comments, uin: @student.uin, courses_completed: @student.courses_completed, email_id: @student.email_id, employment_status: @student.employment_status, feedback: @student.feedback, is_undergrad: @student.is_undergrad, name: @student.name, rating: @student.rating, resume: @student.resume, transcript: @student.transcript } }
     end
 
     assert_redirected_to student_url(Student.last)
@@ -34,7 +34,7 @@ class StudentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update student" do
-    patch student_url(@student), params: { student: { access_level: @student.access_level, application_status: @student.application_status, assigned_courses: @student.assigned_courses, assigned_sections: @student.assigned_sections, comments: @student.comments, contact: @student.contact, courses_completed: @student.courses_completed, email_id: @student.email_id, employment_status: @student.employment_status, feedback: @student.feedback, is_undergrad: @student.is_undergrad, name: @student.name, rating: @student.rating, resume: @student.resume, transcript: @student.transcript } }
+    patch student_url(@student), params: { student: { access_level: @student.access_level, application_status: @student.application_status, assigned_courses: @student.assigned_courses, assigned_sections: @student.assigned_sections, comments: @student.comments, uin: @student.uin, courses_completed: @student.courses_completed, email_id: @student.email_id, employment_status: @student.employment_status, feedback: @student.feedback, is_undergrad: @student.is_undergrad, name: @student.name, rating: @student.rating, resume: @student.resume, transcript: @student.transcript } }
     assert_redirected_to student_url(@student)
   end
 
