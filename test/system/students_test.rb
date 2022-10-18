@@ -25,6 +25,7 @@ class StudentsTest < ApplicationSystemTestCase
     fill_in "Feedback", with: @student.feedback
     check "Is undergrad" if @student.is_undergrad
     fill_in "Name", with: @student.name
+    fill_in "uin", with: @student.uin
     fill_in "Rating", with: @student.rating
     fill_in "Resume", with: @student.resume
     fill_in "Transcript", with: @student.transcript
@@ -49,6 +50,7 @@ class StudentsTest < ApplicationSystemTestCase
     fill_in "Feedback", with: @student.feedback
     check "Is undergrad" if @student.is_undergrad
     fill_in "Name", with: @student.name
+    fill_in "uin", with: @student.uin
     fill_in "Rating", with: @student.rating
     fill_in "Resume", with: @student.resume
     fill_in "Transcript", with: @student.transcript
