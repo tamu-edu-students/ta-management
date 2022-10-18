@@ -1,26 +1,38 @@
 # README
+TA-MANAGEMENT
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The app handles the student applications for TA positions in computer science department.
+* The student applies using an application form.
+* The hiring manager/ coordinator shortlist the candidates and hold interviews accordingly.
+Once the candidates are selected, they are assigned the subjects by the coordinator according to
+the decided schedule.
+* The professors can view the TA assigned under them.
 
-Things you may want to cover:
+Setup Instructions:
 
 * Ruby version
+  
   2.7.6
-* System dependencies
-
+* System dependencies 
+  
+  postgres
 * Configuration
 
 * Database console 
-  -> rails dbconsole 
+
+  rails dbconsole 
 
 * Create table
-  -> rails generate scaffold RubyWinSource name:string \
+
+  rails generate scaffold RubyWinSource name:string \
   author:string url:string
-* DB Migration
-  -> rake db:migrate
+* DB Migration 
+ 
+  rake db:migrate
 
 * Database initialization
+  
+  brew services start postgres
 
 * How to run the test suite
 
@@ -28,4 +40,9 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+  App gets automatically deployed to Heroku when merging to main
+
+* Heroku Instructions
+  
+  heroku stack --app ta-management-tamu
+  heroku stack:set heroku-20 --app ta-management-tamu

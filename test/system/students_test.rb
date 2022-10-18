@@ -19,13 +19,13 @@ class StudentsTest < ApplicationSystemTestCase
     fill_in "Assigned courses", with: @student.assigned_courses
     fill_in "Assigned sections", with: @student.assigned_sections
     fill_in "Comments", with: @student.comments
-    fill_in "Contact", with: @student.contact
     fill_in "Courses completed", with: @student.courses_completed
     fill_in "Email", with: @student.email_id
     check "Employment status" if @student.employment_status
     fill_in "Feedback", with: @student.feedback
     check "Is undergrad" if @student.is_undergrad
     fill_in "Name", with: @student.name
+    fill_in "uin", with: @student.uin
     fill_in "Rating", with: @student.rating
     fill_in "Resume", with: @student.resume
     fill_in "Transcript", with: @student.transcript
@@ -44,13 +44,13 @@ class StudentsTest < ApplicationSystemTestCase
     fill_in "Assigned courses", with: @student.assigned_courses
     fill_in "Assigned sections", with: @student.assigned_sections
     fill_in "Comments", with: @student.comments
-    fill_in "Contact", with: @student.contact
     fill_in "Courses completed", with: @student.courses_completed
     fill_in "Email", with: @student.email_id
     check "Employment status" if @student.employment_status
     fill_in "Feedback", with: @student.feedback
     check "Is undergrad" if @student.is_undergrad
     fill_in "Name", with: @student.name
+    fill_in "uin", with: @student.uin
     fill_in "Rating", with: @student.rating
     fill_in "Resume", with: @student.resume
     fill_in "Transcript", with: @student.transcript
