@@ -1,1 +1,1 @@
-json.array! @users, partial: "users/user", as: :user
+json.array! @user, partial: "user/user", as: :user
