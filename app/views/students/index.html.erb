@@ -1,14 +1,26 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Students</h1>
-
-<div id="students">
+<h1>Student Applications</h1>
+<%= form_tag(students_path, method: :get) do %>
+  <p> Search for a student</p>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag ("Search") %>
+<% end %>
+<table>
+  <tr>
+    <th width='1%', align="center"><%= link_to "Name", :sort => "name"%> </th>
+    <th width='1%', align="center"><%= link_to "Email", :sort => "email_id"%> </th>
+    <th width='1%', align="center"><%= "UIN"%> </th>
+    <th width='1%', align="center"><%= "Undergraduate"%> </th>
+    <th width='1%', align="center"><%= "Campus Job"%> </th>
+    <th width='1%', align="center"><%= link_to "Application Status", :sort => "application_status"%> </th>
+  </tr>
   <% @students.each do |student| %>
-    <%= render student %>
-    <p>
-      <%= link_to "Show this student", student %>
-    </p>
+    <tr>
+      <td width='1%', align="center"><%= student.name%></td>
+      <td width='1%', align="center"><%=student.email_id %></td>
+      <td width='1%', align="center"><%=student.uin %></td>
+      <td width='1%', align="center"><%=student.is_undergrad %></td>
+      <td width='1%', align="center"><%=student.employment_status %></td>
+      <td width='1%', align="center"><%=student.application_status %></td>
+    </tr>
   <% end %>
-</div>
-
-<%= link_to "New student", new_student_path %>
+</table>

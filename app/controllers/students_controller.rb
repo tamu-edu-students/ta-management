@@ -4,10 +4,27 @@ class StudentsController < ApplicationController
   # GET /students or /students.json
   def index
     @students = Student.all
+    if params[:search]
+      search_students
+    end
+    if params[:sort] == "application_status"
+      @students = Student.all.sort_by{|student| student.application_status}
+    elsif params[:sort] != "application_status"
+      @students = Student.order(params[:sort])
+    else
+      @student = Student.all
+    end
   end
+  def search_students
+    if @student = Student.all.find{|student| student.name.downcase.include?(params[:search].downcase)}
+      redirect_to student_url(@student)
+    end
+  end
+
 
   # GET /students/1 or /students/1.json
   def show
+    @student = Student.find(params[:id])
   end
 
   # GET /students/new
