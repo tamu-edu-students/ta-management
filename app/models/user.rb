@@ -7,12 +7,12 @@ class User < ApplicationRecord
     validate :valid_password
 
   def valid_password
-    if password.blank? || confirm_password.blank?
-      errors.add(:password, 'password must not be blank')
+    if confirm_password.blank?
+      errors.add(:confirm_password, 'must not be blank')
     end
 
     if password != confirm_password
-      errors.add(:password, 'password and confirmation does not match')
+      errors.add(:password, 'and confirm password do not match')
     end
   end
 end

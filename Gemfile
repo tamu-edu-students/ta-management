@@ -59,6 +59,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem "factory_bot_rails"
+  gem 'cucumber-rails', require:false
+  gem 'rspec-rails'
+  gem 'database_cleaner'
 end
 
 group :development do
