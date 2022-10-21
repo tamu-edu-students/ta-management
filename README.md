@@ -48,3 +48,7 @@ Setup Instructions:
   heroku stack --app ta-management-tamu
   heroku stack:set heroku-20 --app ta-management-tamu
   Might need to migrate in Heroku as well, that can be done using migrate command in the heroku console
+* Rpec
+
+  To run a Rspec
+  rspec spec/controllers/students_spec.rb
