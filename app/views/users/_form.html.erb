@@ -1,4 +1,15 @@
 <%= form_with(model: user) do |form| %>
+  <% if user.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being created:</h2>
+
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
     <div>
       <div>
       <%= form.label :name, style: "display: block" %><br>
@@ -14,14 +25,14 @@
       </div><br>
       <div>
       <%= form.label :password, style: "display: block" %><br>
-      <%= form.text_field :password %>
+      <%= form.text_field :password ,id: "password"%>
       </div><br>
       <div>
       <%= form.label :confirm_password, style: "display: block" %><br>
-      <%= form.text_field :confirm_password %>
+      <%= form.text_field :confirm_password,id: "confirm_password" %>
       </div><br>
       <div>
-      <%= form.submit "Create Account" %>
+      <%= form.submit "Create Account" , id:"sign_up_submit" %>
       </div>
     </div>
 <% end %>
