@@ -48,3 +48,9 @@ Setup Instructions:
   heroku stack --app ta-management-tamu
   heroku stack:set heroku-20 --app ta-management-tamu
   Might need to migrate in Heroku as well, that can be done using migrate command in the heroku console
+* Rspec
+
+  To run a Rspec
+  rspec spec/controllers/students_spec.rb
+  Factory Bot Documentation
+  https://github.com/thoughtbot/factory_bot/blob/master/GETTING_STARTED.md#rspec
