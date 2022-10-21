@@ -11,6 +11,8 @@
     <th width='1%', align="center"><%= "UIN"%> </th>
     <th width='1%', align="center"><%= "Undergraduate"%> </th>
     <th width='1%', align="center"><%= "Campus Job"%> </th>
+    <th width='1%', align="center"><%= "Resume"%> </th>
+    <th width='1%', align="center"><%= "Transcript"%> </th>
     <th width='1%', align="center"><%= link_to "Application Status", :sort => "application_status"%> </th>
   </tr>
   <% @students.each do |student| %>
@@ -20,6 +22,8 @@
       <td width='1%', align="center"><%=student.uin %></td>
       <td width='1%', align="center"><%=student.is_undergrad %></td>
       <td width='1%', align="center"><%=student.employment_status %></td>
+      <td  width='1%', align="center"><%=link_to "Click", student.resume, :target => "_blank" %></td>
+      <td  width='1%', align="center"><%=link_to "Click",student.transcript, :target => "_blank" %></td>
       <td width='1%', align="center"><%=student.application_status %></td>
     </tr>
   <% end %>
