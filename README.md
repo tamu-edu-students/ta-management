@@ -29,6 +29,7 @@ Setup Instructions:
 * DB Migration 
  
   rake db:migrate
+  rake db:migrate VERSION=timestamp
 
 * Database initialization
   
@@ -46,3 +47,4 @@ Setup Instructions:
   
   heroku stack --app ta-management-tamu
   heroku stack:set heroku-20 --app ta-management-tamu
+  Might need to migrate in Heroku as well, that can be done using migrate command in the heroku console
