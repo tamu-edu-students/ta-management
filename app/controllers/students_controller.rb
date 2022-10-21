@@ -53,6 +53,7 @@ class StudentsController < ApplicationController
 
   # PATCH/PUT /students/1 or /students/1.json
   def update
+    require "pry"; binding.pry
     respond_to do |format|
       if @student.update(student_params)
         format.html { redirect_to student_url(@student), notice: "Student was successfully updated." }
