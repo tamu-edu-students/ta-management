@@ -40,7 +40,6 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
     process_params
-    require "pry"; binding.pry
     respond_to do |format|
       if @student.save
         format.html { redirect_to student_url(@student), notice: "Student was successfully created." }
@@ -92,7 +91,6 @@ class StudentsController < ApplicationController
     end
 
   def process_params
-    require "pry"; binding.pry
     @student.employment_status = params[:student][:employment_status] == 'Yes' ? true : false
     @student.is_undergrad = params[:student][:is_undergrad] == 'Yes' ? true : false
     @student.courses_completed = params[:student][:courses_completed] == "Both" ? ["102", "216"] : [params[:student][:courses_completed]]
