@@ -18,7 +18,7 @@
   </tr>
   <% @students.each do |student| %>
     <tr>
-      <td width='1%', align="center"><%= student.name%></td>
+      <td width='1%', align="center"><%=link_to student.name, students_path(method: :get,:search => student.name)%></td>
       <td width='1%', align="center"><%=student.email_id %></td>
       <td width='1%', align="center"><%=student.uin %></td>
       <td width='1%', align="center"><%=student.is_undergrad %></td>
