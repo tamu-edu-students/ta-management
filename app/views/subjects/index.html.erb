@@ -1,0 +1,33 @@
+<h1>Assign Courses to Hired TA</h1>
+<p style="color: green"><%= notice %></p>
+
+<table>
+  <tr>
+    <th width='1%', align="center"><%= link_to "Name", :sort => "name"%> </th>
+    <th width='1%', align="center"><%= link_to "Email", :sort => "email_id"%> </th>
+    <th width='1%', align="center"><%= "UIN"%> </th>
+    <th width='1%', align="center"><%= link_to "Course name", :sort => "course_name"%> </th>
+    <th width='1%', align="center"><%= link_to "Course section", :sort => "course_section"%> </th>
+  </tr>
+  <% @students_selected.each do |student| %>
+    <tr>
+      <td width='1%', align="center"><%=link_to student.name, students_path(method: :get,:search => student.name)%></td>
+      <td width='1%', align="center"><%=student.email_id %></td>
+      <td width='1%', align="center"><%=student.uin %></td>
+      <td width='1%', align="center"><%= form_with(model: student) do |form| %>
+          <div>           
+            <%= form.select :assigned_courses, @course_name, :selected => student.assigned_courses%> 
+            <%= form.submit "Update" %>
+          </div><br>
+        <% end %></td> 
+      <td width='1%', align="center"><%= form_with(model: student) do |form| %> 
+          <div>           
+            <%= form.select :assigned_sections, @section_name, :selected => student.assigned_sections%> 
+            <%= form.submit "Update" %>
+          </div><br>
+        <% end %></td>   
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to "New subject", new_subject_path %>
