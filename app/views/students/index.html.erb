@@ -25,7 +25,14 @@
       <td width='1%', align="center"><%=student.employment_status %></td>
       <td  width='1%', align="center"><%=link_to "Click", student.resume, :target => "_blank" %></td>
       <td  width='1%', align="center"><%=link_to "Click",student.transcript, :target => "_blank" %></td>
-      <td width='1%', align="center"><%=student.application_status %></td>
+      <td width='1%', align="center"><%= form_with(model: student) do |form| %>
+          <div>
+            <%= form.select :application_status, ['review', 'hired', 'rejected', 'applied'], :selected => student.application_status%>
+
+            <%= form.submit "Update" %>
+
+          </div><br>
+        <% end %></td>
     </tr>
   <% end %>
 </table>
