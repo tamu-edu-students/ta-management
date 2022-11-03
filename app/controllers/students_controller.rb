@@ -98,9 +98,21 @@ class StudentsController < ApplicationController
 
   def update_params
     map = params.require(:student).permit(:name, :email_id, :uin, :employment_status, :is_undergrad, :courses_completed, :resume, :transcript, :access_level, :application_status, :comments, :assigned_courses, :assigned_sections, :rating, :feedback)
-    map["employment_status"] = params[:student][:employment_status] == 'Yes' ? true : false
-    map["is_undergrad"] = params[:student][:is_undergrad] == 'Yes' ? true : false
-    map["courses_completed"] = params[:student][:courses_completed] == "Both" ? ["102", "216"] : [params[:student][:courses_completed]]
+    if(params[:student].has_key?(:employment_status))
+      map["employment_status"] = params[:student][:employment_status] == 'Yes' ? true : false
+    end
+    if(params[:student].has_key?(:is_undergrad))
+      map["is_undergrad"] = params[:student][:is_undergrad] == 'Yes' ? true : false
+    end
+    if(params[:student].has_key?(:courses_completed))
+      map["courses_completed"] = params[:student][:courses_completed] == "Both" ? ["102", "216"] : [params[:student][:courses_completed]]
+    end
+    if(params[:student].has_key?(:assigned_courses))
+      map["assigned_courses"] = [params[:student][:assigned_courses]]
+    end
+    if(params[:student].has_key?(:assigned_sections))
+      map["assigned_sections"] = [params[:student][:assigned_sections]]
+    end
     map
   end
 end
