@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     @user = User.find_by(email_id: params[:email_id])
      if (User.exists?( email_id: params[:email_id], password: params[:password]))
       session[:id] = @user.id
-      redirect_to(@user)
+      redirect_to user_url(@user)
     else
       render :login, status: :unprocessable_entity
       end
