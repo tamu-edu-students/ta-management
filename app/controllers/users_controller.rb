@@ -56,6 +56,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def login
+    @user = User.find_by(email_id: params[:email_id])
+     if (User.exists?( email_id: params[:email_id], password: params[:password]))
+      session[:id] = @user.id
+      redirect_to(@user)
+    else
+      render :login, status: :unprocessable_entity
+      end
+    end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

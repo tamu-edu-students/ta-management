@@ -5,7 +5,8 @@ class User < ApplicationRecord
     validates :access_level, presence: true
     attr_accessor :password, :confirm_password
     validate :valid_password
-
+    validates_uniqueness_of :email_id
+    
   def valid_password
     if confirm_password.blank?
       errors.add(:confirm_password, 'must not be blank')
