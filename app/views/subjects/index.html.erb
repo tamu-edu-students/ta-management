@@ -18,13 +18,13 @@
       <%= form_with(model: student) do |form| %>
         <td width='1%' , align="center">
           <div>
-            <%= form.select :assigned_courses, options_for_select(@course_name, student.assigned_courses) %>
+            <%= form.select :assigned_courses, options_for_select(@course_names, student.assigned_courses) %>
           </div>
           <br>
         </td>
         <td width='1%' , align="center">
           <div>
-            <%= form.select :assigned_sections, options_for_select(@section_name, student.assigned_sections) %>
+            <%= form.select :assigned_sections, options_for_select(@section_names, student.assigned_sections) %>
           </div>
           <br>
         </td>

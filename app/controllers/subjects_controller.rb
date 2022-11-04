@@ -5,8 +5,8 @@ class SubjectsController < ApplicationController
   def index
     @subjects = Subject.all
     @students_selected = Student.where("application_status='hired'")
-    @course_name = Subject.pluck(:course_name)
-    @section_name = Subject.pluck(:course_section)
+    @course_names = Subject.distinct.pluck(:course_name)
+    @section_names = Subject.distinct.pluck(:course_section)
   end
 
   # GET /subjects/1 or /subjects/1.json
