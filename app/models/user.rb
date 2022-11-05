@@ -3,7 +3,7 @@ class User < ApplicationRecord
     validates :email_id, presence: true
     validates :password, presence: true
     validates :access_level, presence: true
-    attr_accessor :password, :confirm_password
+    attr_accessor :confirm_password
     validate :valid_password
     validates_uniqueness_of :email_id
     

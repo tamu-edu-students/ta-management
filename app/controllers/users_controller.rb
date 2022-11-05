@@ -60,7 +60,18 @@ class UsersController < ApplicationController
     @user = User.find_by(email_id: params[:email_id])
      if (User.exists?( email_id: params[:email_id], password: params[:password]))
       session[:id] = @user.id
-      redirect_to user_url(@user)
+      if(@user.access_level=="Professor")
+        redirect_to '/professors'
+      end
+      if(@user.access_level=="TA")
+        redirect_to user_url(@user)
+      end
+      if(@user.access_level=="Hiring Manager")
+        redirect_to '/students'
+      end
+      if(@user.access_level=="Coordinator")
+        redirect_to '/subjects'
+      end
     else
       render :login, status: :unprocessable_entity
       end
