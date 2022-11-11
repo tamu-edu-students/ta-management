@@ -1,10 +1,10 @@
-
-<head>
-  <div id="headers"><h1>Assign Courses to Hired TA</h1>
+<html>
+<body>
+  <div class="headers"><h1>Assign Courses to Hired TA</h1>
     <p style="color: green"><%= notice %></p></div>
 
-</head>
-
+  <br>
+<main>
 <table id="tables">
   <tr>
     <th width='1%', align="center"><%= "Name"%> </th>
@@ -39,5 +39,8 @@
     </tr>
   <% end %>
 </table>
+  <%= link_to "New subject", new_subject_path %>
 
-<%= link_to "New subject", new_subject_path %>
+</main>
+</body>
+</html>

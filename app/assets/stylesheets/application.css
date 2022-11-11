@@ -14,6 +14,28 @@
  *= require_self
  */
 
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+.headers {
+    padding: 5px;
+    text-align: center;
+    background: #a52a2a;
+    color: white;
+    font-size: 15px;
+    font-family: Copperplate, Papyrus, fantasy;
+}
+
+.newsubject{
+    position:absolute; top:0; right:0;
+}
+
+main {
+    padding: 0px;
+    font-size: 15px;
+}
+
 #tables {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -23,6 +45,7 @@
 #tables td, #tables th {
     border: 1px solid #ddd;
     padding: 8px;
+    text-align: center;
 }
 
 #tables tr:nth-child(even){background-color: #f2f2f2;}
@@ -30,12 +53,10 @@
 #tables tr:hover {background-color: #ddd;}
 
 #tables th {
+    text-align: center;
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: left;
     background-color: #cb4154  ;
     color: white;
 }
-#headers {
-    background-color: #a52a2a;
-}
+
