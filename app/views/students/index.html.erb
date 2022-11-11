@@ -1,14 +1,14 @@
+<html>
 
-<head>
-  <div id="headers"><span><h1 >Student Applications</h1>
-    <%= form_tag(students_path, method: :get) do %>
+<body>
+<div class="headers"><span><h1 >Student Applications</h1>
+  <%= form_tag(students_path, method: :get) do %>
     <%= text_field_tag(:search, params[:search]) %>
-      <%= submit_tag ("Search") %></span>
+    <%= submit_tag ("Search") %></span>
   <% end %>
   </div>
-</head>
-
 <br>
+<main>
 <table id="tables">
   <tr>
     <th width='1%', align="center"><%= link_to "Name", :sort => "name"%> </th>
@@ -42,3 +42,6 @@
 </table>
 
 <%= button_to "Log out", '/users/user/login', :style=> 'position:absolute; top:0; right:0;', :method => "get" %>
+</main>
+</body>
+</html>
