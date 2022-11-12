@@ -21,7 +21,7 @@ body {
 .headers {
     padding: 5px;
     text-align: center;
-    background: #3c0505;
+    background: #500000;
     color: white;
     font-size: 15px;
     font-family: Copperplate, Papyrus, fantasy;
@@ -56,7 +56,7 @@ main {
     text-align: center;
     padding-top: 12px;
     padding-bottom: 12px;
-    background-color: #cb4154  ;
+    background-color: #500000  ;
     color: white;
 }
 
@@ -65,7 +65,7 @@ main {
     font-size: 16px;
     max-width: 500px;
     margin: 2rem auto;
-    border:2px solid #E74c3c;
+    border:2px solid #500000;
     padding: 2rem;
 }
 
@@ -74,8 +74,10 @@ main {
     line-height: 1.5;
 }
 .form__title{
-    font-size: 2em;
-    font-weight: 600;
+    font-size: 1.5em;
+    font-weight: 200;
+    text-align: center;
+    color: #500000;
 }
 
 .form__items{
@@ -101,7 +103,7 @@ main {
 
 #form_submit{
     border: 0;
-    background: #1e08ad;
+    background: #500000;
     padding: .5rem;
     color:white;
     margin: 1rem 0;
@@ -111,5 +113,5 @@ main {
 }
 
 #form_submit:hover{
-    background: #6d61f1;
+    background: #920101;
 }

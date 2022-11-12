@@ -7,10 +7,9 @@
     </style>
   </head>
   <body>
-    <form class="form">
+    <div class="form">
 
       <%= form_with(model: student) do |form| %>
-        <div class="form__items">
 
           <% if student.errors.any? %>
             <div style="color: red">
@@ -22,6 +21,8 @@
               </ul>
             </div>
           <% end %>
+
+        <div class="form__items">
 
           <div>
             <div class="form__lable"><%= form.label :name%></div>
@@ -68,6 +69,6 @@
           </div>
         </div>
       <% end %>
-    </form>
+    </div>
   </body>
 </html>
