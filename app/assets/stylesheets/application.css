@@ -21,7 +21,7 @@ body {
 .headers {
     padding: 5px;
     text-align: center;
-    background: #a52a2a;
+    background: #3c0505;
     color: white;
     font-size: 15px;
     font-family: Copperplate, Papyrus, fantasy;
@@ -60,3 +60,56 @@ main {
     color: white;
 }
 
+.form{
+    font-family: sans-serif;
+    font-size: 16px;
+    max-width: 500px;
+    margin: 2rem auto;
+    border:2px solid #E74c3c;
+    padding: 2rem;
+}
+
+.form * {
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+.form__title{
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.form__items{
+    display: flex;
+    flex-direction: column; 
+}
+
+.form__items > * {
+    align-self: flex-start;
+}
+
+.form__label {
+    display: block;
+    font-weight: 600;
+    padding: 1rem 0 .25rem;
+    font-size: 14px;
+}
+
+.form__input {
+    width: 100%;
+    font-size: 12px;
+}
+
+#form_submit{
+    border: 0;
+    background: #1e08ad;
+    padding: .5rem;
+    color:white;
+    margin: 1rem 0;
+    width: auto;
+    cursor: pointer;
+    transition: .3s background ease ;
+}
+
+#form_submit:hover{
+    background: #6d61f1;
+}
