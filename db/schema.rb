@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_02_081612) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_11_214123) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assignments", force: :cascade do |t|
+    t.bigint "subject_id"
+    t.bigint "student_id"
+    t.bigint "professor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["professor_id"], name: "index_assignments_on_professor_id"
+    t.index ["student_id"], name: "index_assignments_on_student_id"
+    t.index ["subject_id"], name: "index_assignments_on_subject_id"
+  end
 
   create_table "managements", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -27,9 +38,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_081612) do
     t.string "course_section"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.string "name"
-    t.index ["user_id"], name: "index_professors_on_user_id"
+    t.string "email_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -69,6 +79,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_081612) do
     t.string "name"
   end
 
+  add_foreign_key "assignments", "professors"
+  add_foreign_key "assignments", "students"
+  add_foreign_key "assignments", "subjects"
   add_foreign_key "managements", "users"
-  add_foreign_key "professors", "users"
 end

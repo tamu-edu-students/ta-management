@@ -27,8 +27,7 @@
           <br>
         </td>
         <td width='1%' , align="center">
-          <div>
-            <%= form.select :assigned_sections, options_for_select(@section_name, student.assigned_sections) %>
+             <div class="checkbox-wrapper" <%= form.collection_check_boxes :subjects, Subject.all, :id, :course_section %>
           </div>
           <br>
         </td>
