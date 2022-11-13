@@ -8,12 +8,13 @@ Rails.application.routes.draw do
   # delete 'students/:id', to: 'students#delete'
   # post 'students/create', to: 'students#create'
   # get 'students/index', to: 'students#index'
-    get 'users/user/login', to: 'users#login'
-    post 'users/user/login', to: 'users#login'
-    # get 'users/user/home', to: 'users#home'
-    # post 'users/user/home', to: 'users#home'
+  get 'users/user/login', to: 'users#login'
+  post 'users/user/login', to: 'users#login'
+  # get 'users/user/home', to: 'users#home'
+  # post 'users/user/home', to: 'users#home'
   resources :students
   resources :subjects
+  post 'subjects/assign', to: 'subjects#assign'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

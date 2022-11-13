@@ -7,25 +7,29 @@ class ProfessorsController < ApplicationController
   end
 
   # GET /professors/1 or /professors/1.json
-  def show
-  end
+  def show; end
 
   # GET /professors/new
   def new
+    @courses = Subject.pluck(:course_name, :course_section)
     @professor = Professor.new
   end
 
   # GET /professors/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /professors or /professors.json
   def create
+    if params[:update]
+      update_professor
+      return
+    end
     @professor = Professor.new(professor_params)
-
+    @professor.course_list = params[:course_list]
+    @professor.course_section = params[:course_section]
     respond_to do |format|
       if @professor.save
-        format.html { redirect_to professor_url(@professor), notice: "Professor was successfully created." }
+        format.html { redirect_to new_professor_url, notice: 'Professor was successfully assigned' }
         format.json { render :show, status: :created, location: @professor }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +42,7 @@ class ProfessorsController < ApplicationController
   def update
     respond_to do |format|
       if @professor.update(professor_params)
-        format.html { redirect_to professor_url(@professor), notice: "Professor was successfully updated." }
+        format.html { redirect_to professor_url(@professor), notice: 'Professor was successfully updated.' }
         format.json { render :show, status: :ok, location: @professor }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +56,27 @@ class ProfessorsController < ApplicationController
     @professor.destroy
 
     respond_to do |format|
-      format.html { redirect_to professors_url, notice: "Professor was successfully destroyed." }
+      format.html { redirect_to professors_url, notice: 'Professor was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_professor
-      @professor = Professor.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def professor_params
-      params.require(:professor).permit(:course_list, :course_section)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_professor
+    @professor = Professor.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def professor_params
+    params.require(:professor).permit(:name, :email_id, :course_list, :course_section)
+  end
+
+  def update_professor
+    @professor = Professor.find(params[:id])
+    @professor.name = params[:professor][:name]
+    @professor.email_id = params[:professor][:email_id]
+    @professor.save
+  end
 end
