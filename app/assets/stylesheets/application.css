@@ -46,6 +46,8 @@ main {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
+    width: 1%;
+    align: center
 }
 
 #tables tr:nth-child(even){background-color: #f2f2f2;}
@@ -114,4 +116,17 @@ main {
 
 #form_submit:hover{
     background: #920101;
+    text-align: left;
+    background-color: #cb4154  ;
+    color: white;
+}
+
+
+#headers {
+    background-color: #a52a2a;
+}
+
+
+.checkbox-wrapper {
+    display: block;
 }

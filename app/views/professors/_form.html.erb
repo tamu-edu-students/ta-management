@@ -10,18 +10,51 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :course_list, style: "display: block" %>
-    <%= form.text_field :course_list %>
-  </div>
-
-  <div>
-    <%= form.label :course_section, style: "display: block" %>
-    <%= form.text_field :course_section %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>
+
+<table id="tables">
+  <tr>
+    <th><%= "Course Name" %> </th>
+    <th><%= "Course Sections" %> </th>
+    <th><%= "Professor Name" %> </th>
+    <th><%= "Professor Email" %> </th>
+    <th><%= "Action" %> </th>
+  </tr>
+
+  <% @courses.each do |course| %>
+    <tr>
+      <td width='1%' , align="center"><%= course[0] %></td>
+      <td width='1%' , align="center"><%= course[1] %></td>
+      <%= form_with(model: Professor) do |form| %>
+        <td width='1%' , align="center">
+          <div>
+            <%= form.label :professor_name, style: "display: block" %>
+            <%= form.text_field :name, value: Professor.where(:course_list => course[0], :course_section => course[1]).pluck(:name) %>
+          </div>
+        </td>
+        <td width='1%' , align="center">
+          <div>
+            <%= form.label :email_id, style: "display: block" %>
+            <%= form.text_field :email_id, value: Professor.where(:course_list => course[0], :course_section => course[1]).pluck(:email_id) %>
+          </div>
+        </td>
+        <% if Professor.find_by(:course_list => course[0], :course_section => course[1]).nil? %>
+          <td width='1%' , align="center">
+            <%= hidden_field_tag(:course_list, course[0]) %>
+            <%= hidden_field_tag(:course_section, course[1]) %>
+            <%= form.submit 'Assign'%>
+          </td>
+        <% else %>
+          <td width='1%' , align="center">
+            <%= hidden_field_tag(:course_list, course[0]) %>
+            <%= hidden_field_tag(:course_section, course[1]) %>
+            <%= hidden_field_tag(:update, true) %>
+            <%= hidden_field_tag(:id, Professor.where(:course_list => course[0], :course_section => course[1]).pluck(:id))  %>
+            <%= form.submit 'Update'%>
+          </td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+

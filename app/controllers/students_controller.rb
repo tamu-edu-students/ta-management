@@ -1,13 +1,13 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: %i[ show edit update destroy ]
+  before_action :set_student, only: %i[show edit update destroy]
 
   # GET /students or /students.json
   def index
     @students = Student.all
     search_students if params[:search]
-    if params[:sort] == "application_status"
-      @students = Student.all.sort_by { |student| student.application_status }
-    elsif params[:sort] != "application_status"
+    if params[:sort] == 'application_status'
+      @students = Student.all.sort_by(&:application_status)
+    elsif params[:sort] != 'application_status'
       @students = Student.order(params[:sort])
     else
       @student = Student.all
@@ -31,8 +31,7 @@ class StudentsController < ApplicationController
   end
 
   # GET /students/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /students or /students.json
   def create
@@ -40,7 +39,7 @@ class StudentsController < ApplicationController
     process_params
     respond_to do |format|
       if @student.save
-        format.html { redirect_to student_url(@student), notice: "Student was successfully created." }
+        format.html { redirect_to student_url(@student), notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -53,7 +52,7 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(update_params)
-        format.html { redirect_to student_url(@student), notice: "Student was successfully updated." }
+        format.html { redirect_to student_url(@student), notice: 'Student was successfully updated.' }
         format.json { render :show, status: :ok, location: @student }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,7 +66,7 @@ class StudentsController < ApplicationController
     @student.destroy
 
     respond_to do |format|
-      format.html { redirect_to students_url, notice: "Student was successfully destroyed." }
+      format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -87,32 +86,52 @@ class StudentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def student_params
-    params.require(:student).permit(:name, :email_id, :uin, :employment_status, :is_undergrad, :courses_completed, :resume, :transcript, :access_level, :application_status, :comments, :assigned_courses, :assigned_sections, :rating, :feedback)
+    params.require(:student).permit(:name, :email_id, :uin, :employment_status, :is_undergrad, :courses_completed, :resume, :transcript, :access_level, :application_status, :comments, :assigned_courses, :assigned_sections, :rating, :feedback, :sections)
   end
 
   def process_params
-    @student.employment_status = params[:student][:employment_status] == 'Yes' ? true : false
-    @student.is_undergrad = params[:student][:is_undergrad] == 'Yes' ? true : false
-    @student.courses_completed = params[:student][:courses_completed] == "Both" ? ["102", "216"] : [params[:student][:courses_completed]]
+    @student.employment_status = params[:student][:employment_status] == 'Yes'
+    @student.is_undergrad = params[:student][:is_undergrad] == 'Yes'
+    @student.courses_completed = params[:student][:courses_completed] == 'Both' ? %w[102 216] : [params[:student][:courses_completed]]
   end
 
   def update_params
-    map = params.require(:student).permit(:name, :email_id, :uin, :employment_status, :is_undergrad, :courses_completed, :resume, :transcript, :access_level, :application_status, :comments, :assigned_courses, :assigned_sections, :rating, :feedback)
-    if(params[:student].has_key?(:employment_status))
-      map["employment_status"] = params[:student][:employment_status] == 'Yes' ? true : false
+    map = params.require(:student).permit(:name, :email_id, :uin, :employment_status, :is_undergrad, :courses_completed, :resume, :transcript, :access_level, :application_status, :comments, :assigned_courses, :assigned_sections, :rating, :feedback, :subjects)
+    if params[:student].has_key?(:employment_status)
+      map['employment_status'] = params[:student][:employment_status] == 'Yes'
     end
-    if(params[:student].has_key?(:is_undergrad))
-      map["is_undergrad"] = params[:student][:is_undergrad] == 'Yes' ? true : false
+    if params[:student].has_key?(:is_undergrad)
+      map['is_undergrad'] = params[:student][:is_undergrad] == 'Yes'
     end
-    if(params[:student].has_key?(:courses_completed))
-      map["courses_completed"] = params[:student][:courses_completed] == "Both" ? ["102", "216"] : [params[:student][:courses_completed]]
+    if params[:student].has_key?(:courses_completed)
+      map['courses_completed'] = params[:student][:courses_completed] == 'Both' ? %w[102 216] : [params[:student][:courses_completed]]
     end
-    if(params[:student].has_key?(:assigned_courses))
-      map["assigned_courses"] = [params[:student][:assigned_courses]]
+
+    if params[:student].has_key?(:assigned_courses) && params[:student].has_key?(:subjects)
+      course = params[:student][:assigned_courses]
+      subjects = params[:student][:subjects]
+      sections = []
+      subjects.each do |id|
+        Subject.find(id)
+        sections << Subject.find(id).course_section
+      end
+      map['assigned_courses'] = [course]
+      map['assigned_sections'] = sections
+      assign(course, sections)
     end
-    if(params[:student].has_key?(:assigned_sections))
-      map["assigned_sections"] = [params[:student][:assigned_sections]]
-    end
+    # if(params[:student].has_key?(:assigned_sections))
+    #   map["assigned_sections"] = [params[:student][:assigned_sections]]
+    # end
     map
+  end
+
+  def assign(course, sections)
+    professor = Professor.find_by(course_list: course)
+    subject = Subject.find_by(course_name: course, course_section: sections)
+    assignment = Assignment.new
+    assignment.subject = subject
+    assignment.student = @student
+    assignment.professor = professor
+    assignment.save!
   end
 end
