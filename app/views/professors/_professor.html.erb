@@ -9,4 +9,20 @@
     <%= professor.course_section %>
   </p>
 
-</div>
+  <p>
+  <strong>TA:</strong>
+  <%= @student.name %>
+  </p>
+
+  <p>
+  <strong>TA Email:</strong>
+  <%= @student.email_id %>
+  </p>
+
+  <textarea cols="30" id="review" name="student_review"
+ rows="10"></textarea>
+
+ <%= button_to "Submit Review", '', :method => "get" %>
+
+
+ </div>

@@ -61,7 +61,8 @@ class UsersController < ApplicationController
      if (User.exists?( email_id: params[:email_id], password: params[:password]))
       session[:id] = @user.id
       if(@user.access_level=="Professor")
-        redirect_to '/professors'
+        @user1 = Professor.find_by(email_id: params[:email_id])
+        redirect_to "/professors/#{@user1.id}"
       end
       if(@user.access_level=="TA")
         redirect_to user_url(@user)

@@ -7,7 +7,10 @@ class ProfessorsController < ApplicationController
   end
 
   # GET /professors/1 or /professors/1.json
-  def show; end
+  def show
+  @assign = Assignment.find_by(professor_id: @professor.id)
+  @student = Student.find(@assign.student_id)
+  end
 
   # GET /professors/new
   def new
