@@ -1,57 +1,74 @@
-<%= form_with(model: student) do |form| %>
-  <% if student.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+<html>
+  <head>
+    <style>
+      body {
+        padding: 25px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form">
 
-      <ul>
-        <% student.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+      <%= form_with(model: student) do |form| %>
+
+          <% if student.errors.any? %>
+            <div style="color: red">
+              <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+              <ul>
+                <% student.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+        <div class="form__items">
+
+          <div>
+            <div class="form__lable"><%= form.label :name%></div>
+            <div class="form__input"><%= form.text_field :name, placeholder: "Enter your given name(s)" %></div>
+          </div><br>
+
+          <div>
+            <div class="form__lable"><%= form.label :email_id, style: "display: block" %></div>
+            <div class="form__input"><%= form.text_field :email_id, placeholder: "Enter your TAMU email id" %></div>
+          </div><br>
+
+          <div>
+            <div class="form__lable"><%= form.label :uin, "UIN", style: "display: block" %></div>
+            <div class="form__input"><%= form.text_field :uin, placeholder: "Enter your 9 digits UIN" %></div>
+          </div><br>
+
+          <div>
+            <div class="form__lable"><%= form.label :do_you_have_a_campus_job? , style: "display: block" %></div>
+            <div class="form__input"><%= form.select :employment_status, ["Yes", "No"] %></div>
+          </div><br>
+
+          <div>
+            <div class="form__lable"><%= form.label :are_you_an_undergrad_student?, style: "display: block" %></div>
+            <div class="form__input"><%= form.select :is_undergrad, ["Yes", "No"] %></div>
+          </div><br>
+
+          <div>
+            <div class="form__lable"><%= form.label :courses_already_taken, style: "display: block" %></div>
+            <div class="form__input"><%= form.select :courses_completed, ["102", "216", "Both", "None"] %></div>
+          </div><br>
+
+          <div>
+            <div class="form__lable"><%= form.label :resume,"Resume(Drive Link)", style: "display: block" %></div>
+            <div class="form__input"><%= form.text_field :resume, placeholder: "Share your resume link" %></div>
+          </div><br>
+
+          <div>
+            <div class="form__lable"><%= form.label :transcript,"Transcript(Drive Link)", style: "display: block" %></div>
+            <div class="form__input"><%= form.text_field :transcript, placeholder: "Share your transcript link" %></div>
+          </div><br>
+
+          <div>
+            <%= form.submit "Submit Application", id:"form_submit" %>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %><br>
-    <%= form.text_field :name %>
-  </div><br>
-
-  <div>
-    <%= form.label :email_id, style: "display: block" %><br>
-    <%= form.text_field :email_id %>
-  </div><br>
-
-  <div>
-    <%= form.label :uin, "UIN", style: "display: block" %><br>
-    <%= form.text_field :uin %>
-  </div><br>
-
-  <div>
-    <%= form.label :do_you_have_a_campus_job? , style: "display: block" %><br>
-    <%= form.select :employment_status, ["Yes", "No"] %>
-  </div><br>
-
-  <div>
-    <%= form.label :are_you_an_undergrad_student?, style: "display: block" %><br>
-    <%= form.select :is_undergrad, ["Yes", "No"] %>
-  </div><br>
-
-  <div>
-    <%= form.label :courses_already_taken, style: "display: block" %><br>
-    <%= form.select :courses_completed, ["102", "216", "Both", "None"] %>
-  </div><br>
-
-  <div>
-    <%= form.label :resume,"Resume(Drive Link)", style: "display: block" %><br>
-    <%= form.text_field :resume %>
-  </div><br>
-
-  <div>
-    <%= form.label :transcript,"Transcript(Drive Link)", style: "display: block" %><br>
-    <%= form.text_field :transcript %>
-  </div><br>
-
-  <div>
-    <%= form.submit "Submit Application", id:"form_submit" %>
-  </div>
-<% end %>
+  </body>
+</html>
