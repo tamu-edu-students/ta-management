@@ -1,10 +1,24 @@
-<h1> Onboard Professor with Course </h1>
+<html>
+  <body>
+    <div class="headers">
+      <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+      <h1> Onboard Professor with Course </h1>
+    </div>
+    <br>
 
-<%= render "form", professor: @professor %>
+    <%= render "form", professor: @professor %>
+    <div>
+      <%= link_to "Back to professors", professors_path %>
+    </div>
 
+    <%= button_to "Log out", '/users/user/login', :style=> 'position:absolute; top:0; right:0;', :method => "get" %>
+  
+  </body>
 <br>
+</html>
 
-<div>
-  <%= link_to "Back to professors", professors_path %>
-</div>
-<%= button_to "Log out", '/users/user/login', :style=> 'position:absolute; top:0; right:0;', :method => "get" %>
+
+
+
+
+
