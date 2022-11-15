@@ -19,12 +19,33 @@ body {
     margin: 0;
 }
 .headers {
-    padding: 5px;
+    padding: 0.5rem;
     text-align: center;
     background: #500000;
     color: white;
-    font-size: 15px;
-    font-family: Copperplate, Papyrus, fantasy;
+    font-size: 2rem;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    margin-left: auto;
+    margin-right: auto;    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+span{
+    font-style: italic;
+    letter-spacing: 2px;
+    margin-top: 0.2rem;
+    font-size: 1.25rem;
+    text-rendering: optimizeLegibility;
+    text-transform: uppercase;
+    text-shadow: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: normal;
 }
 
 .newsubject{
@@ -129,4 +150,31 @@ main {
 
 .checkbox-wrapper {
     display: block;
+}
+
+.buttons{
+    display: block;
+    padding: 0.75rem;
+    font-weight:bold;
+    height:150%;
+    border-radius:12px;
+    border: solid #500000;
+    width:25%;
+    font-size: 2rem;
+    text-align: center;
+    margin: 3.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: sans-serif;
+    align-items: center;
+
+}
+
+.buttons {
+    transition-duration: 0.4s;
+  }
+  
+.buttons:hover {
+    background-color: #cdc5c1;
+    color: rgb(41, 13, 223);
 }
