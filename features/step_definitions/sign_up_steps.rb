@@ -3,7 +3,7 @@ Given(/^I am on the sign up page$/) do
 end
 
 When(/^I submit form with empty name$/) do
-  find("#sign_up_submit").click
+  find("#submit").click
 end
 
 Then(/^I should see error stating "([^"]*)"$/) do |arg|
@@ -11,11 +11,11 @@ Then(/^I should see error stating "([^"]*)"$/) do |arg|
 end
 
 When(/^I submit form with empty password$/) do
-  find("#sign_up_submit").click
+  find("#submit").click
 end
 
 When(/^I submit form with empty email id$/) do
-  find("#sign_up_submit").click
+  find("#submit").click
 end
 
 When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |arg1, arg2|
@@ -23,5 +23,5 @@ When(/^I fill in "([^"]*)" with "([^"]*)"$/) do |arg1, arg2|
 end
 
 And(/^I submit form$/) do
-  find("#sign_up_submit").click
+  find("#submit").click
 end

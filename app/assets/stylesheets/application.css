@@ -26,7 +26,7 @@ body {
     font-size: 2rem;
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
     padding-left: 1.25rem;
-    padding-right: 1.25rem;
+    padding-right: 5%;
     margin-left: auto;
     margin-right: auto;    
     display: flex;
@@ -124,7 +124,7 @@ main {
     font-size: 12px;
 }
 
-#form_submit{
+#submit{
     border: 0;
     background: #500000;
     padding: .5rem;
@@ -135,7 +135,7 @@ main {
     transition: .3s background ease ;
 }
 
-#form_submit:hover{
+#submit:hover{
     background: #920101;
     text-align: left;
     background-color: #cb4154  ;

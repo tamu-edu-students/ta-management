@@ -1,14 +1,10 @@
 <html>
-  <head>
-    <style>
-      body {
-        padding: 25px;
-      }
-    </style>
-  </head>
   <body>
-        <div class="form__title"><h1>TA Application Form</h1></div>
-        <%= render "form", student: @student %>
+    <div class="headers">
+      <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+      <h1>TA Application Form</h1>
+    </div>
+    <%= render "form", student: @student %>
   </body>
 <br>
 </html>
