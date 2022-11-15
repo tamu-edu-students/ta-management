@@ -3,7 +3,7 @@ Given(/^I am on the TA application page$/) do
   end
   
   When(/^I submit application with empty name$/) do
-    find("#form_submit").click
+    find("#submit").click
   end
   
   Then(/^I should see error "([^"]*)"$/) do |arg|
@@ -11,9 +11,9 @@ Given(/^I am on the TA application page$/) do
   end
 
   When(/^I submit application with empty email id$/) do
-    find("#form_submit").click
+    find("#submit").click
   end
 
   When(/^I submit application with empty uin$/) do
-    find("#form_submit").click
+    find("#submit").click
   end

@@ -1,16 +1,32 @@
-<%= form_with(model: @user) do |form| %>
-    <div>
-      <div>
-      <%= form.label :email_id, style: "display: block" %><br>
-      <%= form.text_field :email_id %>
-      </div><br>
-      <div>
-      <%= form.label :password, style: "display: block" %><br>
-      <%= form.text_field :password %>
-      </div><br>
-      <div>
-      <%= form.submit "Login" %>
+<html>
+  <body>
+  <div class="headers">
+    <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+    <h1>Login</h1>
+  </div>
+  <div class="form">
+
+    <%= form_with(model: @user) do |form| %>
+      <div class="form__items">
+
+          <div>
+          <div class="form__lable"><%= form.label :email_id, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :email_id %></div>
+          </div><br>
+
+          <div>
+          <div class="form__lable"><%= form.label :password, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :password %></div>
+          </div><br>
+
+          <div>
+          <%= form.submit "Login", id:"submit" %>
+          </div>
+
       </div>
-    </div>
-<% end %>
+    <% end %>
+  </div>
+  </body>
+</html>
+
 
