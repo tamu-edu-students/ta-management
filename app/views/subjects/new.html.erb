@@ -1,6 +1,15 @@
-<h1>New subject</h1>
-<%= render "form", subject: @subject %>
-<br>
-<div>
-  <%= link_to "Back to subjects", subjects_path %>
-</div>
+<html>
+  <body>
+    <div class="headers">
+      <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+      <h1>New subject</h1>
+    </div>
+
+    <%= render "form", subject: @subject %>
+    
+    <div>
+      <%= link_to "Back to subjects", subjects_path %>
+    </div>
+
+  </body>
+</html>

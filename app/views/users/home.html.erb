@@ -1,11 +1,20 @@
-<body style="background-color:#500000;">
-<div style="display:flex; flex-direction:row; justify-content:center;">
-<%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "1000em", height: "140em")%>
-</div>
-<h1 style=" font-size:4em; color:white; margin-top:5%; margin-left:28%;">TA Management Portal</h1>
-<div style="display:flex; flex-direction:col;margin-left:38%;margin-top:10%; width:50%;">
-<%= button_to "Student Applications", '/students/new', :style=> 'font-weight:bold;height:150%;padding:1.5%;border-radius:20px;border: solid 2%;', :method => "get"%>
-<%= button_to "Login", '/users/user/login', :style=> 'font-weight:bold;height:150%;width:160%;margin-left:20%;border-radius:20px;', :method => "get" %>
-<%= button_to "SignUp", '/users/new', :style=> 'font-weight:bold;height:150%;margin-left:80%;width:160%;border-radius:20px;', :method => "get" %>
-</div>
-</body>
+<html>
+    <body>
+        <div class="headers">
+            <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+            <h1><span>welcome to</span><br>TA Management Portal</h1>
+        </div>
+    <main>
+        
+        <div class= "buttons">
+            <%= link_to "Apply for TA Position", '/students/new', :method => "get"%>
+        </div>
+        <div class= "buttons">
+            <%= link_to "Login", '/users/user/login', :method => "get" %>
+        </div>
+        <div class= "buttons">
+            <%= link_to "SignUp", '/users/new', :method => "get" %>
+        </div>
+    </main>
+    </body>
+</html>

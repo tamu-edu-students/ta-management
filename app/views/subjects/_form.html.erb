@@ -1,27 +1,39 @@
-<%= form_with(model: subject) do |form| %>
-  <% if subject.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(subject.errors.count, "error") %> prohibited this subject from being saved:</h2>
+<html>
+  <body>
+    <div class="form">
 
-      <ul>
-        <% subject.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+      <%= form_with(model: subject) do |form| %>
+        <% if subject.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(subject.errors.count, "error") %> prohibited this subject from being saved:</h2>
+
+            <ul>
+              <% subject.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+
+        <div class="form__items">
+
+          <div>
+            <div class="form__lable"><%= form.label :course_name, style: "display: block" %></div>
+            <div class="form__input"><%= form.text_field :course_name %></div>
+          </div><br>
+
+          <div>
+            <div class="form__lable"><%= form.label :course_section, style: "display: block" %></div>
+            <div class="form__input"><%= form.text_field :course_section %></div>
+          </div><br>
+
+          <div>
+            <%= form.submit "Submit", id:"submit" %>
+          </div>
+
+        </div>        
+      <% end %>
+
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :course_name, style: "display: block" %>
-    <%= form.text_field :course_name %>
-  </div>
-
-  <div>
-    <%= form.label :course_section, style: "display: block" %>
-    <%= form.text_field :course_section %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+  </body>
+</html>

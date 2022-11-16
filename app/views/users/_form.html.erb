@@ -1,38 +1,52 @@
-<%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being created:</h2>
-
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+<html>
+  <body>
+    <div class="form">
+      <%= form_with(model: user) do |form| %>
+        <% if user.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being created:</h2>
+            <ul>
+              <% user.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+        
+        <div class="form__items">
+
+            <div>
+            <div class="form__lable"><%= form.label :name, style: "display: block" %></div>
+            <div class="form__input"><%= form.text_field :name %></div>
+            </div><br>
+
+            <div>
+            <div class="form__lable"><%= form.label :access_level, style: "display: block" %></div>
+            <div class="form__input"><%= form.select :access_level, ["TA", "Professor","Hiring Manager","Coordinator"] %></div>
+            </div><br>
+
+            <div>
+            <div class="form__lable"><%= form.label :email_id, style: "display: block" %></div>
+            <div class="form__input"><%= form.text_field :email_id %></div>
+            </div><br>
+
+            <div>
+            <div class="form__lable"><%= form.label :password, style: "display: block" %></div>
+            <div class="form__input"><%= form.password_field :password ,id: "password"%></div>
+            </div><br>
+
+            <div>
+            <div class="form__lable"><%= form.label :confirm_password, style: "display: block" %></div>
+            <div class="form__input"><%= form.password_field :confirm_password,id: "confirm_password" %></div>
+            </div><br>
+
+            <div>
+            <%= form.submit "Create Account" , id:"submit" %>
+            </div>
+        
+
+        </div>
+      <% end %>
     </div>
-  <% end %>
-    <div>
-      <div>
-      <%= form.label :name, style: "display: block" %><br>
-      <%= form.text_field :name %>
-      </div><br>
-      <div>
-      <%= form.label :access_level, style: "display: block" %><br>
-      <%= form.select :access_level, ["TA", "Professor","Hiring Manager","Coordinator"] %>
-      </div><br>
-      <div>
-      <%= form.label :email_id, style: "display: block" %><br>
-      <%= form.text_field :email_id %>
-      </div><br>
-      <div>
-      <%= form.label :password, style: "display: block" %><br>
-      <%= form.password_field :password ,id: "password"%>
-      </div><br>
-      <div>
-      <%= form.label :confirm_password, style: "display: block" %><br>
-      <%= form.password_field :confirm_password,id: "confirm_password" %>
-      </div><br>
-      <div>
-      <%= form.submit "Create Account" , id:"sign_up_submit" %>
-      </div>
-    </div>
-<% end %>
+  </body>
+</html>
