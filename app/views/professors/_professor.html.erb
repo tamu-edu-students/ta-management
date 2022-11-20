@@ -1,20 +1,29 @@
+<html>
+
+<body>
+<div class="headers">
+  <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+  <h1>Professor Info</h1>
+</div>
+<main>
+  <div class="form">
 <div id="<%= dom_id professor %>">
-  <p>
+  <p class="pp">
     <strong>Course list:</strong>
     <%= professor.course_list %>
   </p>
 
-  <p>
+  <p class="pp">
     <strong>Course section:</strong>
     <%= professor.course_section %>
   </p>
 
-  <p>
+  <p class="pp">
   <strong>TA:</strong>
   <%= @student.name %>
   </p>
 
-  <p>
+  <p class="pp">
   <strong>TA Email:</strong>
   <%= @student.email_id %>
   </p>
@@ -22,7 +31,10 @@
   <textarea cols="30" id="review" name="student_review"
  rows="10"></textarea>
 
- <%= button_to "Submit Review", '', :method => "get" %>
+ <%= button_to "Submit Review", '', :method => "get", id:"submit" %>
 
-
+</div>
  </div>
+</main>
+</body>
+</html>
