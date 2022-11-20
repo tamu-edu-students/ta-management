@@ -12,7 +12,7 @@
             </ul>
           </div>
         <% end %>
-
+        
         <div class="form__items">
 
             <div>
@@ -32,12 +32,12 @@
 
             <div>
             <div class="form__lable"><%= form.label :password, style: "display: block" %></div>
-            <div class="form__input"><%= form.text_field :password ,id: "password"%></div>
+            <div class="form__input"><%= form.password_field :password ,id: "password"%></div>
             </div><br>
 
             <div>
             <div class="form__lable"><%= form.label :confirm_password, style: "display: block" %></div>
-            <div class="form__input"><%= form.text_field :confirm_password,id: "confirm_password" %></div>
+            <div class="form__input"><%= form.password_field :confirm_password,id: "confirm_password" %></div>
             </div><br>
 
             <div>
