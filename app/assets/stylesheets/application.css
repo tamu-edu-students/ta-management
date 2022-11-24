@@ -96,12 +96,6 @@ main {
     box-sizing: border-box;
     line-height: 1.5;
 }
-.form__title{
-    font-size: 1.5em;
-    font-weight: 200;
-    text-align: center;
-    color: #500000;
-}
 
 .form__items{
     display: flex;
@@ -112,16 +106,19 @@ main {
     align-self: flex-start;
 }
 
-.form__label {
+.form__lable {
     display: block;
-    font-weight: 600;
-    padding: 1rem 0 .25rem;
-    font-size: 14px;
+    font-weight: 540;
+    padding: 1rem 0 .15rem;
+    font-size: 20px;
 }
 
 .form__input {
     width: 100%;
-    font-size: 12px;
+    box-sizing: border-box;
+    border: 0.25ch;
+    font-size: 20px;
+    
 }
 
 #submit{
@@ -186,4 +183,32 @@ main {
     margin: 1rem auto;
     border:2px solid #500000;
     padding: 1rem;
+}
+
+#tables th a:link { 
+    color: #FFFFFF;
+}
+
+#tables th a:visited { 
+    color: #FFFFFF;
+}
+#tables th a:hover { 
+    color: yellow;
+}
+#tables th a:active { 
+    color: #FFFFFF;
+}
+
+#tables td a:link { 
+    color: black;
+}
+
+#tables td a:visited { 
+    color: black;
+}
+#tables td a:hover { 
+    color: blue;
+}
+#tables td a:active { 
+    color: black;
 }
