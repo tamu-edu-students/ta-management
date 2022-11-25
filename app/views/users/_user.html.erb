@@ -1,22 +1,36 @@
+<html>
+
+<body>
+<div class="headers">
+  <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+  <h1>TA Info</h1>
+</div>
+<main>
+  <div class="form">
+
 <div id="<%= dom_id user %>">
-  <p>
+  <p class="pp">
     <strong>Name:</strong>
     <%= user.name %>
   </p>
 
-  <p>
+  <p class="pp">
     <strong>Email:</strong>
     <%= user.email_id %>
   </p>
 
-  <p>
+  <p class="pp">
     <strong>Password:</strong>
     <%= user.password %>
   </p>
 
-  <p>
+  <p class="pp">
     <strong>Access level:</strong>
     <%= user.access_level %>
   </p>
 
-</div>
+</div></div>
+</main>
+</body>
+</html>
+
