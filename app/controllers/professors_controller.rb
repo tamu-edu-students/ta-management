@@ -14,7 +14,6 @@ class ProfessorsController < ApplicationController
   if((@student.feedback).length >0 )
   @student.save
   end
-  puts params[:students][:review]
   end
 
   # GET /professors/new
