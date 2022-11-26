@@ -3,14 +3,12 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    @students = Student.all
+    @students = Student.all.page(params[:page]).per(20)
     search_students if params[:search]
-    if params[:sort] == 'application_status'
-      @students = Student.all.sort_by(&:application_status)
-    elsif params[:sort] != 'application_status'
-      @students = Student.order(params[:sort])
+    if !params[:sort].nil?
+      @students = Student.order(params[:sort]).page(params[:page]).per(20)
     else
-      @student = Student.all
+      @student = Student.all.page(params[:page]).per(20)
     end
   end
 
