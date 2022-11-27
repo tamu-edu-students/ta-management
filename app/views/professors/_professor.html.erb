@@ -28,11 +28,10 @@
   <%= @student.email_id %>
   </p>
 
-  <textarea cols="30" id="review" name="student_review"
- rows="10"></textarea>
-
- <%= button_to "Submit Review", '', :method => "get", id:"submit" %>
-
+<form>
+  <textarea cols="40" id="students_review" name="students[review]"rows="15"></textarea>
+  <button type="submit" onClick="/professors/#{professor.id}">Submit Review</button>
+</form>
 </div>
  </div>
 </main>
