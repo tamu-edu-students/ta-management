@@ -4,12 +4,21 @@
       <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
       <h1>New subject</h1>
     </div>
-
+    <header>
+      <div class='container'>
+        <nav>
+          <ul>
+            <li><%=link_to "Home", '/students'  %></li>
+            <li><%=link_to "Students", '/students'  %></li>
+            <li><%=link_to "Subjects", '/subjects'  %></li>
+            <li><%=link_to "Log out", '/users/user/login',:style=> 'position:absolute; margin-left:70%;',:method => "get" %></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
     <%= render "form", subject: @subject %>
-    
-    <div>
-      <%= link_to "Back to subjects", subjects_path %>
-    </div>
+
+
 
   </body>
 </html>

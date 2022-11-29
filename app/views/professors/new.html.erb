@@ -4,14 +4,21 @@
       <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
       <h1> Onboard Professor with Course </h1>
     </div>
-    <br>
+    <header>
+      <div class='container'>
+        <nav>
+          <ul>
+            <li><%=link_to "Home", '/students'  %></li>
+            <li><%=link_to "Students", '/students'  %></li>
+            <li><%=link_to "Subjects", '/subjects'  %></li>
+            <li><%=link_to "New Subject", '/subjects/new'  %></li>
+            <li><%=link_to "Log out", '/users/user/login',:style=> 'position:absolute; margin-left:50em',:method => "get" %></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
     <%= render "form", professor: @professor %>
-    <div>
-      <%= link_to "Back to professors", professors_path %>
-    </div>
-
-    <%= button_to "Log out", '/users/user/login', :style=> 'position:absolute; top:0; right:0;', :method => "get" %>
   
   </body>
 <br>
