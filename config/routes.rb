@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   # get 'students/index', to: 'students#index'
   get 'users/user/login', to: 'users#login'
   post 'users/user/login', to: 'users#login'
+  get 'admin', to: 'users#admin'
+  # post 'admin', to: 'users#admin'
   # get 'users/user/home', to: 'users#home'
   # post 'users/user/home', to: 'users#home'
   resources :students
