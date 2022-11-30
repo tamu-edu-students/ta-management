@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   post 'users/user/login', to: 'users#login'
   # get 'users/user/home', to: 'users#home'
   # post 'users/user/home', to: 'users#home'
-  resources :students
+  resources :students do
+    get '/page/:page', action: :index, on: :collection
+  end
   resources :subjects
   post 'subjects/assign', to: 'subjects#assign'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
