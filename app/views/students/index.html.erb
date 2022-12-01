@@ -57,6 +57,9 @@
   <% end %>
 </table>
 
+  <%= paginate @students %>
+<%= button_to "Log out", '/users/user/login', :style=> 'position:absolute; top:0; right:0;', :method => "get" %>
+
 </main>
 </body>
 </html>

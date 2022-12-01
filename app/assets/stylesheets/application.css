@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require material_icons
  */
 
 body {
@@ -118,7 +119,7 @@ main {
     box-sizing: border-box;
     border: 0.25ch;
     font-size: 20px;
-    
+
 }
 
 #submit{
@@ -185,33 +186,34 @@ main {
     padding: 1rem;
 }
 
-#tables th a:link { 
+#tables th a:link {
     color: #FFFFFF;
 }
 
-#tables th a:visited { 
+#tables th a:visited {
     color: #FFFFFF;
 }
-#tables th a:hover { 
+#tables th a:hover {
     color: yellow;
 }
-#tables th a:active { 
+#tables th a:active {
     color: #FFFFFF;
 }
 
-#tables td a:link { 
+#tables td a:link {
     color: black;
 }
 
-#tables td a:visited { 
+#tables td a:visited {
     color: black;
 }
-#tables td a:hover { 
+#tables td a:hover {
     color: blue;
 }
-#tables td a:active { 
+#tables td a:active {
     color: black;
 }
+
 .container{
     width=100%;
     margin=auto;
@@ -245,3 +247,17 @@ nav a{
     text-transform:uppercase;
     font-size:14px;
 }
+
+
+.pagination{
+    list-style: none;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    padding-left: 50%;
+}
+
+.pagination li {
+    display: inline;
+}
+
