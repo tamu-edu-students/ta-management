@@ -1,10 +1,21 @@
 <p style="color: green"><%= notice %></p>
-
+<div class="headers">
+  <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+  <h1>Student Info</h1>
+</div>
+<header>
+  <div class='container'>
+    <nav>
+      <ul>
+        <li><%=link_to "Home", '/students'  %></li>
+        <li><%=link_to "Students", '/students'  %></li>
+        <li><%=link_to "Edit Application",edit_student_path(@student)%></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 <%= render @student %>
 
 <div>
-  <%= link_to "Edit this student", edit_student_path(@student) %> |
-  <%= link_to "Back to students", students_path %>
-
   <%= button_to "Destroy this student", @student, method: :delete %>
 </div>

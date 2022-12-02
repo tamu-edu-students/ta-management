@@ -10,6 +10,19 @@
       <%= submit_tag ("Search") %></span>
     <% end %>
   </div>
+  <header>
+    <div class='container'>
+      <nav>
+        <ul>
+          <li><%=link_to "Home", '/students'  %></li>
+          <li><%=link_to "Subjects", '/subjects'  %></li>
+          <li><%=link_to "Assign Professors", '/professors/new'  %></li>
+          <li><%= link_to "Log out", '/users/user/login', :style=> 'position:absolute; margin-left:60%;', :method => "get" %></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
   <br>
 <main>
 <table id="tables">
@@ -43,8 +56,10 @@
     </tr>
   <% end %>
 </table>
+
   <%= paginate @students %>
 <%= button_to "Log out", '/users/user/login', :style=> 'position:absolute; top:0; right:0;', :method => "get" %>
+
 </main>
 </body>
 </html>
