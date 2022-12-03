@@ -10,9 +10,11 @@ class ProfessorsController < ApplicationController
   def show
   @assign = Assignment.find_by(professor_id: @professor.id)
   @student = Student.find(@assign.student_id)
+  if(params[:students])
   @student.feedback = params[:students][:review]
   if((@student.feedback).length >0 )
   @student.save
+  end
   end
   end
 
