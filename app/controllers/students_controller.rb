@@ -37,10 +37,12 @@ class StudentsController < ApplicationController
     process_params
     respond_to do |format|
       if @student.save
-        format.html { redirect_to student_url(@student), notice: 'Student was successfully created.' }
+
+        format.html { redirect_to new_student_path, notice: 'Application was successfully submitted.' }
         format.json { render :show, status: :created, location: @student }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        flash[:alert] = @student.errors.full_messages
+        format.html { redirect_to new_student_path }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
@@ -50,10 +52,11 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(update_params)
-        format.html { redirect_to student_url(@student), notice: 'Student was successfully updated.' }
+        format.html { redirect_to student_url(@student), notice: 'Student Application was successfully updated.' }
         format.json { render :show, status: :ok, location: @student }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        flash[:alert] = @student.errors.full_messages
+        format.html { redirect_to edit_student_path }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end

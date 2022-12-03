@@ -13,6 +13,7 @@
     </nav>
   </div>
 </header>
+<%= render 'shared/flashes' unless flash.nil?%>
 <%= render @subject %>
 
 <div>

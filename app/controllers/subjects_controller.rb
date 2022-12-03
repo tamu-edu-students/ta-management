@@ -46,17 +46,17 @@ class SubjectsController < ApplicationController
           # render json: @subjects
         end
       end
-    rescue ActiveRecord::RecordInvalid => e
+    rescue StandardError => e
       # omitting the exception type rescues all StandardErrors
       @subjects = {
         error: {
           status: 422,
-          message: e
+          message: e.full_message
         }
       }
       respond_to do |format|
         format.html do
-          flash[:error] = 'Failed to add course and sections'
+          flash[:alert] = "Error in adding courses " + e.message
           redirect_to new_subject_path
           # render json: @subjects
         end
