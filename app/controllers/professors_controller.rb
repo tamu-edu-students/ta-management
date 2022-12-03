@@ -36,10 +36,11 @@ class ProfessorsController < ApplicationController
     @professor.course_section = params[:course_section]
     respond_to do |format|
       if @professor.save
-        format.html { redirect_to new_professor_url, notice: 'Professor was successfully assigned' }
+        format.html { redirect_to new_professor_url, notice: 'Professor was successfully assigned the course' }
         format.json { render :show, status: :created, location: @professor }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        flash[:alert] = @professor.errors.full_messages
+        format.html {  redirect_to new_professor_url}
         format.json { render json: @professor.errors, status: :unprocessable_entity }
       end
     end
@@ -49,10 +50,11 @@ class ProfessorsController < ApplicationController
   def update
     respond_to do |format|
       if @professor.update(professor_params)
-        format.html { redirect_to professor_url(@professor), notice: 'Professor was successfully updated.' }
+        format.html { redirect_to professor_url(@professor), notice: 'Professor was successfully updated with new course' }
         format.json { render :show, status: :ok, location: @professor }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        flash[:alert] = @professor.errors.full_messages
+        format.html { redirect_to edit_professor_path, status: :unprocessable_entity }
         format.json { render json: @professor.errors, status: :unprocessable_entity }
       end
     end
