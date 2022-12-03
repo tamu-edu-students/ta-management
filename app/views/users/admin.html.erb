@@ -1,0 +1,52 @@
+
+ <div class="headers">
+ <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+ <h1>Admin</h1>
+ <span>
+</div>
+<div> <h2> <strong> Hiring Manager </h2> </strong>
+<table id="tables">
+  <tr>
+    <th width='1%', align="center"><%= link_to "Name", :sort => "name"%> </th>
+    <th width='1%', align="center"><%= link_to "Email", :sort => "email_id"%> </th>
+    </tr>
+
+
+<% @hiringManager.each do |hiringManager| %>
+    <tr>
+      <td width='1%', align="center"><%=hiringManager.name%></td>
+      <td width='1%', align="center"><%=hiringManager.email_id %></td>
+    </tr>
+  <% end %>
+
+  </table>
+<div>
+  <div> <h2> <strong> Coordinator </h2> </strong>
+<table id="tables">
+  <tr>
+    <th width='1%', align="center"><%= link_to "Name", :sort => "name"%> </th>
+    <th width='1%', align="center"><%= link_to "Email", :sort => "email_id"%> </th>
+    </tr>
+
+
+<% @coordinator.each do |coordinator| %>
+    <tr>
+      <td width='1%', align="center"><%=coordinator.name%></td>
+      <td width='1%', align="center"><%=coordinator.email_id %></td>
+    </tr>
+  <% end %>
+
+  </table>
+
+  <div class="form__items1">
+            <%= form_tag('admin', method: :get) do %>
+                <%= label_tag(:Name) %>
+                <%= text_field_tag(:name) %>
+                <%= label_tag(:Email) %>
+                <%= text_field_tag(:email) %>
+                <%= label_tag(:Password) %>
+                <%= password_field_tag(:password) %>
+                <%= select_tag(:access_level, options_for_select([["Hiring Manager"],["Coordinator"]]), class:"select") %>
+                <%= submit_tag "Add" %></span>
+              <% end %>
+</div>
