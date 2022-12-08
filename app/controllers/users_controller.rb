@@ -4,18 +4,19 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
-    
+
   end
 
   def admin
     @hiringManager = User.where(access_level: "Hiring Manager")
     @coordinator = User.where(access_level: "Coordinator")
-      @user = User.new(name: params[:name], email_id: params[:email_id], password: params[:password], access_level: params[:access_level] )
-      @user.save
+    # @user = User.new(name: params[:name], email_id: params[:email_id], password: params[:password], access_level: params[:access_level] )
+    # @user.save
   end
 
   # GET /users/1 or /users/1.json
   def show
+    @user = User.find(params[:id])
   end
 
   # GET /users/new
@@ -32,8 +33,12 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
-        format.html { redirect_to user_url(@user), notice: "User was successfully created." }
-        format.json { render :show, status: :created, location: @user }
+        if params[:admin]
+          format.html { redirect_to admin_path, notice: "User was successfully created." }
+        else
+          format.html { redirect_to user_url(@user), notice: "User was successfully created." }
+          format.json { render :show, status: :created, location: @user }
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -57,43 +62,43 @@ class UsersController < ApplicationController
   # DELETE /users/1 or /users/1.json
   def destroy
     @user.destroy
-
     respond_to do |format|
-      format.html { redirect_to users_url, notice: "User was successfully destroyed." }
+      format.html { redirect_to admin_url, notice: "User was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   def login
     @user = User.find_by(email_id: params[:email_id])
-     if (User.exists?( email_id: params[:email_id], password: params[:password]))
+    if (User.exists?(email_id: params[:email_id], password: params[:password]))
       session[:id] = @user.id
-      if(@user.access_level=="Professor")
+      if (@user.access_level == "Professor")
         @user1 = Professor.find_by(email_id: params[:email_id])
         redirect_to "/professors/#{@user1.id}"
       end
-      if(@user.access_level=="TA")
+      if (@user.access_level == "TA")
         redirect_to user_url(@user)
       end
-      if(@user.access_level=="Hiring Manager")
+      if (@user.access_level == "Hiring Manager")
         redirect_to '/students'
       end
-      if(@user.access_level=="Coordinator")
+      if (@user.access_level == "Coordinator")
         redirect_to '/subjects'
       end
     else
       render :login, status: :unprocessable_entity
-      end
     end
+  end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:name, :email_id, :password, :confirm_password, :access_level)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:name, :email_id, :password, :confirm_password, :access_level)
+  end
 end

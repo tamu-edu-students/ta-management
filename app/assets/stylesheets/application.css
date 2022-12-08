@@ -106,7 +106,7 @@ main {
 
 .form__items > * {
     align-self: flex-start;
-    
+
 }
 
 .form__lable {
@@ -219,8 +219,9 @@ main {
 }
 
 .container{
-    width:100%;
-    margin:auto;
+    width: 100%;
+    margin: auto;
+    margin-top: 5%;
 }
 
 header{
