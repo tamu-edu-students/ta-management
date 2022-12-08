@@ -21,6 +21,8 @@
   </header>
 
   <br>
+
+  <%= render 'shared/flashes' unless flash.nil?%>
 <main>
 <table id="tables">
   <tr>
@@ -31,32 +33,34 @@
     <th width='1%', align="center"><%= "Course section"%> </th>
     <th width='1%', align="center"> Actions</th>
   </tr>
-  <% @students_selected.each do |student| %>
-    <tr>
-      <td width='1%', align="center"><%=link_to student.name, students_path(method: :get,:search => student.name)%></td>
-      <td width='1%', align="center"><%=student.email_id %></td>
-      <td width='1%', align="center"><%=student.uin %></td>
-      <%= form_with(model: student) do |form| %>
-        <td width='1%' , align="center">
-          <div>
-            <%= form.select :assigned_courses, options_for_select(@course_name, student.assigned_courses) %>
-          </div>
-          <br>
-        </td>
-        <td width='1%' , align="center">
-             <div class="checkbox-wrapper" <%= form.collection_check_boxes :subjects, Subject.all, :id, :course_section %>
-          </div>
-          <br>
-        </td>
-        <td width='1%', align="center">
-          <%= form.submit "Update" %>
-        </td>
-      <% end %>
-    </tr>
-  <% end %>
 </table>
 
+  <% @students_selected.each do |student| %>
+    <%= form_with(model: student) do |form| %>
+      <table id="tables">
+        <tr>
+          <td width='1%' , align="center"><%= link_to student.name, students_path(method: :get, :search => student.name) %></td>
+          <td width='1%' , align="center"><%= student.email_id %></td>
+          <td width='1%' , align="center"><%= student.uin %></td>
 
+          <td width='1%' , align="center">
+            <div>
+              <%= form.select :assigned_courses, options_for_select(@course_name, student.assigned_courses) %>
+            </div>
+            <br>
+          </td>
+          <td width='1%' , align="center">
+            <div class="checkbox-wrapper" <%= form.collection_check_boxes :subjects, Subject.all, :id, :course_section %>
+            </div>
+            <br>
+          </td>
+          <td width='1%' , align="center">
+            <%= form.submit "Update" %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
 </main>
 </body>
 </html>

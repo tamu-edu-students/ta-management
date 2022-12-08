@@ -1,0 +1,22 @@
+ <div id=”flash”>
+    <% flash.each do |key,value| %>
+      <div class="<%= flash_class(key.to_sym) %> alert-dismissible fade show" role=alert>
+        <% unless value == true %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <%if key == "alert" %>
+            <% if value.kind_of?(Array) %>
+              <% value.each do |value1| %>
+                <%= value1 %><br/>
+              <%end %>
+            <% else %>
+              <%= value %><br/>
+            <%end %>
+          <%else %>
+            <%= value %>
+          <%end %>
+        <%end %>
+      </div>
+    <% end %>
+  </div>

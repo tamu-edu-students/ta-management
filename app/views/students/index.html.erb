@@ -25,6 +25,7 @@
 
   <br>
 <main>
+  <%= render 'shared/flashes' unless flash.nil?%>
 <table id="tables">
   <tr>
     <th width='1%', align="center"><%= link_to "Name", :sort => "name"%> </th>
@@ -48,9 +49,7 @@
       <td width='1%', align="center"><%= form_with(model: student) do |form| %>
           <div>
             <%= form.select :application_status, ['review', 'hired', 'rejected', 'applied'], :selected => student.application_status%>
-
             <%= form.submit "Update" %>
-
           </div><br>
         <% end %></td>
     </tr>
@@ -58,7 +57,7 @@
 </table>
 
   <%= paginate @students %>
-<%= button_to "Log out", '/users/user/login', :style=> 'position:absolute; top:0; right:0;', :method => "get" %>
+
 
 </main>
 </body>

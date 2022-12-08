@@ -18,6 +18,8 @@
       </div>
     </header>
 
+    <%= render 'shared/flashes' unless flash.nil?%>
+
     <%= render "form", professor: @professor %>
   
   </body>
