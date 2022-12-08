@@ -28,6 +28,11 @@
   <%= @student.email_id %>
   </p>
 
+  <p class="pp">
+  <strong>Feedback</strong>
+  <%= @student.feedback %>
+  </p>
+
 <form>
   <textarea cols="40" id="students_review" name="students[review]"rows="15"></textarea>
   <button type="submit" onClick="/professors/#{professor.id}">Submit Review</button>
