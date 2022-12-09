@@ -20,12 +20,13 @@
     <th><%= "Professor Email" %> </th>
     <th><%= "Action" %> </th>
   </tr>
-
-  <% @courses.each do |course| %>
-    <tr>
-      <td width='1%' , align="center"><%= course[0] %></td>
-      <td width='1%' , align="center"><%= course[1] %></td>
-      <%= form_with(model: Professor) do |form| %>
+</table>
+<% @courses.each do |course| %>
+  <%= form_with(model: Professor) do |form| %>
+    <table id="tables">
+      <tr>
+        <td width='1%' , align="center"><%= course[0] %></td>
+        <td width='1%' , align="center"><%= course[1] %></td>
         <td width='1%' , align="center">
           <div>
             <%= form.label :professor_name, style: "display: block" %>
@@ -42,19 +43,19 @@
           <td width='1%' , align="center">
             <%= hidden_field_tag(:course_list, course[0]) %>
             <%= hidden_field_tag(:course_section, course[1]) %>
-            <%= form.submit 'Assign'%>
+            <%= form.submit 'Assign' %>
           </td>
         <% else %>
           <td width='1%' , align="center">
             <%= hidden_field_tag(:course_list, course[0]) %>
             <%= hidden_field_tag(:course_section, course[1]) %>
             <%= hidden_field_tag(:update, true) %>
-            <%= hidden_field_tag(:id, Professor.where(:course_list => course[0], :course_section => course[1]).pluck(:id))  %>
-            <%= form.submit 'Update'%>
+            <%= hidden_field_tag(:id, Professor.where(:course_list => course[0], :course_section => course[1]).pluck(:id)) %>
+            <%= form.submit 'Update' %>
           </td>
         <% end %>
-      <% end %>
-    </tr>
+      </tr>
+    </table>
   <% end %>
-</table>
+<% end %>
 
