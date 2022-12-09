@@ -10,6 +10,37 @@
   </div>
 </header>
 <%= render 'shared/flashes' unless flash.nil?%>
-<%= render "form", user: @user %>
+ <div class="form__items1 pp" >
+        <%= form_with(model: @user) do |form| %>
+          <div>
+          <div class="form__lable"><%= form.label :name, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :name , value: "#{@user.name}"%></div>
+          </div><br>
+
+          <div>
+          <div class="form__lable"><%= form.label :access_level, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :access_level, value: "#{@user.access_level}", readonly: true %></div>
+          </div><br>
+
+          <div>
+          <div class="form__lable"><%= form.label :email_id, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :email_id , value: "#{@user.email_id}" %></div>
+          </div><br>
+
+          <div>
+          <div class="form__lable"><%= form.label :password, style: "display: block" %></div>
+          <div class="form__input"><%= form.password_field :password ,id: "password", value: "#{@user.password}"%></div>
+          </div><br>
+
+          <div>
+          <div class="form__lable"><%= form.label :confirm_password, style: "display: block" %></div>
+          <div class="form__input"><%= form.password_field :confirm_password,id: "confirm_password", value: "#{@user.confirm_password}" %></div>
+          </div><br>
+
+          <div>
+          <%= form.submit "Update" , id:"update" %>
+          </div>
+        <% end %>
+      </div>
 
 
