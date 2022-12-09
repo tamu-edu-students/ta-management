@@ -43,9 +43,7 @@
           <td width='1%' , align="center"><%= student.uin %></td>
 
           <td width='1%' , align="center">
-            <div>
               <%= form.select :assigned_courses, options_for_select(@course_name, selected = student.assigned_courses) %>
-            </div>
             <br>
           </td>
           <td width='1%' , align="center">
