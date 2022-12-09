@@ -7,7 +7,7 @@ class SubjectsController < ApplicationController
   def index
     @subjects = Subject.all
     @students_selected = Student.where("application_status='hired'")
-    @course_name = Subject.pluck(:course_name)
+    @course_name = Subject.pluck(:course_name).uniq
     @section_name = Subject.pluck(:course_section)
   end
 
