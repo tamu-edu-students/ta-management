@@ -6,7 +6,7 @@
       <ul>
         <li><%=link_to "Home", '/students'  %></li>
         <li><%=link_to "Students", '/students'  %></li>
-        <li><%=link_to "Subjects", '/subjects'  %></li>
+        <li><%=link_to "Assign Subjects", '/subjects'  %></li>
         <li><%=link_to "Edit Subject", edit_subject_path(@subject)  %></li>
         <li><%=link_to "Log out", '/users/user/login',:style=> 'position:absolute; margin-left:50%;',:method => "get" %></li>
       </ul>
@@ -18,5 +18,5 @@
 
 <div>
 
-  <%= button_to "Destroy this subject", @subject, method: :delete %>
+  <%= button_to "Delete this subject", @subject, method: :delete %>
 </div>
