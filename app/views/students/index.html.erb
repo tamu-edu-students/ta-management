@@ -49,6 +49,7 @@
       <td width='1%', align="center"><%= form_with(model: student) do |form| %>
           <div>
             <%= form.select :application_status, ['review', 'hired', 'rejected', 'applied'], :selected => student.application_status%>
+            <%= hidden_field_tag(:students_page,true) %>
             <%= form.submit "Update" %>
           </div><br>
         <% end %></td>

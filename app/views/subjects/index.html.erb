@@ -3,7 +3,6 @@
   <div class="headers">
     <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
     <h1>Assign Courses to Hired TA</h1>
-    <p style="color: green"><%= notice %></p>
   </div>
 
   <header>
@@ -45,15 +44,18 @@
 
           <td width='1%' , align="center">
             <div>
-              <%= form.select :assigned_courses, options_for_select(@course_name, student.assigned_courses) %>
+              <%= form.select :assigned_courses, options_for_select(@course_name, selected = student.assigned_courses) %>
             </div>
             <br>
           </td>
           <td width='1%' , align="center">
-            <div class="checkbox-wrapper" <%= form.collection_check_boxes :subjects, Subject.all, :id, :course_section %>
-            </div>
-            <br>
+            <% if student.assigned_sections %>
+              <%= form.text_field :assigned_sections, value: student.assigned_sections.join(",") %>
+            <% else %>
+            <%= form.text_field :assigned_sections %>
+            <% end %>
           </td>
+          <%= hidden_field_tag(:subjects_page,true) %>
           <td width='1%' , align="center">
             <%= form.submit "Update" %>
           </td>

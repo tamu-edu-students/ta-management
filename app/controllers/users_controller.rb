@@ -38,6 +38,7 @@ class UsersController < ApplicationController
           format.json { render :show, status: :created, location: @user }
         end
       else
+        flash[:alert] = @user.errors.full_messages
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end

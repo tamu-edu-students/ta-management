@@ -9,7 +9,7 @@
     </nav>
   </div>
 </header>
-
+<%= render 'shared/flashes' unless flash.nil?%>
 <%= render "form", student: @student %>
 
 

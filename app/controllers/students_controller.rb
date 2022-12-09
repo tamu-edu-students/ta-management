@@ -51,14 +51,36 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1 or /students/1.json
   def update
     respond_to do |format|
-      if @student.update(update_params)
-        format.html { redirect_to student_url(@student), notice: 'Student Application was successfully updated.' }
-        format.json { render :show, status: :ok, location: @student }
+      if params[:subjects_page]
+        if @student.update(update_params)
+          format.html { redirect_to subjects_path, notice: 'Subject was successfully assigned to student.' }
+          format.json { render :show, status: :ok, location: @student }
+        else
+          flash[:alert] = @student.errors.full_messages
+          format.html { redirect_to subjects_path }
+          format.json { render json: @student.errors, status: :unprocessable_entity }
+        end
+      elsif params[:students_page]
+        if @student.update(update_params)
+          format.html { redirect_to students_url, notice: 'Student status was successfully updated.' }
+          format.json { render :show, status: :ok, location: @student }
+        else
+          flash[:alert] = @student.errors.full_messages
+          format.html { redirect_to students_url }
+          format.json { render json: @student.errors, status: :unprocessable_entity }
+        end
       else
-        flash[:alert] = @student.errors.full_messages
-        format.html { redirect_to edit_student_path }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
-      end
+        if @student.update(update_params)
+          format.html { redirect_to student_url(@student), notice: 'Student application was successfully updated.' }
+          format.json { render :show, status: :ok, location: @student }
+        else
+          flash[:alert] = @student.errors.full_messages
+          format.html { redirect_to edit_student_path }
+          format.json { render json: @student.errors, status: :unprocessable_entity }
+        end
+    end
+
+
     end
   end
 
@@ -97,7 +119,9 @@ class StudentsController < ApplicationController
   end
 
   def update_params
+    Rails.logger.debug params.inspect
     map = params.require(:student).permit(:name, :email_id, :uin, :employment_status, :is_undergrad, :courses_completed, :resume, :transcript, :access_level, :application_status, :comments, :assigned_courses, :assigned_sections, :rating, :feedback, :subjects)
+
     if params[:student].has_key?(:employment_status)
       map['employment_status'] = params[:student][:employment_status] == 'Yes'
     end
@@ -108,17 +132,15 @@ class StudentsController < ApplicationController
       map['courses_completed'] = params[:student][:courses_completed] == 'Both' ? %w[102 216] : [params[:student][:courses_completed]]
     end
 
-    if params[:student].has_key?(:assigned_courses) && params[:student].has_key?(:subjects)
+    if params[:student].has_key?(:assigned_courses) && params[:student].has_key?(:assigned_sections)
       course = params[:student][:assigned_courses]
-      subjects = params[:student][:subjects]
-      sections = []
-      subjects.each do |id|
-        Subject.find(id)
-        sections << Subject.find(id).course_section
-      end
-      map['assigned_courses'] = [course]
-      map['assigned_sections'] = sections
-      assign(course, sections)
+      sections = params[:student][:assigned_sections]
+      map['assigned_courses'] = course.split(",")
+      sections_list = sections.split(",")
+      map['assigned_sections'] = sections_list
+      sections_list.each { |section|
+        assign(course, section)
+      }
     end
     # if(params[:student].has_key?(:assigned_sections))
     #   map["assigned_sections"] = [params[:student][:assigned_sections]]
@@ -126,9 +148,9 @@ class StudentsController < ApplicationController
     map
   end
 
-  def assign(course, sections)
-    professor = Professor.find_by(course_list: course)
-    subject = Subject.find_by(course_name: course, course_section: sections)
+  def assign(course, section)
+    professor = Professor.find_by(course_list: course,course_section:section)
+    subject = Subject.find_by(course_name: course, course_section: section)
     assignment = Assignment.new
     assignment.subject = subject
     assignment.student = @student
