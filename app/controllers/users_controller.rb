@@ -24,6 +24,17 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    if(params[:name] || params[:email_id]  || params[:password]  || params[:confirm_password])
+      respond_to do |format|
+        if @user.update(user_params)
+          format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
+          format.json { render :show, status: :ok, location: @user }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
+      end
+    end
   end
 
   # POST /users or /users.json
