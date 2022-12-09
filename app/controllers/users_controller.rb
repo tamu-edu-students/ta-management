@@ -10,8 +10,6 @@ class UsersController < ApplicationController
   def admin
     @hiringManager = User.where(access_level: "Hiring Manager")
     @coordinator = User.where(access_level: "Coordinator")
-    # @user = User.new(name: params[:name], email_id: params[:email_id], password: params[:password], access_level: params[:access_level] )
-    # @user.save
   end
 
   # GET /users/1 or /users/1.json
