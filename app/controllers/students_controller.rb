@@ -119,7 +119,6 @@ class StudentsController < ApplicationController
   end
 
   def update_params
-    Rails.logger.debug params.inspect
     map = params.require(:student).permit(:name, :email_id, :uin, :employment_status, :is_undergrad, :courses_completed, :resume, :transcript, :access_level, :application_status, :comments, :assigned_courses, :assigned_sections, :rating, :feedback, :subjects)
 
     if params[:student].has_key?(:employment_status)
