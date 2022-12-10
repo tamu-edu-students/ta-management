@@ -85,7 +85,12 @@ class UsersController < ApplicationController
       case @user.access_level
       when 'Professor'
         @user1 = Professor.find_by(email_id: params[:email_id])
-        redirect_to "/professors/#{@user1.id}"
+        if @user1.nil?
+          flash[:alert] = 'No Student assigned yet. Please Visit later'
+          redirect_to '/users/user/login'
+        else
+          redirect_to "/professors/#{@user1.id}"
+        end
       when 'TA'
         redirect_to user_url(@user)
       when 'Hiring Manager'
