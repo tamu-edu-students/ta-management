@@ -1,0 +1,12 @@
+<p style="color: green"><%= notice %></p>
+
+<%= form_with url: import_schedules_path, method: :post do |form| %>
+    <%= form.file_field :file, accept: ".csv" %>
+    <%= form.button "Import Schedule" %>
+<% end %>
+
+<h1>
+    Schedule:
+    <%= @schedules.count %>
+</h1>
+
