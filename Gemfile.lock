@@ -341,7 +341,7 @@ DEPENDENCIES
   kaminari
   material_icons
   pagy (~> 5.10)
-  pg (~> 1.1)
+  pg
   pry
   pry-byebug
   pry-rails
