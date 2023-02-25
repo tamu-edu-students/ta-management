@@ -21,6 +21,14 @@ Rails.application.routes.draw do
   post 'subjects/assign', to: 'subjects#assign'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  resources :schedules do
+    collection do
+      post :import
+    end
+  end
+
+  get 'view', to: 'schedules#view'
+
   # Defines the root path route ("/")
   root to: "users#home"
 end

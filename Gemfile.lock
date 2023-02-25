@@ -304,6 +304,8 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
+    tzinfo-data (1.2022.7)
+      tzinfo (>= 1.0.0)
     unicode-display_width (2.3.0)
     web-console (4.2.0)
       actionview (>= 6.0.0)
@@ -325,6 +327,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw-ucrt
 
 DEPENDENCIES
   bootsnap
@@ -338,7 +341,7 @@ DEPENDENCIES
   kaminari
   material_icons
   pagy (~> 5.10)
-  pg (~> 1.1)
+  pg
   pry
   pry-byebug
   pry-rails
@@ -356,7 +359,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 2.7.6p219
+   ruby 3.2.0p0
 
 BUNDLED WITH
    2.3.24
