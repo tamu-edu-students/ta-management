@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.6"
+ruby "~> 3.2.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
@@ -12,7 +12,7 @@ gem "sprockets-rails"
 # Use pg as the database for Active Record
 # gem "pg", "~> 1.4"
 
-gem "pg", "~> 1.1"
+gem "pg"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
@@ -29,6 +29,9 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# Polishing the UI
+gem 'semantic-ui-sass'
+gem 'jquery-rails'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
@@ -64,7 +67,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem "factory_bot_rails"
   gem 'cucumber-rails', require:false
-  gem 'rspec-rails'
+  # gem 'rspec-rails'
   gem 'database_cleaner'
 end
 

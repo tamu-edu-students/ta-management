@@ -1,0 +1,58 @@
+<div class="ui padded segment">
+  <h2 class="ui header">
+    <div class="content">
+      Schedule
+      <div class="sub header">View all class schedules</div>
+    </div>
+  </h2>
+
+  <table class="ui striped red fixed single line celled table">
+  <thead>
+    <tr>
+        <th>Code</th>
+        <th>Course_id</th>
+        <th>Section</th>
+        <th>Lecture Day</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Instructor</th>
+        <th>PT 1</th>
+        <th>PT 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @schedules.each do |schedule| %>
+        <tr>
+            <td><%= schedule['code'] %></td>
+            <td><%= schedule['course_id'] %></td>
+            <td><%= schedule['section'] %></td>
+            <td><%= schedule['lecture_day'] %></td>
+            <td><%= schedule['start_time'] %></td>
+            <td><%= schedule['end_time'] %></td>
+            <td><%= schedule['professor'] %></td>
+            <td><%= schedule['students'][0] %></td>
+            <td><%= schedule['students'][1] %></td>
+        </tr>
+    <% end %>
+  </tbody>
+  </table>
+</div>
+
+<%# <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+%>
