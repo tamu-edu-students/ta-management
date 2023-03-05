@@ -1,0 +1,26 @@
+<html>
+  <body>
+        <div class="headers">
+          <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+          <h1>Sign Up</h1>
+        </div>
+        <header>
+          <div class='container'>
+            <nav>
+              <ul>
+                <li><%=link_to "Home", '/'  %></li>
+                <li><%=link_to "Already registered? Login Here", '/users/user/login'  %></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+        <%= render 'shared/flashes' unless flash.nil?%>
+        <div class="form">
+            <%= render 'form' %>
+        <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+        </div>
+
+
+  </body>
+<br>
+</html>

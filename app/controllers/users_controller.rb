@@ -8,8 +8,12 @@ class UsersController < ApplicationController
   end
 
   def admin
-    @hiringManager = User.where(access_level: "Hiring Manager")
-    @coordinator = User.where(access_level: "Coordinator")
+    if @user.where(access_level: "admin")
+      @hiringManager = User.where(access_level: "Hiring Manager")
+      @coordinator = User.where(access_level: "Coordinator")
+    else
+      redirect_to root, alert: "Admin access not granted"
+    end
   end
 
   # GET /users/1 or /users/1.json
@@ -45,6 +49,7 @@ class UsersController < ApplicationController
         if params[:admin]
           format.html { redirect_to admin_path, notice: "User was successfully created." }
         else
+          session[:id] = @user.id
           format.html { redirect_to user_url(@user), notice: "User was successfully created." }
           format.json { render :show, status: :created, location: @user }
         end
@@ -70,13 +75,17 @@ class UsersController < ApplicationController
   end
 
   # DELETE /users/1 or /users/1.json
-  def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_url, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
+  # def destroy
+  #   @user.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to admin_url, notice: "User was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
+    def destroy 
+      session[:id] = nil
+      redirect_to root_path, notice: "Logged Out"
     end
-  end
 
   def login
     @user = User.find_by(email_id: params[:email_id])
@@ -114,6 +123,6 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:name, :email_id, :password, :confirm_password, :access_level)
+    params.require(:user).permit(:name, :email_id, :password, :password_confirmation, :access_level)
   end
 end

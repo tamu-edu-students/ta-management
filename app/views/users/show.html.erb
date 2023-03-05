@@ -1,19 +1,14 @@
 
 
-<header>
-  <div class='container'>
-    <nav>
-      <ul>
-        <li><%=link_to "Home", '/'  %></li>
-        <li><%=link_to "Edit User", edit_user_path(@user)  %></li>
-      </ul>
-    </nav>
-  </div>
-</header>
 <%= render 'shared/flashes' unless flash.nil?%>
+
+
+
 <%= render @user %>
 
-<div>
 
-  <%= button_to "Delete this user", @user, method: :delete %>
-</div>
+
+<%# <div>
+
+  <%# button_to "Delete this user", @user, method: :delete %>
+<%# </div> %>
