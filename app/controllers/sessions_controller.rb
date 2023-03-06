@@ -5,8 +5,12 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email_id: params[:session][:email_id].downcase)
     if user && user.authenticate(params[:session][:password])
-      log_in user
-      redirect_to user
+      if user.access_level == "admin"
+        log_in user
+        redirect_to admin_path
+      else
+        redirect_to user
+      end
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'new', status: :unprocessable_entity
@@ -14,5 +18,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    log_out user
   end
 end

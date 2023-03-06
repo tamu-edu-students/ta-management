@@ -8,17 +8,14 @@ class UsersController < ApplicationController
   end
 
   def admin
-    if @user.where(access_level: "admin")
       @hiringManager = User.where(access_level: "Hiring Manager")
       @coordinator = User.where(access_level: "Coordinator")
-    else
-      redirect_to root, alert: "Admin access not granted"
-    end
   end
 
   # GET /users/1 or /users/1.json
   def show
     @user = User.find(params[:id])
+    # debugger
   end
 
   # GET /users/new
@@ -46,7 +43,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
-        if params[:admin]
+        if params[:access_level] == 'admin'
           format.html { redirect_to admin_path, notice: "User was successfully created." }
         else
           session[:id] = @user.id
@@ -122,7 +119,9 @@ class UsersController < ApplicationController
   end
 
   # Only allow a list of trusted parameters through.
-  def user_params
-    params.require(:user).permit(:name, :email_id, :password, :password_confirmation, :access_level)
-  end
+  private 
+
+    def user_params
+      params.require(:user).permit(:name, :email_id, :password, :password_confirmation, :access_level)
+    end
 end
