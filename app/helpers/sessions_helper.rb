@@ -4,7 +4,8 @@ module SessionsHelper
     end
 
     def log_out(user)
-        session[:user_id] = ""
+        session.delete(:user_id)
+        session[:user_id] = nil
     end
 
     # Returns the current logged-in user (if any).

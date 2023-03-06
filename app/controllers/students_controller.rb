@@ -1,6 +1,6 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: %i[show edit update destroy]
-  before_action :require_user_logged_in!
+  # before_action :logged_in!
 
   # GET /students or /students.json
   def index

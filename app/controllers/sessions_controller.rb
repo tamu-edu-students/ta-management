@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
         log_in user
         redirect_to professor_url(user)
       else
+        log_in user
         redirect_to user
       end
     else
@@ -21,6 +22,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    user = User.find(session[:user_id])
     log_out user
+    redirect_to "/"
   end
 end

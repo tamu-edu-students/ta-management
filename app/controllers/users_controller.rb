@@ -7,6 +7,15 @@ class UsersController < ApplicationController
 
   end
 
+  def home
+    if logged_in?
+      user = User.find(session[:user_id])
+      redirect_to user_url(user)
+    else
+      render :home
+    end
+  end
+
   def admin
       @hiringManager = User.where(access_level: "Hiring Manager")
       @coordinator = User.where(access_level: "Coordinator")
@@ -14,8 +23,11 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
-    @user = User.find(params[:id])
-    # debugger
+    if logged_in?
+      @user = User.find(params[:id])
+    else
+      redirect_to root_url, notice: "You are not logged in" 
+    end
   end
 
   # GET /users/new
@@ -43,6 +55,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
+        log_in @user
         if params[:access_level] == 'admin'
           format.html { redirect_to admin_path, notice: "User was successfully created." }
         else
@@ -79,10 +92,10 @@ class UsersController < ApplicationController
   #     format.json { head :no_content }
   #   end
   # end
-    def destroy 
-      session[:id] = nil
-      redirect_to root_path, notice: "Logged Out"
-    end
+    # def destroy 
+    #   session[:id] = nil
+    #   redirect_to root_path, notice: "Logged Out"
+    # end
 
   def login
     @user = User.find_by(email_id: params[:email_id])
