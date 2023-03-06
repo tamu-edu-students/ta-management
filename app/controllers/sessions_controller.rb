@@ -8,6 +8,9 @@ class SessionsController < ApplicationController
       if user.access_level == "admin"
         log_in user
         redirect_to admin_path
+      elsif user.access_level == "Professor"
+        log_in user
+        redirect_to professor_url(user)
       else
         redirect_to user
       end
