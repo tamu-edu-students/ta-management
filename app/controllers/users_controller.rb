@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :logged_in_user, only: [:edit, :update]
+  before_action :correct_user, only: [:edit, :update]
+
+  before_action :admin_user, only: [:admin, :index, :destroy]
 
   # GET /users or /users.json
   def index
@@ -7,14 +11,27 @@ class UsersController < ApplicationController
 
   end
 
+  def home
+    if logged_in?
+      user = User.find(session[:user_id])
+      redirect_to user_url(user)
+    else
+      render :home
+    end
+  end
+
   def admin
-    @hiringManager = User.where(access_level: "Hiring Manager")
-    @coordinator = User.where(access_level: "Coordinator")
+      @hiringManager = User.where(access_level: "Hiring Manager")
+      @coordinator = User.where(access_level: "Coordinator")
   end
 
   # GET /users/1 or /users/1.json
   def show
-    @user = User.find(params[:id])
+    if logged_in?
+      @user = User.find(params[:id])
+    else
+      redirect_to root_url, notice: "You are not logged in" 
+    end
   end
 
   # GET /users/new
@@ -23,18 +40,21 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
+  # def edit
+  #   if(params[:name] || params[:email_id]  || params[:password]  || params[:confirm_password])
+  #     respond_to do |format|
+  #       if @user.update(user_params)
+  #         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
+  #         format.json { render :show, status: :ok, location: @user }
+  #       else
+  #         format.html { render :edit, status: :unprocessable_entity }
+  #         format.json { render json: @user.errors, status: :unprocessable_entity }
+  #       end
+  #     end
+  #   end
+  # end
   def edit
-    if(params[:name] || params[:email_id]  || params[:password]  || params[:confirm_password])
-      respond_to do |format|
-        if @user.update(user_params)
-          format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
-          format.json { render :show, status: :ok, location: @user }
-        else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @user.errors, status: :unprocessable_entity }
-        end
-      end
-    end
+    @user = User.find(params[:id])
   end
 
   # POST /users or /users.json
@@ -42,9 +62,11 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
-        if params[:admin]
+        log_in @user
+        if params[:access_level] == 'admin'
           format.html { redirect_to admin_path, notice: "User was successfully created." }
         else
+          session[:id] = @user.id
           format.html { redirect_to user_url(@user), notice: "User was successfully created." }
           format.json { render :show, status: :created, location: @user }
         end
@@ -57,25 +79,45 @@ class UsersController < ApplicationController
   end
 
   # PATCH/PUT /users/1 or /users/1.json
+  # def update
+  #   respond_to do |format|
+  #     if @user.update(user_params)
+  #       format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
+  #       format.json { render :show, status: :ok, location: @user }
+  #     else
+  #       format.html { render :edit, status: :unprocessable_entity }
+  #       format.json { render json: @user.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
+
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      # flash[:success] = "Profile updated"
+      redirect_to @user, notice: "User was successfully updated."
+    else
+      render 'edit', status: :unprocessable_entity
     end
   end
 
   # DELETE /users/1 or /users/1.json
+  # def destroy
+  #   @user.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to admin_url, notice: "User was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
+    # def destroy 
+    #   session[:id] = nil
+    #   redirect_to root_path, notice: "Logged Out"
+    # end
+
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to admin_url, notice: "User was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted successfully"
+    redirect_to users_url
   end
 
   def login
@@ -108,12 +150,40 @@ class UsersController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_user
-    @user = User.find(params[:id])
-  end
+    def set_user
+      @user = User.find(params[:id])
+    end
 
   # Only allow a list of trusted parameters through.
-  def user_params
-    params.require(:user).permit(:name, :email_id, :password, :confirm_password, :access_level)
-  end
+
+    def user_params
+      params.require(:user).permit(:name, :email_id, :password, :password_confirmation, :access_level)
+    end
+
+    # Confirms a logged-in user
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = "Please log in."
+        redirect_to login_url
+      end
+    end
+
+      # Confirms an admin user
+      def admin_user
+        unless is_admin?
+          flash[:danger] = "You do not have administrative access to this page."
+          redirect_back(fallback_location: { action: "show", id: session[:user_id]})
+        end
+      end
+
+      # Confirms the correct user
+      def correct_user
+        @user = User.find(params[:id])
+        # flash[:danger] = "You can only edit your profile."
+        unless current_user?(@user)
+          flash[:danger] = "You can only edit your profile."
+          redirect_back(fallback_location: { action: "show", id: session[:user_id]}) 
+        end
+      end
 end
+

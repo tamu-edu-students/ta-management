@@ -7,9 +7,10 @@
   <div class='container'>
     <nav>
       <ul>
-        <li><%=link_to "Log Out", '/users/user/login',:style=> 'align:center',:method => "get" %></li>
+        <li><%= link_to "Log Out", "/logout",:style=> 'align:center',:method => "get" %></li>
         <li><%=link_to "Upload Schedule", schedules_path,:style=> 'align:center',:method => "get" %></li>
         <li><%=link_to "View Schedule", view_path,:style=> 'align:center',:method => "get" %></li>
+        <li><%=link_to "View All Users", users_path,:style=> 'align:center',:method => "get" %></li>
       </ul>
     </nav>
   </div>
