@@ -1,12 +1,18 @@
-<p style="color: green"><%= notice %></p>
-
-<%= form_with url: import_schedules_path, method: :post do |form| %>
-    <%= form.file_field :file, accept: ".csv" %>
-    <%= form.button "Import Schedule" %>
+<% if notice != nil %>
+    <div class="ui green message"><%= notice %></div>
 <% end %>
 
-<h1>
-    Schedule:
-    <%= @schedules.count %>
-</h1>
-
+<div class="ui centered card", style="margin-top: 100px;">
+    <div class="ui card">
+    <div class="content">
+        <div class="header">Schedule:
+        <%= @schedules.count %></div>
+    </div>
+    <div class="content">
+            <%= form_with url: import_schedules_path, method: :post do |form| %>
+            <%= form.file_field :file, accept: ".csv"%>
+            <%= form.button "Import Schedule", :class => "ui green button", :style => "margin-top: 20px;" %>
+        <% end %>
+    </div>
+    </div>
+</div>
