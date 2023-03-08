@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update]
   before_action :correct_user, only: [:edit, :update]
 
-  before_action :admin_user, only: [:admin, :index]
+  before_action :admin_user, only: [:admin, :index, :destroy]
 
   # GET /users or /users.json
   def index
@@ -116,7 +116,7 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "User deleted"
+    flash[:success] = "User deleted successfully"
     redirect_to users_url
   end
 
