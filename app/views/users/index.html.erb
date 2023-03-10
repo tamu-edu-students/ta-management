@@ -33,10 +33,10 @@
             <td><%= user['name'] %></td>
             <td><%= user['email_id'] %></td>
             <td><%= user['access_level'] %></td>
+            <td><li><%= link_to "Edit", edit_user_path(user) %></li></td>
             <% if current_user[:access_level] == 'admin'%>
-              <td><%= link_to "delete", user_path(user), data: { turbo_method: :delete, turbo_confirm: "Are you sure" } %></td>
+              <td><%= link_to "Delete", user_path(user), data: { turbo_method: :delete, turbo_confirm: "Are you sure" } %></td>
             <% end %>
-            <td><%= "#" %></td>
         </tr>
     <% end %>
 </table>

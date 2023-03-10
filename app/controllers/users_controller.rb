@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-  before_action :logged_in_user, only: [:edit, :update]
-  before_action :correct_user, only: [:edit, :update]
 
   before_action :admin_user, only: [:admin, :index, :destroy]
+
+  before_action :logged_in_user, only: [:edit, :update, :show]
+  before_action :correct_user, only: [:edit, :update, :show]
+
+
 
   # GET /users or /users.json
   def index
@@ -180,7 +183,7 @@ class UsersController < ApplicationController
       def correct_user
         @user = User.find(params[:id])
         # flash[:danger] = "You can only edit your profile."
-        unless current_user?(@user)
+        unless current_user?(@user) || is_admin?
           flash[:danger] = "You can only edit your profile."
           redirect_back(fallback_location: { action: "show", id: session[:user_id]}) 
         end

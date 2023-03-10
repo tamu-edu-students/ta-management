@@ -11,6 +11,11 @@
       <ul>
         <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
         <li><%= link_to "Edit Profile", edit_user_path(current_user), method: "delete" %></li>
+        <li>
+          <% if current_user[:access_level] == 'admin'%>
+            <td><%= link_to "Admin portal", admin_path(user), data: { turbo_method: :delete, turbo_confirm: "Are you sure" } %></td>
+          <% end %>
+        </li>
       </ul>
     </nav>
   </div>
