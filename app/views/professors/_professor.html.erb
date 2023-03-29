@@ -33,6 +33,8 @@
   <%= @student.feedback %>
   </p>
 
+  <button class="pp"><%=link_to "View Details", students_path(method: :get,:search => @student.name)%></button>
+
 <form>
   <textarea cols="40" id="students_review" name="students[review]"rows="15"></textarea>
   <button type="submit" onClick="/professors/#{professor.id}">Submit Review</button>
