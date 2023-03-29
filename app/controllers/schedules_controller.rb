@@ -15,4 +15,13 @@ class SchedulesController < ApplicationController
     def view
         @schedules = Schedule.all
     end
+
+    def destroy
+        @schedules = Schedule.all
+        @schedules.destroy_all
+        respond_to do |format|
+          format.html { redirect_to admin_url, notice: "Schedules were successfully removed." }
+          format.json { head :no_content }
+        end
+    end
 end

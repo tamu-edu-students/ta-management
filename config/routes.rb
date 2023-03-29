@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   end
 
   get 'view', to: 'schedules#view'
+  delete 'view', to: 'schedules#destroy'
 
   # Defines the root path route ("/")
   root to: "users#home"
