@@ -15,6 +15,7 @@
   </div>
 </header>
 <%= render @student %>
+<button class="pp"><%= link_to "Contact student", "mailto:" + @student.email_id %></button>
 
 <div>
   <%= button_to "Delete this student", @student, method: :delete %>

@@ -1,20 +1,26 @@
-<h1>Schedule</h1>
+<div class="ui padded segment">
+  <h2 class="ui header">
+    <div class="content">
+      Schedule
+      <div class="sub header">View all class schedules</div>
+    </div>
+  </h2>
 
-
-
-
-<table>
-<tr>
-    <th>Code</th>
-    <th>Course_id</th>
-    <th>Section</th>
-    <th>Lecture Day</th>
-    <th>Start Time</th>
-    <th>End Time</th>
-    <th>Instructor</th>
-    <th>PT 1</th>
-    <th>PT 2</th>
-</tr>
+  <table class="ui striped red fixed single line celled table">
+  <thead>
+    <tr>
+        <th>Code</th>
+        <th>Course_id</th>
+        <th>Section</th>
+        <th>Lecture Day</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Instructor</th>
+        <th>PT 1</th>
+        <th>PT 2</th>
+    </tr>
+  </thead>
+  <tbody>
     <% @schedules.each do |schedule| %>
         <tr>
             <td><%= schedule['code'] %></td>
@@ -28,23 +34,7 @@
             <td><%= schedule['students'][1] %></td>
         </tr>
     <% end %>
-</table>
-
-
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
+  </tbody>
+  </table>
+  <%= button_to "Remove all schedules", @schedule, method: :delete, :class => "ui negative basic button"%>
+</div>
