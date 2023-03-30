@@ -27,17 +27,6 @@
           <div class="form__lable"><%= form.label :email_id, style: "display: block" %></div>
           <div class="form__input"><%= form.text_field :email_id , value: "#{@user.email_id}" %></div>
           </div><br>
-
-          <div>
-          <div class="form__lable"><%= form.label :password, style: "display: block" %></div>
-          <div class="form__input"><%= form.password_field :password ,id: "password", value: "#{@user.password}"%></div>
-          </div><br>
-
-          <div>
-          <div class="form__lable"><%= form.label :password_confirmation, style: "display: block" %></div>
-          <div class="form__input"><%= form.password_field :password_confirmation,id: "password_confirmation", value: "#{@user.password_confirmation}" %></div>
-          </div><br>
-
           <div>
           <%= form.submit "Update" , id:"update" %>
           </div>
