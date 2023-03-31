@@ -3,9 +3,9 @@
 one:
   course_list: MyString
   course_section: MyString
-  user_id: Number
+  # user_id: Number
 
 two:
   course_list: MyString
   course_section: MyString
-  user_id: Number
+  # user_id: Number
