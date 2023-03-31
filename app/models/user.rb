@@ -9,6 +9,7 @@ class User < ApplicationRecord
     
     validates :access_level, presence: true
     # attr_accessor :confirm_password, :name, :email_id
+ editUserWithoutPwd
     validate :valid_password, on: :create
     has_secure_password
     validates :password, presence: true,length: { minimum: 6 }, on: :create

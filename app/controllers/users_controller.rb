@@ -9,6 +9,13 @@ class UsersController < ApplicationController
 
 
 
+  before_action :admin_user, only: [:admin, :index, :destroy]
+
+  before_action :logged_in_user, only: [:edit, :update, :show]
+  before_action :correct_user, only: [:edit, :update, :show]
+
+
+
   # GET /users or /users.json
   def index
     @users = User.all
