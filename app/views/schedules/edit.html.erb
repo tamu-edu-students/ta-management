@@ -1,0 +1,68 @@
+
+<div class="headers">
+          <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+          <h1>Editing Schedule</h1>
+</div>
+
+<header>
+  <div class='container'>
+    <nav>
+      <ul>
+        <li><%=link_to "Home", '/'  %></li>
+        <li><%=link_to "View Schedule", @schedule  %></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<%= render 'shared/flashes' unless flash.nil?%>
+ <div class="form__items1 pp" >
+        <%= form_with(model: @schedule) do |form| %>
+          <%= render 'error_messages' %>
+          <div>
+          <div class="form__lable"><%= form.label :code, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :code , value: "#{@schedule.code}"%></div>
+          </div><br>
+
+          <div>
+          <div class="form__lable"><%= form.label :course_id, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :course_id , value: "#{@schedule.course_id}" %></div>
+          </div><br>
+
+          <div>
+          <div class="form__lable"><%= form.label :section, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :section, value: "#{@schedule.section}"%></div>
+          </div><br>
+
+          <div>
+          <div class="form__lable"><%= form.label :lecture_day, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :lecture_day,  value: "#{@schedule.lecture_day}" %></div>
+          </div><br>
+
+          <div>
+          <div class="form__lable"><%= form.label :start_time, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :start_time, value: "#{@schedule.start_time}" %></div>
+          </div><br>
+
+          <div>
+          <div class="form__lable"><%= form.label :end_time, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :end_time, value: "#{@schedule.end_time}" %></div>
+          </div><br>
+
+          <div>
+          <div class="form__lable"><%= form.label :professor, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :professor, value: "#{@schedule.professor}" %></div>
+          </div><br>
+
+          <div>
+          <div class="form__lable"><%= form.label :students, style: "display: block" %></div>
+          <div class="form__input"><%= form.text_field :students, value: "#{@schedule.students[0..1]}" %></div>
+          </div><br>
+          
+
+          <div>
+          <%= form.submit "Update" , id:"update" %>
+          </div>
+        <% end %>
+      </div>
+
+
