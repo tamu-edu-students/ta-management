@@ -5,7 +5,24 @@
   <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
   <h1>User Info</h1>
 </div>
+<header>
+  <div class='container'>
+    <nav>
+      <ul>
+        <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
+        <li><%= link_to "Edit Profile", edit_user_path(current_user), method: "delete" %></li>
+        <li>
+          <% if current_user[:access_level] == 'admin'%>
+            <td><%= link_to "Admin portal", admin_path(user), data: { turbo_method: :delete, turbo_confirm: "Are you sure" } %></td>
+          <% end %>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+   
 <main>
+<h1>Welcome, <%= "#{@user.name}" %> </h1>
   <div class="form">
 
 <div id="<%= dom_id user %>">
@@ -20,13 +37,8 @@
   </p>
 
   <p class="pp">
-    <strong>Password:</strong>
-    <%= user.password %>
-  </p>
-
-  <p class="pp">
-    <strong>Access level:</strong>
-    <%= user.access_level %>
+    <strong><%=link_to "Apply for TA Position", new_student_path(@user)  %></strong>
+    
   </p>
 
 </div></div>

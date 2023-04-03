@@ -1,4 +1,5 @@
 class SchedulesController < ApplicationController
+    # before_action :require_user_logged_in!
     
     def import
         # binding.b
@@ -6,7 +7,7 @@ class SchedulesController < ApplicationController
         return redirect_to schedules_path, notice: "Only CSV file please" unless file.content_type == "text/csv" 
 
         CsvImportUsersService.new.call(file)
-        redirect_to admin_path, notice: "Import successful"
+        redirect_to admin_path, notice: "Successfully imported"
     end
     def index
         @schedules = Schedule.all

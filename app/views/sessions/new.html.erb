@@ -2,20 +2,29 @@
   <body>
         <div class="headers">
           <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
-          <h1>Sign Up</h1>
+          <h1>Log In</h1>
         </div>
         <header>
           <div class='container'>
             <nav>
               <ul>
                 <li><%=link_to "Home", '/'  %></li>
-                <li><%=link_to "Already registered? Login Here", login_path  %></li>
+                <% if !logged_in? %>
+                    <li><%=link_to "Already registered? Login Here", login_path  %></li>
+                <% else %>
+                    <li><%= link_to "Log Out", logout_path, method: "delete" %><li>
+                <% end %>
               </ul>
             </nav>
           </div>
         </header>
         <%= render 'shared/flashes' unless flash.nil?%>
-        <%= render "form", user: @user %>
+        <div class="form">
+            <%= render 'form' %>
+        <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+        </div>
+
+
   </body>
 <br>
 </html>

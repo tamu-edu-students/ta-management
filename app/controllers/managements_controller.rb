@@ -1,5 +1,6 @@
 class ManagementsController < ApplicationController
   before_action :set_management, only: %i[ show edit update destroy ]
+  before_action :require_user_logged_in!
 
   # GET /managements or /managements.json
   def index
