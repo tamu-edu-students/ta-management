@@ -20,3 +20,4 @@ Feature: Sign up a new user
     And I fill in "confirm_password" with "XYZ123"
     And I submit form
     Then I should see error stating "Password and confirm password do not match"
+  
