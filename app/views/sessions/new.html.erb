@@ -18,13 +18,18 @@
             </nav>
           </div>
         </header>
-        <%= render 'shared/flashes' unless flash.nil?%>
+          <%= render 'shared/flash' unless flash.nil?%>
         <div class="form">
-            <%= render 'form' %>
+            <%= form_for(:session, url: login_path) do |form| %>
+                            
+              <%= form.label :email_id, class: "form_label", style: "display: block" %>
+              <%= form.email_field :email_id, class: "form_input" %>
+
+              <%= form.label :password, class: "form_label", style: "display: block" %>
+              <%= form.password_field :password, class: "form_input", id: "password"%>
+              
+              <%= form.submit "Log in" , id:"submit" %>
+                    
+            <% end %>
         <p>New user? <%= link_to "Sign up now!", signup_path %></p>
         </div>
-
-
-  </body>
-<br>
-</html>
