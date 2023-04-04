@@ -1,11 +1,19 @@
-<%= form_for(:session, url: login_path) do |form| %>
-                
-  <%= form.label :email_id, class: "form_label", style: "display: block" %>
-  <%= form.email_field :email_id, class: "form_input" %>
 
-  <%= form.label :password, class: "form_label", style: "display: block" %>
-  <%= form.password_field :password, class: "form_input", id: "password"%>
+<%= form_with(model: @session, local: true) do |form| %>
+  <%= form.label :name, style: "display: block" %>
+  <%= form.text_field :name, class: 'form-control' %>
   
-  <%= form.submit "Log in" , id:"submit" %>
-        
+  <%= form.label :access_level, style: "display: block" %>
+  <%= form.select :access_level, ["TA", "Professor"], class: 'form-control' %>
+  
+  <%= form.label :email_id, style: "display: block" %>
+  <%= form.text_field :email_id, class: 'form-control' %>
+  
+  <%= form.label :password, style: "display: block" %>
+  <%= form.password_field :password, class: 'form-,control' ,id: "password"%>
+  
+  <%= form.label :confirm_password, style: "display: block" %>
+  <%= form.password_field :confirm_password, class: 'form-control', id: "confirm_password" %>
+  
+  <%= form.submit "Create Account" , id:"submit" %>
 <% end %>

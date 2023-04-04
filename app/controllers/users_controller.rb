@@ -71,14 +71,14 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
+    # @user.password = BCrypt::Password.create(params[:user][:password])
     respond_to do |format|
       if @user.save
-        log_in @user
-        if params[:access_level] == 'admin'
-          format.html { redirect_to admin_path, notice: "User was successfully created." }
+        if session[:user_id] == 1
+          format.html { redirect_to '/admin', notice: 'User was successfully created.' }
+          format.json { render :show, status: :created, location: @user }
         else
-          session[:id] = @user.id
-          format.html { redirect_to user_url(@user), notice: "User was successfully created." }
+          format.html { redirect_to login_path, notice: 'User was successfully created.' }
           format.json { render :show, status: :created, location: @user }
         end
       else
@@ -105,8 +105,12 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      # flash[:success] = "Profile updated"
-      redirect_to @user, notice: "User was successfully updated."
+      if session[:user_id] == 1
+        redirect_to '/admin', notice: 'User was successfully created.'
+      else
+        flash[:success] = "User profile updated"
+        redirect_to @user
+      end
     else
       render 'edit', status: :unprocessable_entity
     end

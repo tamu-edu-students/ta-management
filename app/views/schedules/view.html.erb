@@ -1,3 +1,21 @@
+<div class="headers">
+  <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em", align: "left") %>
+  <h1>Admin</h1>
+  <span>
+</div>
+<header>
+  <div class='container'>
+    <nav>
+      <ul>
+        <li><%= link_to "Home", "/admin",:style=> 'align:center',:method => "get" %></li>
+        <li><%=link_to "Upload Schedule", schedules_path,:style=> 'align:center',:method => "get" %></li>
+        <li><%=link_to "View Schedule", view_path,:style=> 'align:center',:method => "get" %></li>
+        <li><%=link_to "View All Users", users_path,:style=> 'align:center',:method => "get" %></li>
+        <li><%= link_to "Log Out", "/logout",:style=> 'align:center',:method => "get" %></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 <div class="ui padded segment">
   <h2 class="ui header">
     <div class="content">
