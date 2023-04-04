@@ -20,9 +20,7 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: "postgres"
-  password: "3662Nuel"
-  port: 5433
+  username: "ubuntu"
   
 development:
   <<: *default
@@ -32,7 +30,7 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: ta_management
+  username: ubuntu
 
   # The password associated with the postgres role (username).
   #password:
