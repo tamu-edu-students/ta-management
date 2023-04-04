@@ -7,10 +7,11 @@
   <div class='container'>
     <nav>
       <ul>
-        <li><%= link_to "Log Out", "/logout",:style=> 'align:center',:method => "get" %></li>
+        <li><%= link_to "Home", "/admin",:style=> 'align:center',:method => "get" %></li>
         <li><%=link_to "Upload Schedule", schedules_path,:style=> 'align:center',:method => "get" %></li>
         <li><%=link_to "View Schedule", view_path,:style=> 'align:center',:method => "get" %></li>
         <li><%=link_to "View All Users", users_path,:style=> 'align:center',:method => "get" %></li>
+        <li><%= link_to "Log Out", "/logout",:style=> 'align:center',:method => "get" %></li>
       </ul>
     </nav>
   </div>
@@ -61,8 +62,8 @@
           <%= form.text_field :email_id%>
           <%= form.label :Password %>
           <%= form.text_field :password%>
-          <%= form.label :Confirm_Password %>
-          <%= form.text_field :confirm_password%>
+          <%= form.label :password_confirmation %>
+          <%= form.text_field :password_confirmation%>
           <%= form.select :access_level, options_for_select([["Hiring Manager"], ["Coordinator"]]) %>
           <%= hidden_field_tag(:admin, true) %>
           <%= submit_tag "Add" %></span>
