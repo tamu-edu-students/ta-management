@@ -35,15 +35,6 @@ RSpec.describe SchedulesController, type: :controller do
       expect(response.content_type).to eq 'application/json; charset=utf-8'
     end
 
-#     it "responds to html by default" do
-#       post :create, :params => {:schedule => { :code => 'ENGR', :course_id => 102, :section => 600, :lecture_day => 'Monday', :start_time => '9:00 AM', :end_time => '10:10 AM', :professor => 123, :students => [123 ,234, 456]}, :format => :json }
-#       @current_schedule = Schedule.first
-#       form_params = {
-#          :id => @current_schedule.id,
-#       }
-#       patch :update, params: form_params
-#       expect(response.status).to eq (400)
-#     end
   end
 
   describe 'GET #show' do
