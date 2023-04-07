@@ -1,11 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe SchedulesController, type: :controller do
+  
   describe 'GET index' do
-    it 'returns a successful response' do
-      get :index
-      expect(response).to be_successful
-    end
+    context "when user is an admin" do
+      before do
+        # mock_user = double("user", access_level: "admin")
+        allow(controller).to receive(:current_user).and_return(access_level: "admin")
+      end
+
+      it 'returns a successful response' do
+        
+        get :index
+        expect(response).to be_successful
+      end
 
 #     it 'assigns @schedules' do
 #       shedule = Schedule.create
@@ -13,14 +21,29 @@ RSpec.describe SchedulesController, type: :controller do
 #       expect(assigns(:schedules)).to eq([schedule])
 #     end
 
-    it 'renders the index template' do
-      get :index
-      expect(response).to render_template('index')
+      it 'renders the index template' do
+        get :index
+        expect(response).to render_template('index')
+      end
+  
+      it 'has a 200 status code' do
+        get :index
+        expect(response.status).to eq(200)
+      end
     end
+    
+    context "when user is not an admin" do
+      let(:user) { User.create }
+      before do
+        # mock_user = double("user", access_level: "admin")
+        allow(controller).to receive(:current_user).and_return(access_level: "TA")
+      end
 
-    it 'has a 200 status code' do
-      get :index
-      expect(response.status).to eq(200)
+      it 'redirects to homepage' do
+        
+        get :index
+        expect(response.status).to eq(302)
+      end
     end
   end
 
@@ -50,5 +73,14 @@ RSpec.describe SchedulesController, type: :controller do
       response.should render_template :show
     end
   end
+  
+  describe 'Import schedule' do
+    it 'accepts the right file format' do
+      get :import, params: {content_type: "text/csv"}
+      expect(response).to render_template("schedules_path")
+      expect(notice).to eq("Only CSV file please")
+    end
+  end
+  
 
 end
