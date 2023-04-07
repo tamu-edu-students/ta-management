@@ -1,6 +1,6 @@
 class ProfessorsController < ApplicationController
   before_action :set_professor, only: %i[ show edit update destroy ]
-  before_action :require_user_logged_in!
+  # before_action :require_user_logged_in!
 
   # GET /professors or /professors.json
   def index
