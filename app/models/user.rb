@@ -1,4 +1,11 @@
 class User < ApplicationRecord
+  
+  after_create :create_associated_record
+  
+  has_one :student
+  has_one :professor
+  has_one :management
+
 
     before_save { self.email_id = email_id.downcase }
 
@@ -7,7 +14,8 @@ class User < ApplicationRecord
 
     validates :email_id, presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false }, format: { with: VALID_EMAIL_REGEX }
     
-    validates :access_level, presence: true
+    validates :access_level, presence: false
+      # Exclude access_level from validation
     # attr_accessor :confirm_password, :name, :email_id
     
     validate :valid_password, on: :create
@@ -23,4 +31,20 @@ class User < ApplicationRecord
       errors.add(:password, 'and confirm password do not match')
     end
   end
+  
+  private
+      
+    def create_associated_record
+      case access_level
+      # when 'TA'
+      #   Student.create(user: self)
+      when 'Professor'
+        Professor.create(user: self)
+      when 'Coordinator'
+        Management.create(user: self)
+      when 'Hiring Manager'
+        Management.create(user: self)
+      end
+    end
+  
 end

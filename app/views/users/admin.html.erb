@@ -11,6 +11,7 @@
         <li><%=link_to "Upload Schedule", schedules_path,:style=> 'align:center',:method => "get" %></li>
         <li><%=link_to "View Schedule", view_path,:style=> 'align:center',:method => "get" %></li>
         <li><%=link_to "View All Users", users_path,:style=> 'align:center',:method => "get" %></li>
+        <li><%=link_to "Students Application", students_path,:style=> 'align:center',:method => "get" %></li>
         <li><%= link_to "Log Out", "/logout",:style=> 'align:center',:method => "get" %></li>
       </ul>
     </nav>
@@ -64,7 +65,7 @@
           <%= form.text_field :password%>
           <%= form.label :password_confirmation %>
           <%= form.text_field :password_confirmation%>
-          <%= form.select :access_level, options_for_select([["Hiring Manager"], ["Coordinator"]]) %>
+          <%= form.select :access_level, options_for_select([["Hiring Manager"], ["Coordinator"], ["Professor"]]) %>
           <%= hidden_field_tag(:admin, true) %>
           <%= submit_tag "Add" %></span>
         <% end %>

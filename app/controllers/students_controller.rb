@@ -1,5 +1,8 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: %i[show edit update destroy]
+  # before_action :set_student, only: %i[show edit update destroy]
+  
+  before_action :logged_in_user, only: [:new]
+  before_action :admin_user, only: [:index, :search_students, :show, :edit, :update, :destroy, :delete]
   # before_action :logged_in!
 
   # GET /students or /students.json
@@ -14,7 +17,7 @@ class StudentsController < ApplicationController
   end
 
   def search_students
-    if @student = Student.all.find { |student| student.name.downcase.include?(params[:search].downcase) }
+    if @student = Student.all.find { |student| student.user.name.downcase.include?(params[:search].downcase) }
       redirect_to student_url(@student)
     end
   end
@@ -27,6 +30,9 @@ class StudentsController < ApplicationController
   # GET /students/new
   def new
     @student = Student.new
+    @user = User.find_by_id(session[:user_id])
+    
+    # flash[:alert] = "Your name and email id are already set as #{@user.name} and #{@user.email_id}"
   end
 
   # GET /students/1/edit
@@ -39,7 +45,7 @@ class StudentsController < ApplicationController
     respond_to do |format|
       if @student.save
 
-        format.html { redirect_to new_student_path, notice: 'Application was successfully submitted.' }
+        format.html { redirect_to users_path, notice: 'Application was successfully submitted.' }
         format.json { render :show, status: :created, location: @student }
       else
         flash[:alert] = @student.errors.full_messages
@@ -104,19 +110,22 @@ class StudentsController < ApplicationController
   private
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_student
-    @student = Student.find(params[:id])
-  end
+  # def set_student
+  #   @student = Student.find(params[:id])
+  # end
 
   # Only allow a list of trusted parameters through.
   def student_params
-    params.require(:student).permit(:name, :email_id, :uin, :employment_status, :is_undergrad, :courses_completed, :resume, :transcript, :access_level, :application_status, :comments, :assigned_courses, :assigned_sections, :rating, :feedback, :sections)
+    params.require(:student).permit(:uin, :employment_status, :is_undergrad, :courses_completed, :resume, :transcript, :access_level, :application_status, :comments, :assigned_courses, :assigned_sections, :rating, :feedback, :sections, :user_id)
   end
 
   def process_params
+    # @student.name = params[:student][:name] == @user.name
+    # @student.email_id = params[:student][:email_id] == @user.email_id
     @student.employment_status = params[:student][:employment_status] == 'Yes'
     @student.is_undergrad = params[:student][:is_undergrad] == 'Yes'
     @student.courses_completed = params[:student][:courses_completed] == 'Both' ? %w[102 216] : [params[:student][:courses_completed]]
+    @student.user_id = session[:user_id]
   end
 
   def update_params
@@ -157,4 +166,20 @@ class StudentsController < ApplicationController
     assignment.professor = professor
     assignment.save!
   end
+  
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = "Please log in."
+      redirect_to login_url
+    end
+  end
+
+  # Confirms an admin user
+  def admin_user
+    unless is_admin?
+      flash[:danger] = "You do not have administrative access to this page."
+      redirect_back(fallback_location: { action: "new", id: session[:user_id]})
+    end
+  end
+  
 end
