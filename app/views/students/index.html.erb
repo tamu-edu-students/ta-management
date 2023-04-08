@@ -11,18 +11,18 @@
     <% end %>
   </div>
   <header>
-    <div class='container'>
-      <nav>
-        <ul>
-          <li><%=link_to "Home", '/students'  %></li>
-          <li><%=link_to "Assign Subjects", '/subjects'  %></li>
-          <li><%=link_to "Assign Professors", '/professors/new'  %></li>
-          <li><%= link_to "Log out", '/users/user/login', :style=> 'position:absolute; margin-left:60%;', :method => "get" %></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
+  <div class='container'>
+    <nav>
+      <ul>
+        <li><%= link_to "Home", "/admin",:style=> 'align:center',:method => "get" %></li>
+        <li><%=link_to "Assign Subjects", '/subjects'  %></li>
+        <li><%=link_to "Assign Professors", '/professors/new'  %></li>
+        <li><%=link_to "Students Application", students_path,:style=> 'align:center',:method => "get" %></li>
+        <li><%= link_to "Log Out", "/logout",:style=> 'align:center',:method => "get" %></li>
+      </ul>
+    </nav>
+  </div>
+</header>
   <br>
 <main>
   <%= render 'shared/flashes' unless flash.nil?%>
@@ -37,11 +37,11 @@
     <th width='1%', align="center"><%= "Transcript"%> </th>
     <th width='1%', align="center"><%= link_to "Application Status", :sort => "application_status"%> </th>
   </tr>
-  <% @students.each do |student| %>
+  <% @students.includes(:user).each do |student| %>
     <tr>
-      <td width='1%', align="center"><%=link_to student.name, students_path(method: :get,:search => student.name)%></td>
-      <td width='1%', align="center"><%=student.email_id %></td>
-      <td width='1%', align="center"><%=student.uin %></td>
+      <td width='1%', align="center"><%=link_to student.user.name, students_path(method: :get,:search => student.user.name)%></td>
+      <td width='1%', align="center"><%= student.user.email_id %></td>
+      <td width='1%', align="center"><%= student.uin %></td>
       <td width='1%', align="center"><%=student.is_undergrad %></td>
       <td width='1%', align="center"><%=student.employment_status %></td>
       <td  width='1%', align="center"><%=link_to "Click", student.resume, :target => "_blank" %></td>

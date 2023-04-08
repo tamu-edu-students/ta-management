@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_05_154327) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_07_182952) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_154327) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "email_id"
+    t.integer "user_id"
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -56,8 +57,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_154327) do
   end
 
   create_table "students", force: :cascade do |t|
-    t.string "name"
-    t.string "email_id"
     t.boolean "employment_status"
     t.boolean "is_undergrad"
     t.text "courses_completed", default: [], array: true
@@ -74,6 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_154327) do
     t.datetime "updated_at", null: false
     t.boolean "is_active"
     t.integer "uin"
+    t.integer "user_id"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -85,7 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_154327) do
 
   create_table "users", force: :cascade do |t|
     t.string "email_id"
-    t.string "access_level"
+    t.string "access_level", default: "TA"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
@@ -96,4 +96,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_05_154327) do
   add_foreign_key "assignments", "students"
   add_foreign_key "assignments", "subjects"
   add_foreign_key "managements", "users"
+  add_foreign_key "professors", "users"
+  add_foreign_key "students", "users"
 end
