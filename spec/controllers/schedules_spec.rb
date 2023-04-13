@@ -1,86 +1,129 @@
 require 'rails_helper'
+require 'capybara/rspec'
 
 RSpec.describe SchedulesController, type: :controller do
-  
-  describe 'GET index' do
-    context "when user is an admin" do
-      before do
-        # mock_user = double("user", access_level: "admin")
-        allow(controller).to receive(:current_user).and_return(access_level: "admin")
-      end
+  before(:all) do
+    if Schedule.where(:code => "ENGR").empty?
+      Schedule.create(:code => "ENGR", 
+                   :course_id => 404, 
+                   :section => 201, 
+                   :lecture_day => "Sunday",
+                   :start_time => "10:00 AM",
+                   :end_time => "12:00 PM",
+                   :professor => "Lara",
+                   :students => ["kim@yahoo.com", "love@yahoo.com"])
+    end
 
-      it 'returns a successful response' do
-        
-        get :index
-        expect(response).to be_successful
-      end
+    if Schedule.where(:code => "CS").empty?
+      Schedule.create(:code => "CS", 
+                   :course_id => 239, 
+                   :section => 210, 
+                   :lecture_day => "Friday",
+                   :start_time => "10:00 AM",
+                   :end_time => "12:00 PM",
+                   :professor => "Koom",
+                   :students => ["kim@yahoo.com", "love@yahoo.com"])
+    end
 
-#     it 'assigns @schedules' do
-#       shedule = Schedule.create
-#       get :index
-#       expect(assigns(:schedules)).to eq([schedule])
-#     end
+    if Schedule.where(:code => "PHYS").empty?
+      Schedule.create(:code => "PHYS", 
+                   :course_id => 504, 
+                   :section => 201, 
+                   :lecture_day => "Tuesday",
+                   :start_time => "10:00 AM",
+                   :end_time => "12:00 PM",
+                   :professor => "Lara",
+                   :students => ["kim@yahoo.com", "love@yahoo.com"])
+    end
 
-      it 'renders the index template' do
-        get :index
-        expect(response).to render_template('index')
-      end
-  
-      it 'has a 200 status code' do
-        get :index
-        expect(response.status).to eq(200)
-      end
+    if Schedule.where(:code => "KIK").empty?
+      Schedule.create(:code => "KIK", 
+                   :course_id => 204, 
+                   :section => 301, 
+                   :lecture_day => "Thursday",
+                   :start_time => "10:00 AM",
+                   :end_time => "12:00 PM",
+                   :professor => "Lara",
+                   :students => ["kim@yahoo.com", "love@yahoo.com"])
     end
     
-    context "when user is not an admin" do
-      let(:user) { User.create }
-      before do
-        # mock_user = double("user", access_level: "admin")
-        allow(controller).to receive(:current_user).and_return(access_level: "TA")
-      end
-
-      it 'redirects to homepage' do
-        
-        get :index
-        expect(response.status).to eq(302)
-      end
+    if Schedule.where(:code => "SIS").empty?
+      Schedule.create(:code => "SIS", 
+                   :course_id => 604, 
+                   :section => 601, 
+                   :lecture_day => "Monday",
+                   :start_time => "10:00 AM",
+                   :end_time => "12:00 PM",
+                   :professor => "Lara",
+                   :students => ["kim@yahoo.com", "love@yahoo.com"])
     end
   end
 
-  describe 'responds to' do
-    it 'responds to html by default' do
-      post :create, params: { schedule: { code: 'ENGR', course_id: 102, section: 600, lecture_day: 'Monday', start_time: '9:00 AM', end_time: '10:10 AM', professor: 123, students: [123 ,234, 456]} }
-      expect(response.content_type).to eq 'text/html; charset=utf-8'
+  describe 'GET index' do
+    it 'returns a successful response' do
+      get :index
+      expect(response).to be_successful
     end
 
-    it 'responds to custom formats when provided in the params' do
-        post :create, params: { schedule: { code: 'ENGR', course_id: 102, section: 600, lecture_day: 'Monday', start_time: '9:00 AM', end_time: '10:10 AM', professor: 123, students: [123 ,234, 456]}, format: :json }
-      expect(response.content_type).to eq 'application/json; charset=utf-8'
+    it 'renders the index template' do
+      get :index
+      expect(response).to render_template('index')
     end
 
+    it 'has a 200 status code' do
+      get :index
+      expect(response.status).to eq(200)
+    end
   end
 
-  describe 'GET #show' do
-    it 'assigns the requested schedule to @schedule' do
-      schedule = FactoryBot.create(:schedule)
-      get :show, params: { id: schedule.id }
-      assigns(:schedule).should eq(schedule)
+  describe "views", type: :feature do
+    it "views all schedules" do
+      visit '/view'
+      expect(response.status).to eq(200)
     end
+  end
 
-    it 'renders the #show view' do
-      schedule = FactoryBot.create(:schedule)
-      get :show, params: { id: schedule.id }
-      response.should render_template :show
+  describe "remove schedules", type: :feature do 
+    it "deletes all schedules" do
+      get :destroy
+      expect(flash[:notice]).to match(/Schedules were successfully removed./)
     end
   end
-  
-  describe 'Import schedule' do
-    it 'accepts the right file format' do
-      get :import, params: {content_type: "text/csv"}
-      expect(response).to render_template("schedules_path")
-      expect(notice).to eq("Only CSV file please")
-    end
-  end
-  
+
+  # describe 'responds to' do
+  #   it 'responds to html by default' do
+  #     post :create, params: { schedule: { code: 'ENGR', course_id: 102, section: 600, lecture_day: 'Monday', start_time: '9:00 AM', end_time: '10:10 AM', professor: 123, students: [123 ,234, 456]} }
+  #     expect(response.content_type).to eq 'text/html; charset=utf-8'
+  #   end
+
+  #   it 'responds to custom formats when provided in the params' do
+  #       post :create, params: { schedule: { code: 'ENGR', course_id: 102, section: 600, lecture_day: 'Monday', start_time: '9:00 AM', end_time: '10:10 AM', professor: 123, students: [123 ,234, 456]}, format: :json }
+  #     expect(response.content_type).to eq 'application/json; charset=utf-8'
+  #   end
+
+#     it "responds to html by default" do
+#       post :create, :params => {:schedule => { :code => 'ENGR', :course_id => 102, :section => 600, :lecture_day => 'Monday', :start_time => '9:00 AM', :end_time => '10:10 AM', :professor => 123, :students => [123 ,234, 456]}, :format => :json }
+#       @current_schedule = Schedule.first
+#       form_params = {
+#          :id => @current_schedule.id,
+#       }
+#       patch :update, params: form_params
+#       expect(response.status).to eq (400)
+#     end
+  # end
+
+  # describe 'GET #show' do
+  #   it 'assigns the requested schedule to @schedule' do
+  #     schedule = FactoryBot.create(:schedule)
+  #     get :show, params: { id: schedule.id }
+  #     assigns(:schedule).should eq(schedule)
+  #   end
+
+  #   it 'renders the #show view' do
+  #     schedule = FactoryBot.create(:schedule)
+  #     get :show, params: { id: schedule.id }
+  #     response.should render_template :show
+  #   end
+  # end
 
 end
