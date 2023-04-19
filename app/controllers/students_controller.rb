@@ -57,9 +57,10 @@ class StudentsController < ApplicationController
 
   # PATCH/PUT /students/1 or /students/1.json
   def update
+    @student = Student.find_by(id: params[:id])
     respond_to do |format|
       if params[:subjects_page]
-        if @student.update(update_params)
+        if @student.present? && @student.update(update_params)
           format.html { redirect_to subjects_path, notice: 'Subject was successfully assigned to student.' }
           format.json { render :show, status: :ok, location: @student }
         else
@@ -68,7 +69,8 @@ class StudentsController < ApplicationController
           format.json { render json: @student.errors, status: :unprocessable_entity }
         end
       elsif params[:students_page]
-        if @student.update(update_params)
+        
+        if @student.present? && @student.update(update_params)
           format.html { redirect_to students_url, notice: 'Student status was successfully updated.' }
           format.json { render :show, status: :ok, location: @student }
         else
@@ -85,7 +87,7 @@ class StudentsController < ApplicationController
           format.html { redirect_to edit_student_path }
           format.json { render json: @student.errors, status: :unprocessable_entity }
         end
-    end
+      end
 
 
     end
@@ -154,7 +156,7 @@ class StudentsController < ApplicationController
     # if(params[:student].has_key?(:assigned_sections))
     #   map["assigned_sections"] = [params[:student][:assigned_sections]]
     # end
-    map
+    return map
   end
 
   def assign(course, section)
