@@ -86,7 +86,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_143109) do
 
   create_table "users", force: :cascade do |t|
     t.string "email_id"
-    t.string "password"
     t.string "access_level", default: "TA"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
