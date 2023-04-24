@@ -13,6 +13,7 @@ class CsvImportUsersService
             schedule_hash[:start_time] = row['Start Time']
             schedule_hash[:end_time] = row['End Time']
             schedule_hash[:professor] = row['Instructor']
+            schedule_hash[:professor_email] = row['Instructor Email']
             schedule_hash[:students] = [row['PT 1'], row['PT 2']]
             
             # binding.b
