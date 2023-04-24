@@ -4,7 +4,7 @@ class SubjectsController < ApplicationController
   before_action :set_subject, only: %i[show edit update destroy]
 
   # before_action :require_user_logged_in!
-  before_action :admin_user, :coordinator_user
+  before_action :management_user
 
   # GET /subjects or /subjects.json
   def index
@@ -114,8 +114,8 @@ class SubjectsController < ApplicationController
     end
   end
   # Confirms a coordinator user
-  def coordinator_user
-    unless is_coordinator?
+  def management_user
+    unless is_management?
       flash[:danger] = "You do not have administrative access to this page."
       redirect_to user_url(session[:user_id])
     end
