@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
   # before_action :set_student, only: %i[show edit update destroy]
   
   before_action :logged_in_user, only: [:new]
-  before_action :admin_user, only: [:index, :search_students, :show, :edit, :update, :destroy, :delete]
+  before_action :management_user, only: [:index, :search_students, :show, :edit, :update, :destroy, :delete]
   # before_action :logged_in!
 
   # GET /students or /students.json
@@ -177,11 +177,17 @@ class StudentsController < ApplicationController
   end
 
   # Confirms an admin user
-  def admin_user
-    unless is_admin?
+  # def admin_user
+  #   unless is_admin?
+  #     flash[:danger] = "You do not have administrative access to this page."
+  #     redirect_to user_url(session[:user_id])
+  #   end
+  # end
+  
+  def management_user
+    unless is_management?
       flash[:danger] = "You do not have administrative access to this page."
       redirect_to user_url(session[:user_id])
     end
   end
-  
 end

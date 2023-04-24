@@ -22,9 +22,20 @@ class UsersController < ApplicationController
   end
 
   def home
+    # @user = User.find(session[:user_id])
     if logged_in?
-      user = User.find(session[:user_id])
-      redirect_to user_url(user)
+      @user = User.find(session[:user_id])
+      if @user.access_level == 'TA'
+        redirect_to user_url(user)
+      elsif @user.access_level == 'Coordinator'
+        redirect_to '/students'
+      elsif @user.access_level == 'Professor'
+        redirect_to "/professors/#{@user.id}"
+      elsif @user.access_level == 'Hiring Manager'
+        redirect_to '/students'
+      else @user.access_level == 'admin'
+        redirect_to '/admin'
+      end
     else
       render :home
     end
@@ -177,11 +188,19 @@ class UsersController < ApplicationController
         end
       end
 
+      # Confirms a coordinator user
+      def management_user
+        unless is_management?
+          flash[:danger] = "You do not have administrative access to this page."
+          redirect_back(fallback_location: { action: "show", id: session[:user_id]})
+        end
+      end 
+
       # Confirms the correct user
       def correct_user
         @user = User.find(params[:id])
         # flash[:danger] = "You can only edit your profile."
-        unless current_user?(@user) || is_admin?
+        unless current_user?(@user) || is_admin? || is_coordinator?
           flash[:danger] = "You can only edit your profile."
           redirect_back(fallback_location: { action: "show", id: session[:user_id]}) 
         end
