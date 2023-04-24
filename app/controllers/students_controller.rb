@@ -1,8 +1,9 @@
 class StudentsController < ApplicationController
   # before_action :set_student, only: %i[show edit update destroy]
   
-  before_action :logged_in_user, only: [:new]
-  before_action :admin_user, only: [:index, :search_students, :show, :edit, :update, :destroy, :delete]
+  before_action :logged_in_user, only: [:new, :create]
+  before_action :coordinator_user, :admin_user, only: [:index, :search_students, :show, :edit, :update, :destroy, :delete]
+  # before_action :coordinator_user, only: [:index, :search_students, :show, :edit, :update, :destroy, :delete]
   # before_action :logged_in!
 
   # GET /students or /students.json
@@ -45,7 +46,7 @@ class StudentsController < ApplicationController
     respond_to do |format|
       if @student.save
 
-        format.html { redirect_to users_path, notice: 'Application was successfully submitted.' }
+        format.html { redirect_to users_url(@user), notice: 'Application was successfully submitted.' }
         format.json { render :show, status: :created, location: @student }
       else
         flash[:alert] = @student.errors.full_messages
@@ -179,6 +180,14 @@ class StudentsController < ApplicationController
   # Confirms an admin user
   def admin_user
     unless is_admin?
+      flash[:danger] = "You do not have administrative access to this page."
+      redirect_to user_url(session[:user_id])
+    end
+  end
+  
+    # Confirms a coordinator user
+  def coordinator_user
+    unless is_coordinator?
       flash[:danger] = "You do not have administrative access to this page."
       redirect_to user_url(session[:user_id])
     end

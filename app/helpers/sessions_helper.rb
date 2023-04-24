@@ -27,4 +27,8 @@ module SessionsHelper
     def is_admin?
         current_user[:access_level] == 'admin'
     end
+    
+    def is_coordinator?
+        current_user[:access_level] == 'Coordinator'
+    end
 end
