@@ -178,12 +178,13 @@ class StudentsController < ApplicationController
   end
 
   # Confirms an admin user
-  def admin_user
-    unless is_admin?
-      flash[:danger] = "You do not have administrative access to this page."
-      redirect_to user_url(session[:user_id])
-    end
-  end
+  # def admin_user
+  #   unless is_admin?
+  #     flash[:danger] = "You do not have administrative access to this page."
+  #     redirect_to user_url(session[:user_id])
+  #   end
+  # end
+  
   
     # Confirms a coordinator user
   def management_user
@@ -192,5 +193,4 @@ class StudentsController < ApplicationController
       redirect_to user_url(session[:user_id])
     end
   end
-  
 end

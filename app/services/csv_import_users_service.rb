@@ -42,11 +42,11 @@ class CsvImportUsersService
     end
     
     # { skipped_rows: skipped_rows }
-    puts "Testing 1"
-    puts skipped_rows.class
-    puts skipped_rows.length()
-    puts "Testing 2"
-    puts "Skipped Rows: #{skipped_rows.join(', ')}" unless skipped_rows.empty?
+    # puts "Testing 1"
+    # puts skipped_rows.class
+    # puts skipped_rows.length()
+    # puts "Testing 2"
+    # puts "Skipped Rows: #{skipped_rows.join(', ')}" unless skipped_rows.empty?
     
     return skipped_rows
   end
