@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     if logged_in?
       @user = User.find(session[:user_id])
       if @user.access_level == 'TA'
-        redirect_to user_url(user)
+        redirect_to user_url(@user)
       elsif @user.access_level == 'Coordinator'
         redirect_to '/students'
       elsif @user.access_level == 'Professor'
@@ -49,6 +49,7 @@ class UsersController < ApplicationController
   def show
     if logged_in?
       @user = User.find(params[:id])
+      @student2 = Student.find_by_user_id(session[:user_id])
     else
       redirect_to root_url, notice: "You are not logged in" 
     end

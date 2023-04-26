@@ -31,7 +31,7 @@ class StudentsController < ApplicationController
   # GET /students/new
   def new
     @student = Student.new
-    @user = User.find_by_id(session[:user_id])
+    # @student2 = Student.find_by_user_id(session[:user_id])
     
     # flash[:alert] = "Your name and email id are already set as #{@user.name} and #{@user.email_id}"
   end
@@ -42,11 +42,12 @@ class StudentsController < ApplicationController
   # POST /students or /students.json
   def create
     @student = Student.new(student_params)
+    @user = User.find_by_id(session[:user_id])
     process_params
     respond_to do |format|
       if @student.save
 
-        format.html { redirect_to users_url(@user), notice: 'Application was successfully submitted.' }
+        format.html { redirect_to user_url(@user), notice: 'Application was successfully submitted.' }
         format.json { render :show, status: :created, location: @student }
       else
         flash[:alert] = @student.errors.full_messages
@@ -129,6 +130,7 @@ class StudentsController < ApplicationController
     @student.is_undergrad = params[:student][:is_undergrad] == 'Yes'
     @student.courses_completed = params[:student][:courses_completed] == 'Both' ? %w[102 216] : [params[:student][:courses_completed]]
     @student.user_id = session[:user_id]
+    @student.application_status = "applied"
   end
 
   def update_params
