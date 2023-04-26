@@ -1,4 +1,9 @@
-<h1>Editing user</h1>
+
+<div class="headers">
+          <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+          <h1>Editing user</h1>
+</div>
+
 <header>
   <div class='container'>
     <nav>
@@ -12,29 +17,15 @@
 <%= render 'shared/flashes' unless flash.nil?%>
  <div class="form__items1 pp" >
         <%= form_with(model: @user) do |form| %>
+          <%= render 'shared/error_messages' %>
           <div>
           <div class="form__lable"><%= form.label :name, style: "display: block" %></div>
           <div class="form__input"><%= form.text_field :name , value: "#{@user.name}"%></div>
           </div><br>
 
           <div>
-          <div class="form__lable"><%= form.label :access_level, style: "display: block" %></div>
-          <div class="form__input"><%= form.text_field :access_level, value: "#{@user.access_level}", readonly: true %></div>
-          </div><br>
-
-          <div>
           <div class="form__lable"><%= form.label :email_id, style: "display: block" %></div>
           <div class="form__input"><%= form.text_field :email_id , value: "#{@user.email_id}" %></div>
-          </div><br>
-
-          <div>
-          <div class="form__lable"><%= form.label :password, style: "display: block" %></div>
-          <div class="form__input"><%= form.password_field :password ,id: "password", value: "#{@user.password}"%></div>
-          </div><br>
-
-          <div>
-          <div class="form__lable"><%= form.label :confirm_password, style: "display: block" %></div>
-          <div class="form__input"><%= form.password_field :confirm_password,id: "confirm_password", value: "#{@user.confirm_password}" %></div>
           </div><br>
 
           <div>

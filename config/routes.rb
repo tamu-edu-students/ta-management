@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # get 'sessions/new'
   resources :managements
   resources :professors
   resources :users
@@ -8,8 +9,8 @@ Rails.application.routes.draw do
   # delete 'students/:id', to: 'students#delete'
   # post 'students/create', to: 'students#create'
   # get 'students/index', to: 'students#index'
-  get 'users/user/login', to: 'users#login'
-  post 'users/user/login', to: 'users#login'
+  # get 'users/user/login', to: 'users#login'
+  # post 'users/user/login', to: 'users#login'
   get 'admin', to: 'users#admin'
   # post 'admin', to: 'users#admin'
   # get 'users/user/home', to: 'users#home'
@@ -20,6 +21,20 @@ Rails.application.routes.draw do
   resources :subjects
   post 'subjects/assign', to: 'subjects#assign'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get 'signup', to: 'users#new'
+
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  get 'logout', to: 'sessions#destroy'
+
+  resources :schedules do
+    collection do
+      post :import
+    end
+  end
+
+  get 'view', to: 'schedules#view'
+  delete 'view', to: 'schedules#destroy'
 
   # Defines the root path route ("/")
   root to: "users#home"

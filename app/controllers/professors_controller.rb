@@ -1,9 +1,12 @@
 class ProfessorsController < ApplicationController
   before_action :set_professor, only: %i[ show edit update destroy ]
+  # before_action :require_user_logged_in!
 
   # GET /professors or /professors.json
   def index
     @professors = Professor.all
+    @assign = Assignment.find_by(professor_id: @professor.id)
+    @student = Student.find(@assign.student_id)
   end
 
   # GET /professors/1 or /professors/1.json

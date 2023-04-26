@@ -8,15 +8,34 @@
       <div class='container'>
         <nav>
           <ul>
-            <li><%=link_to "Home", '/students'  %></li>
-            <li><%=link_to "Login", '/users/user/login'%></li>
-            <li><%=link_to "Sign Up", '/users/new' %></li>
+            <li><%=link_to "Home", root_url  %></li>
           </ul>
         </nav>
       </div>
     </header>
+
+     <p class="pp">
+      <strong>Application Status:</strong>
+      <%= @student.application_status %>
+    </p>
     <%= render 'shared/flashes' unless flash.nil?%>
+
+  <% if @student.application_status == "not applied" %>
     <%= render "form", student: @student %>
+  <% elsif @student.application_status == "rejected" %>
+    <p class="pp">
+      <strong>Message:</strong>
+      Sorry, your application is rejected.
+    </p>
+  <% elsif @student.application_status == "hired" %>
+    <strong><%=link_to "Check your schedule", new_student_path(@user)  %></strong>
+  <% else %>
+    <p class="pp">
+      <strong>Message:</strong>
+      You will be notified once your application is reviewed and accepted.
+    </p>
+  <% end %>
+
   </body>
 <br>
 </html>

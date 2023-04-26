@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_11_214123) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_19_143109) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,11 +40,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_11_214123) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "email_id"
+    t.integer "user_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.text "code"
+    t.integer "course_id"
+    t.integer "section"
+    t.text "lecture_day"
+    t.text "start_time"
+    t.text "end_time"
+    t.text "professor"
+    t.text "students", array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "professor_email"
   end
 
   create_table "students", force: :cascade do |t|
-    t.string "name"
-    t.string "email_id"
     t.boolean "employment_status"
     t.boolean "is_undergrad"
     t.text "courses_completed", default: [], array: true
@@ -61,6 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_11_214123) do
     t.datetime "updated_at", null: false
     t.boolean "is_active"
     t.integer "uin"
+    t.integer "user_id"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -72,15 +86,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_11_214123) do
 
   create_table "users", force: :cascade do |t|
     t.string "email_id"
-    t.string "password"
-    t.string "access_level"
+    t.string "access_level", default: "TA"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.string "password_digest"
   end
 
   add_foreign_key "assignments", "professors"
   add_foreign_key "assignments", "students"
   add_foreign_key "assignments", "subjects"
   add_foreign_key "managements", "users"
+  add_foreign_key "professors", "users"
+  add_foreign_key "students", "users"
 end

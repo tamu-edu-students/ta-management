@@ -9,12 +9,13 @@
       <ul>
         <li><%=link_to "Home", '/students'  %></li>
         <li><%=link_to "Students", '/students'  %></li>
-        <li><%=link_to "Edit Application",edit_student_path(@student)%></li>
+        <li><%=link_to "Edit Application", edit_student_path(@student)%></li>
       </ul>
     </nav>
   </div>
 </header>
 <%= render @student %>
+<button class="pp"><%= link_to "Contact student", "mailto:" + @student.user.email_id %></button>
 
 <div>
   <%= button_to "Delete this student", @student, method: :delete %>

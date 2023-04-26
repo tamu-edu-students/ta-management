@@ -1,0 +1,35 @@
+<html>
+  <body>
+        <div class="headers">
+          <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+          <h1>Log In</h1>
+        </div>
+        <header>
+          <div class='container'>
+            <nav>
+              <ul>
+                <li><%=link_to "Home", '/'  %></li>
+                <% if !logged_in? %>
+                    <li><%=link_to "Already registered? Login Here", login_path  %></li>
+                <% else %>
+                    <li><%= link_to "Log Out", logout_path, method: "delete" %><li>
+                <% end %>
+              </ul>
+            </nav>
+          </div>
+        </header>
+          <%= render 'shared/flash' unless flash.nil?%>
+        <div class="form">
+            <%= form_for(:session, url: login_path) do |form| %>
+                            
+              <%= form.label :email_id, class: "form_label", style: "display: block" %>
+              <%= form.email_field :email_id, class: "form_input" %>
+
+              <%= form.label :password, class: "form_label", style: "display: block" %>
+              <%= form.password_field :password, class: "form_input", id: "password"%>
+              
+              <%= form.submit "Log in" , id:"submit" %>
+                    
+            <% end %>
+        <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+        </div>
