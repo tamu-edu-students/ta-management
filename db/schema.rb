@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_19_143109) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_26_144153) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,7 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_19_143109) do
     t.string "resume"
     t.string "transcript"
     t.text "access_level", default: ["applicant"], array: true
-    t.string "application_status", default: "applied"
+    t.string "application_status", default: "not applied"
     t.string "comments"
     t.text "assigned_courses", default: [], array: true
     t.text "assigned_sections", default: [], array: true

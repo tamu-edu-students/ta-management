@@ -6,6 +6,8 @@ class CsvImportUsersService
     csv = CSV.parse(file, headers: true, col_sep: ",")
 
     skipped_rows = []
+    @schedules = Schedule.all
+    @schedules.destroy_all
     csv.each do |row|
         if row['PT 1'] != "CLOSED"
           user1 = User.find_by(email_id: row['PT 1'])
