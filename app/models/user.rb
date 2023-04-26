@@ -45,6 +45,8 @@ class User < ApplicationRecord
         Management.create(user: self)
       when 'Hiring Manager'
         Management.create(user: self)
+      # when 'TA'
+      #   Student.create(user: self)
       end
     end
   

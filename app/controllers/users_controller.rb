@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     if logged_in?
       @user = User.find(session[:user_id])
       if @user.access_level == 'TA'
-        redirect_to user_url(user)
+        redirect_to user_url(@user)
       elsif @user.access_level == 'Coordinator'
         redirect_to '/students'
       elsif @user.access_level == 'Professor'
