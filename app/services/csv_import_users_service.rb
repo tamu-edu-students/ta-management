@@ -5,20 +5,25 @@ class CsvImportUsersService
     file = File.open(file)
     csv = CSV.parse(file, headers: true, col_sep: ",")
 
-    skipped_pts = []
+    skipped_rows = []
     csv.each do |row|
-      user1 = User.find_by(email_id: row['PT 1'])
-      user2 = User.find_by(email_id: row['PT 2'])
-      
-      if user1.nil?
-        skipped_pts << row['PT 1']
-        next
-      end
-      
-      if user2.nil?
-        skipped_pts << row['PT 2']
-        next
-      end
+        if row['PT 1'] != "CLOSED"
+          user1 = User.find_by(email_id: row['PT 1'])
+        
+          if user1.nil?
+            skipped_rows << row['PT 1']
+            row['PT 1'] = "TA Not Registered"
+          end
+        end
+        
+        if row['PT 2'] != "CLOSED"
+          user2 = User.find_by(email_id: row['PT 2'])
+          
+          if user2.nil?
+            skipped_rows << row['PT 2']
+            row['PT 2'] = "TA Not Registered"
+          end
+        end
 
       schedule_hash = {}
       schedule_hash[:code] = row['Code']
@@ -34,6 +39,13 @@ class CsvImportUsersService
       Schedule.create(schedule_hash)
     end
     
-    puts "Skipped PTs: #{skipped_pts.join(', ')}" unless skipped_pts.empty?
+    # { skipped_rows: skipped_rows }
+    puts "Testing 1"
+    puts skipped_rows.class
+    puts skipped_rows.length()
+    puts "Testing 2"
+    puts "Skipped Rows: #{skipped_rows.join(', ')}" unless skipped_rows.empty?
+    
+    return skipped_rows
   end
 end
