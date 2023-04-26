@@ -49,6 +49,7 @@ class UsersController < ApplicationController
   def show
     if logged_in?
       @user = User.find(params[:id])
+      @student2 = Student.find_by_user_id(session[:user_id])
     else
       redirect_to root_url, notice: "You are not logged in" 
     end

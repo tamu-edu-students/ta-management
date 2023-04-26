@@ -31,7 +31,7 @@ class StudentsController < ApplicationController
   # GET /students/new
   def new
     @student = Student.new
-    @student2 = User.find_by_id(session[:user_id])
+    # @student2 = Student.find_by_user_id(session[:user_id])
     
     # flash[:alert] = "Your name and email id are already set as #{@user.name} and #{@user.email_id}"
   end
