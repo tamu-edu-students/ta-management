@@ -4,7 +4,7 @@ FactoryBot.define do
     name { 'John' }
     email_id { 'anc@gmail.com' }
     password { 'password' }
-    confirm_password { 'password' }
-    access_level { 'professor' }
+    password_confirmation { 'password' }
+    access_level { 'TA' }
   end
 end
