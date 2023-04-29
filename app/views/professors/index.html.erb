@@ -3,6 +3,7 @@
 <div id="professors">
   <% @professors.each do |professor| %>
     <%= render professor %>
+    <%= render partial: "professor", locals: { professor: professor, @student: @students } %>
     <p>
       <%= link_to "Show this professor", professor %>
     </p>

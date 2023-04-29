@@ -16,6 +16,11 @@
             <td><%= link_to "Admin portal", admin_path(user) %></td>
           <% end %>
         </li>
+                <li>
+          <% if current_user[:access_level] == 'Professor'%>
+            <td><%= link_to "View TAs", "/professors/#{@user.id}" %></td>
+          <% end %>
+        </li>
       </ul>
     </nav>
   </div>
@@ -36,25 +41,25 @@
     <%= user.email_id %>
   </p>
   
-  
-  <% if @student2.nil? || @student2.application_status == "not applied"%>
-    <p class="pp">
-      <strong><%=link_to "Check Status / Apply for TA Position", new_student_path(@user)  %></strong>
-    </p>
-  <% elsif @student2.application_status == "applied" %>
-    <p class="pp">
-      <strong>Message:</strong>
-      You already applied. Please, await decision from the admin
-    </p>
-  <% elsif @student2.application_status == "rejected" %>
+  <% if @user.access_level == "TA" %>
+    <% if @student2.nil? || @student2.application_status == "not applied"%>
+      <p class="pp">
+        <strong><%=link_to "Check Status / Apply for TA Position", new_student_path(@user)  %></strong>
+      </p>
+    <% elsif @student2.application_status == "applied" %>
       <p class="pp">
         <strong>Message:</strong>
-        Sorry, your application is rejected.
+        You already applied. Please, await decision from the admin
       </p>
-  <% elsif @student2.application_status == "hired" %>
-      <strong><%=link_to "Check your schedule", new_student_path(@user)  %></strong>
+    <% elsif @student2.application_status == "rejected" %>
+        <p class="pp">
+          <strong>Message:</strong>
+          Sorry, your application is rejected.
+        </p>
+    <% elsif @student2.application_status == "hired" %>
+        <strong><%=link_to "Check your schedule", new_student_path(@user)  %></strong>
+    <% end %>
   <% end %>
-
 </div></div>
 </main>
 </body>
