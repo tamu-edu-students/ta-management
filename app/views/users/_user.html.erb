@@ -3,7 +3,7 @@
 <body>
 <div class="headers">
   <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
-  <h1>User Info</h1>
+  <h1>TA Info</h1>
 </div>
 <header>
   <div class='container'>
@@ -14,6 +14,11 @@
         <li>
           <% if current_user[:access_level] == 'admin'%>
             <td><%= link_to "Admin portal", admin_path(user) %></td>
+          <% end %>
+        </li>
+                <li>
+          <% if current_user[:access_level] == 'Professor'%>
+            <td><%= link_to "View TAs", "/professors/#{@user.id}" %></td>
           <% end %>
         </li>
       </ul>
@@ -35,12 +40,26 @@
     <strong>Email:</strong>
     <%= user.email_id %>
   </p>
-
-  <p class="pp">
-    <strong><%=link_to "Apply for TA Position", new_student_path(@user)  %></strong>
-    
-  </p>
-
+  
+  <% if @user.access_level == "TA" %>
+    <% if @student2.nil? || @student2.application_status == "not applied"%>
+      <p class="pp">
+        <strong><%=link_to "Check Status / Apply for TA Position", new_student_path(@user)  %></strong>
+      </p>
+    <% elsif @student2.application_status == "applied" %>
+      <p class="pp">
+        <strong>Message:</strong>
+        You already applied. Please, await decision from the admin
+      </p>
+    <% elsif @student2.application_status == "rejected" %>
+        <p class="pp">
+          <strong>Message:</strong>
+          Sorry, your application is rejected.
+        </p>
+    <% elsif @student2.application_status == "hired" %>
+        <strong><%=link_to "Check your schedule", new_student_path(@user)  %></strong>
+    <% end %>
+  <% end %>
 </div></div>
 </main>
 </body>

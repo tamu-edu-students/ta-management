@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_one :student
   has_one :professor
   has_one :management
-  has_many :assignments
+  # has_many :assignments
 
 
     before_save { self.email_id = email_id.downcase }
@@ -45,6 +45,8 @@ class User < ApplicationRecord
         Management.create(user: self)
       when 'Hiring Manager'
         Management.create(user: self)
+      # when 'TA'
+      #   Student.create(user: self)
       end
     end
   

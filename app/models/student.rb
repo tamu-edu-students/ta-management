@@ -4,6 +4,7 @@ class Student < ApplicationRecord
     :attr_accessor
     has_many :subjects
     belongs_to :user
+    has_many :assignments
     # belongs_to :professor
 
     email_regex = /\A[\w+\-.]+@tamu\.edu\z/i

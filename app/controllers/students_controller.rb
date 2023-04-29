@@ -1,8 +1,10 @@
 class StudentsController < ApplicationController
   # before_action :set_student, only: %i[show edit update destroy]
   
-  before_action :logged_in_user, only: [:new]
-  before_action :admin_user, only: [:index, :search_students, :show, :edit, :update, :destroy, :delete]
+  before_action :logged_in_user, only: [:new, :create]
+  before_action :management_user, only: [:index, :show, :search_students, :edit, :update, :destroy, :delete]
+  # before_action :professor_user, only: [:show]
+  # before_action :coordinator_user, only: [:index, :search_students, :show, :edit, :update, :destroy, :delete]
   # before_action :logged_in!
 
   # GET /students or /students.json
@@ -30,7 +32,7 @@ class StudentsController < ApplicationController
   # GET /students/new
   def new
     @student = Student.new
-    @user = User.find_by_id(session[:user_id])
+    # @student2 = Student.find_by_user_id(session[:user_id])
     
     # flash[:alert] = "Your name and email id are already set as #{@user.name} and #{@user.email_id}"
   end
@@ -41,11 +43,12 @@ class StudentsController < ApplicationController
   # POST /students or /students.json
   def create
     @student = Student.new(student_params)
+    @user = User.find_by_id(session[:user_id])
     process_params
     respond_to do |format|
       if @student.save
 
-        format.html { redirect_to users_path, notice: 'Application was successfully submitted.' }
+        format.html { redirect_to user_url(@user), notice: 'Application was successfully submitted.' }
         format.json { render :show, status: :created, location: @student }
       else
         flash[:alert] = @student.errors.full_messages
@@ -128,6 +131,7 @@ class StudentsController < ApplicationController
     @student.is_undergrad = params[:student][:is_undergrad] == 'Yes'
     @student.courses_completed = params[:student][:courses_completed] == 'Both' ? %w[102 216] : [params[:student][:courses_completed]]
     @student.user_id = session[:user_id]
+    @student.application_status = "applied"
   end
 
   def update_params
@@ -160,11 +164,21 @@ class StudentsController < ApplicationController
   end
 
   def assign(course, section)
-    professor = Professor.find_by(course_list: course,course_section:section)
-    subject = Subject.find_by(course_name: course, course_section: section)
+    # professor = Professor.find_by(course_list: course,course_section:section)
+    # subject = Subject.find_by(course_name: course, course_section: section)
+    puts "Here is where ypu should print"
+    puts @student.id
+    puts @student.user.id
+    puts "Print after that"
+    professor = Professor.find_by(course_list: course)
+    subject = Subject.find_by(course_name: course)
+    student = Student.find_by(id: params[:id])
+    puts "Another one"
+    puts student
+    puts "end of discussion"
     assignment = Assignment.new
     assignment.subject = subject
-    assignment.student = @student
+    assignment.student = student
     assignment.professor = professor
     assignment.save!
   end
@@ -177,11 +191,27 @@ class StudentsController < ApplicationController
   end
 
   # Confirms an admin user
-  def admin_user
-    unless is_admin?
+  # def admin_user
+  #   unless is_admin?
+  #     flash[:danger] = "You do not have administrative access to this page."
+  #     redirect_to user_url(session[:user_id])
+  #   end
+  # end
+  
+  
+    # Confirms a coordinator user
+  def management_user
+    unless is_management?
       flash[:danger] = "You do not have administrative access to this page."
       redirect_to user_url(session[:user_id])
     end
   end
   
+  # Confirms a coordinator user
+  def professor_user
+    unless is_professor?
+      flash[:danger] = "You are not an instructor."
+      redirect_to user_url(session[:user_id])
+    end
+  end
 end

@@ -24,6 +24,14 @@
       <div class="sub header">View all class schedules</div>
     </div>
   </h2>
+  <% if @skipped_rows.any? %>
+             <% skipped_rows_msg = "The following TA are not registered: " %>
+            <% @skipped_rows.each do |row| %>
+              <%  # skipped_rows_msg ||= "" %>
+               <% skipped_rows_msg += row.inspect + "; " %>
+            <% end %>
+           <h2 style="color: red;"> <%= skipped_rows_msg %> </h2>
+        <% end %>
 
   <table class="ui striped red fixed single line celled table">
   <thead>
@@ -35,6 +43,7 @@
         <th>Start Time</th>
         <th>End Time</th>
         <th>Instructor</th>
+        <th>Instructor Email</th>
         <th>PT 1</th>
         <th>PT 2</th>
     </tr>
@@ -49,6 +58,7 @@
             <td><%= schedule['start_time'] %></td>
             <td><%= schedule['end_time'] %></td>
             <td><%= schedule['professor'] %></td>
+            <td><%= schedule['professor_email'] %></td>
             <td><%= schedule['students'][0] %></td>
             <td><%= schedule['students'][1] %></td>
         </tr>

@@ -1,12 +1,25 @@
 class ProfessorsController < ApplicationController
   before_action :set_professor, only: %i[ show edit update destroy ]
+  before_action :management_user, only: [:index]
   # before_action :require_user_logged_in!
 
   # GET /professors or /professors.json
   def index
     @professors = Professor.all
-    @assign = Assignment.find_by(professor_id: @professor.id)
-    @student = Student.find(@assign.student_id)
+    @students = []
+
+    @professors.each do |professor|
+    assign = Assignment.find_by(professor_id: professor.id)
+    if assign
+      student = Student.find(assign.student_id)
+      @students << student
+    end
+  end
+    
+    
+    # @professor = Professor.find_by(user_id: session[:user_id])
+    # @assign = Assignment.find_by(professor_id: @professor.id)
+    # @student = Student.find(@assign.student_id)
   end
 
   # GET /professors/1 or /professors/1.json
@@ -79,7 +92,7 @@ class ProfessorsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_professor
-    @professor = Professor.find(params[:id])
+    @professor = Professor.find_by_user_id(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
@@ -88,9 +101,21 @@ class ProfessorsController < ApplicationController
   end
 
   def update_professor
-    @professor = Professor.find(params[:id])
-    @professor.name = params[:professor][:name]
-    @professor.email_id = params[:professor][:email_id]
-    @professor.save
+    @professor_email = params[:professor][:email_id]
+    @professor = Professor.joins(:user).find_by(users: { email_id: :professor_email })
+  
+    
+    # @professor = Professor.find(params[:id])
+    # @professor.name = params[:professor][:name]
+    # @professor.email_id = params[:professor][:email_id]
+    # @professor.save
+  end
+  
+      # Confirms a coordinator user
+  def management_user
+    unless is_management?
+      flash[:danger] = "You do not have administrative access to this page."
+      redirect_to user_url(session[:user_id])
+    end
   end
 end

@@ -22,40 +22,43 @@
   </tr>
 </table>
 <% @courses.each do |course| %>
-  <%= form_with(model: Professor) do |form| %>
-    <table id="tables">
-      <tr>
-        <td width='1%' , align="center"><%= course[0] %></td>
-        <td width='1%' , align="center"><%= course[1] %></td>
-        <td width='1%' , align="center">
-          <div>
-            <%= form.label :professor_name, style: "display: block" %>
-            <%= form.text_field :name, value: Professor.where(:course_list => course[0], :course_section => course[1]).pluck(:name) %>
-          </div>
-        </td>
-        <td width='1%' , align="center">
-          <div>
-            <%= form.label :email_id, style: "display: block" %>
-            <%= form.text_field :email_id, value: Professor.where(:course_list => course[0], :course_section => course[1]).pluck(:email_id) %>
-          </div>
-        </td>
-        <% if Professor.find_by(:course_list => course[0], :course_section => course[1]).nil? %>
+  <% @sections_array = course[1].split(', ') %>
+  <% @sections_array.each do |c| %>
+    <%= form_with(model: Professor) do |form| %>
+      <table id="tables">
+        <tr>
+          <td width='1%' , align="center"><%= course[0] %></td>
+          <td width='1%' , align="center"><%= c %></td>
           <td width='1%' , align="center">
-            <%= hidden_field_tag(:course_list, course[0]) %>
-            <%= hidden_field_tag(:course_section, course[1]) %>
-            <%= form.submit 'Assign' %>
+            <div>
+              <%= form.label :professor_name, style: "display: block" %>
+              <%= form.text_field :name, value: Professor.where(:course_list => course[0]).pluck(:name) %>
+            </div>
           </td>
-        <% else %>
           <td width='1%' , align="center">
-            <%= hidden_field_tag(:course_list, course[0]) %>
-            <%= hidden_field_tag(:course_section, course[1]) %>
-            <%= hidden_field_tag(:update, true) %>
-            <%= hidden_field_tag(:id, Professor.where(:course_list => course[0], :course_section => course[1]).pluck(:id)) %>
-            <%= form.submit 'Update' %>
+            <div>
+              <%= form.label :email_id, style: "display: block" %>
+              <%= form.text_field :email_id, value: Professor.where(:course_list => course[0]).pluck(:email_id) %>
+            </div>
           </td>
-        <% end %>
-      </tr>
-    </table>
+          <% if Professor.find_by(:course_list => course[0]).nil? %>
+            <td width='1%' , align="center">
+              <%= hidden_field_tag(:course_list, course[0]) %>
+              <%= hidden_field_tag(:course_section, course[1]) %>
+              <%= form.submit 'Assign' %>
+            </td>
+          <% else %>
+            <td width='1%' , align="center">
+              <%= hidden_field_tag(:course_list, course[0]) %>
+              <%= hidden_field_tag(:course_section, course[1]) %>
+              <%= hidden_field_tag(:update, true) %>
+              <%= hidden_field_tag(:id, Professor.where(:course_list => course[0], :course_section => course[1]).pluck(:id)) %>
+              <%= form.submit 'Update' %>
+            </td>
+          <% end %>
+        </tr>
+      </table>
+    <% end %> 
   <% end %>
 <% end %>
 

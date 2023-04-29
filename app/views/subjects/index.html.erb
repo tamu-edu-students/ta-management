@@ -34,31 +34,35 @@
   </tr>
 </table>
 
-  <% @students_selected.each do |student| %>
-    <%= form_with(model: student) do |form| %>
-      <table id="tables">
-        <tr>
-          <td width='1%' , align="center"><%= link_to student.name, students_path(method: :get, :search => student.name) %></td>
-          <td width='1%' , align="center"><%= student.email_id %></td>
-          <td width='1%' , align="center"><%= student.uin %></td>
-
-          <td width='1%' , align="center">
-              <%= form.select :assigned_courses, options_for_select(@course_name, selected = student.assigned_courses) %>
-            <br>
-          </td>
-          <td width='1%' , align="center">
-            <% if student.assigned_sections %>
-              <%= form.text_field :assigned_sections, value: student.assigned_sections.join(",") %>
-            <% else %>
-            <%= form.text_field :assigned_sections %>
-            <% end %>
-          </td>
-          <%= hidden_field_tag(:subjects_page,true) %>
-          <td width='1%' , align="center">
-            <%= form.submit "Update" %>
-          </td>
-        </tr>
-      </table>
+  <% if @students_selected.nil? %>
+    <p>No student has been hired yet</p>
+  <% else %>
+    <% @students_selected.each do |student| %>
+      <%= form_with(model: student) do |form| %>
+        <table id="tables">
+          <tr>
+            <td width='1%' , align="center"><%= link_to student.user.name, students_path(method: :get, :search => student.user.name) %></td>
+            <td width='1%' , align="center"><%= student.user.email_id %></td>
+            <td width='1%' , align="center"><%= student.uin %></td>
+  
+            <td width='1%' , align="center">
+                <%= form.select :assigned_courses, options_for_select(@course_name, selected = student.assigned_courses) %>
+              <br>
+            </td>
+            <td width='1%' , align="center">
+              <% if student.assigned_sections %>
+                <%= form.text_field :assigned_sections, value: student.assigned_sections.join(",") %>
+              <% else %>
+              <%= form.text_field :assigned_sections %>
+              <% end %>
+            </td>
+            <%= hidden_field_tag(:subjects_page,true) %>
+            <td width='1%' , align="center">
+              <%= form.submit "Update" %>
+            </td>
+          </tr>
+        </table>
+      <% end %>
     <% end %>
   <% end %>
 </main>
