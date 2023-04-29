@@ -195,4 +195,20 @@ class StudentsController < ApplicationController
       redirect_to user_url(session[:user_id])
     end
   end
+  
+    #check if UIN in TA Application is dupe
+  def create
+    @TAuin = application.require(:uin)
+
+    if uin.uin_code.exists?(@TAuin.uin_code)
+        render 'new'
+        flash[:error] = "This product already exists."
+
+    elsif @TAuin.save
+        redirect_to @TAuin
+    else
+        render 'new'
+    end
+  end
+  
 end
