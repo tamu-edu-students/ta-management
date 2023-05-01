@@ -57,7 +57,7 @@
           Sorry, your application is rejected.
         </p>
     <% elsif @student2.application_status == "hired" %>
-        <strong><%=link_to "Check your schedule", new_student_path(@user)  %></strong>
+        <strong><%=link_to "Check your schedule", student_path(@user)  %></strong>
     <% end %>
   <% end %>
 </div></div>
