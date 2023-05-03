@@ -53,6 +53,7 @@ class SchedulesController < ApplicationController
           format.html { redirect_to admin_url, notice: "Schedules were successfully removed." }
           format.json { head :no_content }
         end
+        @@skipped_rows = []
     end
     
     
