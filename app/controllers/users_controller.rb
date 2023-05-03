@@ -50,7 +50,9 @@ class UsersController < ApplicationController
     if logged_in?
       @user = User.find(params[:id])
       @student2 = Student.find_by_user_id(session[:user_id])
-      @assign = Assignment.find_by(student_id: @student2.id)
+      if @student2
+        @assign = Assignment.find_by(student_id: @student2.id)
+      end
       if @assign
         @professor = Professor.find(@assign.professor_id)
       end
