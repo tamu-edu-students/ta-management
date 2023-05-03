@@ -60,33 +60,49 @@ RSpec.describe SchedulesController, type: :controller do
   end
 
   describe 'GET index' do
-    it 'returns a successful response' do
-      get :index
-      expect(response).to be_successful
-    end
+    context "when user is an admin" do
+      before do
+        allow(controller).to receive(:current_user).and_return(access_level: "admin")
+      end
 
-    it 'renders the index template' do
-      get :index
-      expect(response).to render_template('index')
-    end
+      it 'returns a successful response' do
+        get :index
+        expect(response).to be_successful
+      end
 
-    it 'has a 200 status code' do
-      get :index
-      expect(response.status).to eq(200)
+      it 'renders the index template' do
+        get :index
+        expect(response).to render_template('index')
+      end
+
+      it 'has a 200 status code' do
+        get :index
+        expect(response.status).to eq(200)
+      end
     end
   end
 
   describe "views", type: :feature do
-    it "views all schedules" do
-      visit '/view'
-      expect(response.status).to eq(200)
+    context "when user is an admin" do
+      before do
+        allow(controller).to receive(:current_user).and_return(access_level: "admin")
+      end
+      it "views all schedules" do
+        get :view
+        expect(response.status).to eq(200)
+      end
     end
   end
 
-  describe "remove schedules", type: :feature do 
-    it "deletes all schedules" do
-      get :destroy
-      expect(flash[:notice]).to match(/Schedules were successfully removed./)
+  describe "remove schedules", type: :feature do
+    context "when user is an admin" do
+      before do
+        allow(controller).to receive(:current_user).and_return(access_level: "admin")
+      end
+      it "deletes all schedules" do
+        get :destroy
+        expect(flash[:notice]).to match(/Schedules were successfully removed./)
+      end
     end
   end
 
