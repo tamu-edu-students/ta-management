@@ -56,11 +56,12 @@
           <strong>Message:</strong>
           Sorry, your application is rejected.
         </p>
-    <% elsif @student2.application_status == "hired" %>
-        <p>You have been assigned to: Professor <strong> <%= @professor.name %>'s</strong> <%= @student2.assigned_courses[0] %>, <%= @student2.assigned_sections[0] %> section.</p>
+    <% elsif @assign && @student2.application_status == "hired" %>
+        <p>You have been assigned to: Professor <strong> <%= @professor.name %>'s</strong> <%= @student2.assigned_courses %>, <%= @student2.assigned_sections %> section.</p>
         <% body = "Howdy Professor #{@professor.name},\n\nMy name is #{@user.name}, and I have been assigned as a TA for your course: #{@student2.assigned_courses} #{@student2.assigned_sections}.\n\nThank you.\n#{@user.name}" %>
         <a href="mailto:<%= @professor.email_id %>?subject=TA%20Request&body=<%= body %>" class="btn btn-primary">Email Professor</a>
-
+    <% else %>
+        <p><strong>Please, hold on. Your application is being reviewed</strong></p>
     <% end %>
   <% end %>
 </div></div>

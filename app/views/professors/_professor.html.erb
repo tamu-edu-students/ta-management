@@ -8,12 +8,12 @@
     <div class="form">
       <div id="<%= dom_id professor %>">
       <p class="pp">
-        <strong>Course list:</strong>
+        <strong>Course:</strong>
         <%= @student.assigned_courses %>
       </p>
     
       <p class="pp">
-        <strong>Course section:</strong>
+        <strong>Section:</strong>
         <%= @student.assigned_sections %>
       </p>
     
@@ -32,8 +32,10 @@
       <%= @student.feedback %>
       </p>
     
-      <button class="pp"><%=link_to "View Details", students_path(method: :get,:search => @student.id)%></button>
-    
+      <a href="mailto:<%= @student.user.email_id %>" class="btn btn-primary">Email Student</a>
+      <br>
+      <br>
+      <br>
       <form>
         <textarea cols="40" id="students_review" name="students[review]"rows="15"></textarea>
         <button type="submit" onClick="/professors/#{professor.id}">Submit Review</button>

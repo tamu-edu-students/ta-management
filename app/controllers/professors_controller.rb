@@ -35,16 +35,23 @@ class ProfessorsController < ApplicationController
   def show
     puts @professor.id
     puts "Enddd"
-    @assign = Assignment.find_by(professor_id: @professor.id)
-    if !@assign.nil?
-      @student = Student.find(@assign.student_id)
-      if (params[:students])
-        @student.feedback = params[:students][:review]
-        if ((@student.feedback).length > 0)
-          @student.save
+    @assign = Assignment.where(professor_id: @professor.id)
+    @students = []
+    if @assign.any?
+
+      @assign.each do |ass|
+        @student = Student.find(ass.student_id)
+        @students << @student
+        if (params[:students])
+          @student.feedback = params[:students][:review]
+          if ((@student.feedback).length > 0)
+            @student.save
+          end
         end
       end
     end
+    puts @students[0].user_id
+    puts @students[1].user_id
   end
 
   # GET /professors/new

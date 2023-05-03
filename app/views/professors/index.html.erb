@@ -19,10 +19,53 @@
 <h1>Professors</h1>
 
 <div id="professors">
-  <% @students.each do |student| %>
-    <%= student.id %>
-    <%= render partial: "professor", locals: { student: student } %>
-    
+  <% if @students.nil? %>
+    <p class="pp">
+      <strong>No TA has been assigned yet. Please check back again later!</strong>
+    </p>
+  <% else %>
+    <% @students.each do |student| %>
+    <%= student.user_id %>
+      <main>
+        <div class="form">
+          <div id="<%= dom_id student %>">
+          <p class="pp">
+            <strong>Course:</strong>
+            <%= student.assigned_courses %>
+          </p>
+        
+          <p class="pp">
+            <strong>Section:</strong>
+            <%= student.assigned_sections %>
+          </p>
+        
+          <p class="pp">
+          <strong>TA:</strong>
+          <%= student.user.name %>
+          </p>
+        
+          <p class="pp">
+          <strong>TA Email:</strong>
+          <%= student.user.email_id %>
+          </p>
+        
+          <p class="pp">
+          <strong>Feedback</strong>
+          <%= student.feedback %>
+          </p>
+        
+          <a href="mailto:<%= student.user.email_id %>" class="btn btn-primary">Email Student</a>
+          <br>
+          <br>
+          <br>
+          <form>
+            <textarea cols="40" id="students_review" name="students[review]"rows="15"></textarea>
+            <button type="submit" onClick="/professors/#{professor.id}">Submit Review</button>
+          </form>
+          </div>
+        </div>
+      </main>
+    <% end %>
   <% end %>
 </div>
 
