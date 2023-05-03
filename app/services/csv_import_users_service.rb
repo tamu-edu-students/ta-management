@@ -86,9 +86,14 @@ class CsvImportUsersService
     # puts skipped_rows.length()
     # puts "Testing 2"
     # puts "Skipped Rows: #{skipped_rows.join(', ')}" unless skipped_rows.empty?
+    @students = Student.all
+    @students.each do |student|
+      student.update(application_status: "not applied")
+    end
     unique_subjects = subjects.uniq { |subject| [subject[:course_name], subject[:course_section]] }
     @subjects = Subject.all
     @subjects.destroy_all
+
     Subject.create(unique_subjects)
     
 
