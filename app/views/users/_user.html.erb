@@ -16,6 +16,11 @@
             <td><%= link_to "Admin portal", admin_path(user) %></td>
           <% end %>
         </li>
+                <li>
+          <% if current_user[:access_level] == 'Professor'%>
+            <td><%= link_to "View TAs", "/professors/#{@user.id}" %></td>
+          <% end %>
+        </li>
       </ul>
     </nav>
   </div>
@@ -36,25 +41,29 @@
     <%= user.email_id %>
   </p>
   
-  
-  <% if @student2.nil? || @student2.application_status == "not applied"%>
-    <p class="pp">
-      <strong><%=link_to "Check Status / Apply for TA Position", new_student_path(@user)  %></strong>
-    </p>
-  <% elsif @student2.application_status == "applied" %>
-    <p class="pp">
-      <strong>Message:</strong>
-      You already applied. Please, await decision from the admin
-    </p>
-  <% elsif @student2.application_status == "rejected" %>
+  <% if @user.access_level == "TA" %>
+    <% if @student2.nil? || @student2.application_status == "not applied"%>
+      <p class="pp">
+        <strong><%=link_to "Check Status / Apply for TA Position", new_student_path(@user)  %></strong>
+      </p>
+    <% elsif @student2.application_status == "applied" %>
       <p class="pp">
         <strong>Message:</strong>
-        Sorry, your application is rejected.
+        You already applied. Please, await decision from the admin
       </p>
-  <% elsif @student2.application_status == "hired" %>
-      <strong><%=link_to "Check your schedule", new_student_path(@user)  %></strong>
+    <% elsif @student2.application_status == "rejected" %>
+        <p class="pp">
+          <strong>Message:</strong>
+          Sorry, your application is rejected.
+        </p>
+    <% elsif @assign && @student2.application_status == "hired" %>
+        <p>You have been assigned to: Professor <strong> <%= @professor.name %>'s</strong> <%= @student2.assigned_courses %>, <%= @student2.assigned_sections %> section.</p>
+        <% body = "Howdy Professor #{@professor.name},\n\nMy name is #{@user.name}, and I have been assigned as a TA for your course: #{@student2.assigned_courses} #{@student2.assigned_sections}.\n\nThank you.\n#{@user.name}" %>
+        <a href="mailto:<%= @professor.email_id %>?subject=TA%20Request&body=<%= body %>" class="btn btn-primary">Email Professor</a>
+    <% else %>
+        <p><strong>Please, hold on. Your application is being reviewed</strong></p>
+    <% end %>
   <% end %>
-
 </div></div>
 </main>
 </body>

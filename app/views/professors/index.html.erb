@@ -1,13 +1,76 @@
+<html>
+
+<body>
+<div class="headers">
+  <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+  <h1>Professor Info</h1>
+</div>
+<header>
+  <div class='container'>
+    <nav>
+      <ul>
+        <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
+        <li><%= link_to "Edit Profile", edit_user_path(current_user), method: "delete" %></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
 <h1>Professors</h1>
 
 <div id="professors">
-  <% @professors.each do |professor| %>
-    <%= render professor %>
-    <p>
-      <%= link_to "Show this professor", professor %>
+  <% if @students.nil? %>
+    <p class="pp">
+      <strong>No TA has been assigned yet. Please check back again later!</strong>
     </p>
+  <% else %>
+    <% @students.each do |student| %>
+    <%= student.user_id %>
+      <main>
+        <div class="form">
+          <div id="<%= dom_id student %>">
+          <p class="pp">
+            <strong>Course:</strong>
+            <%= student.assigned_courses %>
+          </p>
+        
+          <p class="pp">
+            <strong>Section:</strong>
+            <%= student.assigned_sections %>
+          </p>
+        
+          <p class="pp">
+          <strong>TA:</strong>
+          <%= student.user.name %>
+          </p>
+        
+          <p class="pp">
+          <strong>TA Email:</strong>
+          <%= student.user.email_id %>
+          </p>
+        
+          <p class="pp">
+          <strong>Feedback</strong>
+          <%= student.feedback %>
+          </p>
+        
+          <a href="mailto:<%= student.user.email_id %>" class="btn btn-primary">Email Student</a>
+          <br>
+          <br>
+          <br>
+          <form>
+            <textarea cols="40" id="students_review" name="students[review]"rows="15"></textarea>
+            <button type="submit" onClick="/professors/#{professor.id}">Submit Review</button>
+          </form>
+          </div>
+        </div>
+      </main>
+    <% end %>
   <% end %>
 </div>
 
 <%= link_to "New professor", new_professor_path %>
 <%= button_to "Log out", '/users/user/login', :style=> 'position:absolute; top:0; right:0;', :method => "get" %>
+
+</body>
+</html>

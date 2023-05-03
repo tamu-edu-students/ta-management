@@ -31,4 +31,8 @@ module SessionsHelper
     def is_management?
         current_user[:access_level] == 'Coordinator' || current_user[:access_level] == 'admin'
     end
+    
+    def is_professor?
+        current_user[:access_level] == 'Professor'
+    end
 end

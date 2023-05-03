@@ -1,46 +1,48 @@
-<html>
 
-<body>
-<div class="headers">
-  <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
-  <h1>Professor Info</h1>
-</div>
-<main>
-  <div class="form">
-<div id="<%= dom_id professor %>">
-  <p class="pp">
-    <strong>Course list:</strong>
-    <%= professor.course_list %>
-  </p>
-
-  <p class="pp">
-    <strong>Course section:</strong>
-    <%= professor.course_section %>
-  </p>
-
-  <p class="pp">
-  <strong>TA:</strong>
-  <%= @student.user.name %>
-  </p>
-
-  <p class="pp">
-  <strong>TA Email:</strong>
-  <%= @student.user.email_id %>
-  </p>
-
-  <p class="pp">
-  <strong>Feedback</strong>
-  <%= @student.feedback %>
-  </p>
-
-  <button class="pp"><%=link_to "View Details", students_path(method: :get,:search => @student.name)%></button>
-
-<form>
-  <textarea cols="40" id="students_review" name="students[review]"rows="15"></textarea>
-  <button type="submit" onClick="/professors/#{professor.id}">Submit Review</button>
-</form>
-</div>
- </div>
-</main>
+<% if @student.nil? %>
+    <p class="pp">
+      <strong>No TA has been assigned yet. Please check back again later!</strong>
+    </p>
+<% else %>
+  <main>
+    <div class="form">
+      <div id="<%= dom_id professor %>">
+      <p class="pp">
+        <strong>Course:</strong>
+        <%= @student.assigned_courses %>
+      </p>
+    
+      <p class="pp">
+        <strong>Section:</strong>
+        <%= @student.assigned_sections %>
+      </p>
+    
+      <p class="pp">
+      <strong>TA:</strong>
+      <%= @student.user.name %>
+      </p>
+    
+      <p class="pp">
+      <strong>TA Email:</strong>
+      <%= @student.user.email_id %>
+      </p>
+    
+      <p class="pp">
+      <strong>Feedback</strong>
+      <%= @student.feedback %>
+      </p>
+    
+      <a href="mailto:<%= @student.user.email_id %>" class="btn btn-primary">Email Student</a>
+      <br>
+      <br>
+      <br>
+      <form>
+        <textarea cols="40" id="students_review" name="students[review]"rows="15"></textarea>
+        <button type="submit" onClick="/professors/#{professor.id}">Submit Review</button>
+      </form>
+      </div>
+    </div>
+  </main>
+<% end %>
 </body>
 </html>

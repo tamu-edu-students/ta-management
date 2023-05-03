@@ -1,5 +1,22 @@
+<html>
 
+<body>
+<div class="headers">
+  <%= image_tag("ENGINEERING_logo_HWHT.png", :alt => "rss feed", width: "500em", height: "125em",  align: "left")%>
+  <h1>Professor Info</h1>
+</div>
+<header>
+  <div class='container'>
+    <nav>
+      <ul>
+        <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
+        <li><%= link_to "Edit Profile", edit_user_path(current_user), method: "delete" %></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
 <%= render @professor %>
 
-
+</body>
+</html>

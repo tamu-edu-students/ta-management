@@ -25,13 +25,13 @@
     </div>
   </h2>
   <% if @skipped_rows.any? %>
-             <% skipped_rows_msg = "The following TA are not registered: " %>
-            <% @skipped_rows.each do |row| %>
-              <%  # skipped_rows_msg ||= "" %>
-               <% skipped_rows_msg += row.inspect + "; " %>
-            <% end %>
-           <h2 style="color: red;"> <%= skipped_rows_msg %> </h2>
-        <% end %>
+    <% skipped_rows_msg = "The following TA are not registered: " %>
+    <% @skipped_rows.each do |row| %>
+      <%  # skipped_rows_msg ||= "" %>
+      <% skipped_rows_msg += row.inspect + "; " %>
+    <% end %>
+    <h2 style="color: red;"> <%= skipped_rows_msg %> </h2>
+  <% end %>
 
   <table class="ui striped red fixed single line celled table">
   <thead>
