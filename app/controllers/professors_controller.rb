@@ -33,8 +33,8 @@ class ProfessorsController < ApplicationController
 
   # GET /professors/1 or /professors/1.json
   def show
-    puts @professor.id
-    puts "Enddd"
+    # puts @professor.id
+    # puts "Enddd"
     @assign = Assignment.where(professor_id: @professor.id)
     @students = []
     if @assign.any?
@@ -50,8 +50,8 @@ class ProfessorsController < ApplicationController
         end
       end
     end
-    puts @students[0].user_id
-    puts @students[1].user_id
+    # puts @students[0].user_id
+    # puts @students[1].user_id
   end
 
   # GET /professors/new
