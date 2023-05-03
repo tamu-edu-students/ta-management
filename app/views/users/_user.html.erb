@@ -57,7 +57,10 @@
           Sorry, your application is rejected.
         </p>
     <% elsif @student2.application_status == "hired" %>
-        <strong><%=link_to "Check your schedule", student_path(@user)  %></strong>
+        <p>You have been assigned to: Professor <strong> <%= @professor.name %>'s</strong> <%= @student2.assigned_courses[0] %>, <%= @student2.assigned_sections[0] %> section.</p>
+        <% body = "Howdy Professor #{@professor.name},\n\nMy name is #{@user.name}, and I have been assigned as a TA for your course: #{@student2.assigned_courses} #{@student2.assigned_sections}.\n\nThank you.\n#{@user.name}" %>
+        <a href="mailto:<%= @professor.email_id %>?subject=TA%20Request&body=<%= body %>" class="btn btn-primary">Email Professor</a>
+
     <% end %>
   <% end %>
 </div></div>

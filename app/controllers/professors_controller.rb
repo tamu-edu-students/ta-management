@@ -6,14 +6,23 @@ class ProfessorsController < ApplicationController
   # GET /professors or /professors.json
   def index
     @professors = Professor.all
-    @students = []
-
+    # @students = []
+    @professors1 = []
+    # <% Assignment.find_by(student_id: student.id) %>
     @professors.each do |professor|
-    assign = Assignment.find_by(professor_id: professor.id)
-    if assign
-      student = Student.find(assign.student_id)
-      @students << student
-    end
+      # puts professor.id
+      assign = Assignment.find_by(professor_id: professor.id)
+      if assign
+        professor1 = Professor.find(assign.professor_id)
+        # student = Student.find(assign.student_id)
+        @professors1 << professor1
+        # @students << student
+        # puts "Testing"
+        # puts student.id
+      end
+    # puts "Enddddd"
+    
+    # puts @students[0]
   end
     
     
@@ -24,6 +33,8 @@ class ProfessorsController < ApplicationController
 
   # GET /professors/1 or /professors/1.json
   def show
+    puts @professor.id
+    puts "Enddd"
     @assign = Assignment.find_by(professor_id: @professor.id)
     if !@assign.nil?
       @student = Student.find(@assign.student_id)
@@ -94,7 +105,7 @@ class ProfessorsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_professor
-    @professor = Professor.find_by_user_id(params[:id])
+    @professor = Professor.find_by_user_id(session[:user_id])
   end
 
   # Only allow a list of trusted parameters through.
